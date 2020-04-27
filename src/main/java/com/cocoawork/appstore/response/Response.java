@@ -26,4 +26,8 @@ public class Response {
     public static Response fail() {
         return new Response(-1, Constant.FAILED);
     }
+
+    public static Response fail(String message) {
+        return new Response(-1, message);
+    }
 }

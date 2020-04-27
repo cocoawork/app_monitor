@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface AppRecoderService {
 
-    public List<AppRecoder> fetchAppsFromRemote(Constant.CountryCode countryCode, Constant.MediaType mediaType, Constant.FeedType feedType);
+    public List<AppRecoder> fetchAppsFromRemote(String countryCode, Constant.MediaType mediaType, Constant.FeedType feedType) throws Exception;
 
     public Integer addAppRecoder(AppRecoder appRecoder);
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cocoawork.appstore.mapper.CountryMapper">
+
+    <resultMap id="BaseResultMap" type="com.cocoawork.appstore.entity.Country">
+        <result property="countryCode" column="country_code"></result>
+        <result property="countryName" column="country_name"></result>
+    </resultMap>
+
+    <insert id="addCountry" parameterType="com.cocoawork.appstore.entity.Country">
+        INSERT INTO country (country_name, country_code) VALUES (#{countryName}, #{countryCode})
+    </insert>
+
+    <select id="getAllCountry" resultMap="BaseResultMap">
+        SELECT * FROM country
+    </select>
+</mapper>

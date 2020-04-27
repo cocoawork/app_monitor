@@ -11,5 +11,6 @@ logging:
   level:
     com:
       cocoawork:
-        mapper: debug
+        appstore:
+          mapper: debug
 

@@ -9,12 +9,10 @@ public class Constant {
 
     public static final String APP_STORE_BASE_URL = "https://rss.itunes.apple.com/api/v1/";
 
-
     public enum CountryCode {
         CHINA("cn"),
         BU_DAN("bt"),
         DAN_MAI("dk");
-
 
         private String rawValue;
         public String getRawValue() {
@@ -23,7 +21,7 @@ public class Constant {
         public void setRawValue(String rawValue) {
             this.rawValue = rawValue;
         }
-        private CountryCode(String rawValue) {
+        CountryCode(String rawValue) {
             this.rawValue = rawValue;
         }
     }
