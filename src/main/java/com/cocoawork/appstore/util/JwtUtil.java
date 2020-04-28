@@ -12,7 +12,6 @@ import com.cocoawork.appstore.exception.CustomException;
 import com.cocoawork.appstore.exception.ExceptionEnum;
 import org.springframework.util.StringUtils;
 
-import java.rmi.server.UID;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class JwtUtil {
 
     private static final String USERID_KEY = "UID";
 
-    private static final Long EXPIRE_TIME = 10 * 60 * 1000L;
+    private static final Long EXPIRE_TIME = 10 * 60 * 1000L * 600;
 
 //    private static final String TOKEN_SECRET = "zxcvbnmasdfghjklqwertyuiop0123456789";
 //

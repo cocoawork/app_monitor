@@ -21,13 +21,13 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Bean
-    public UserAccountRelam userAccountRelam() {
-        return new UserAccountRelam();
+    public AccountLoginRelam userAccountRelam() {
+        return new AccountLoginRelam();
     }
 
     @Bean
-    public SecurityManager securityManager(@Autowired UserAccountRelam userAccountRelam) {
-        DefaultWebSecurityManager webSecurityManager = new DefaultWebSecurityManager(userAccountRelam);
+    public SecurityManager securityManager(@Autowired AccountLoginRelam accountLoginRelam) {
+        DefaultWebSecurityManager webSecurityManager = new DefaultWebSecurityManager(accountLoginRelam);
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
         DefaultSessionStorageEvaluator sessionStorageEvaluator = new DefaultSessionStorageEvaluator();
         sessionStorageEvaluator.setSessionStorageEnabled(false);

@@ -3,13 +3,13 @@ package com.cocoawork.appstore.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cocoawork.appstore.constant.Constant;
-import com.cocoawork.appstore.entity.AppRecoder;
+import com.cocoawork.appstore.entity.AppOutline;
 import com.cocoawork.appstore.entity.Genre;
 import com.cocoawork.appstore.exception.CustomException;
-import com.cocoawork.appstore.mapper.AppRecoderMapper;
+import com.cocoawork.appstore.mapper.AppOutlineMapper;
 import com.cocoawork.appstore.mapper.GenreMapper;
-import com.cocoawork.appstore.service.AppRecoderService;
-import com.cocoawork.appstore.service.GenreService;
+import com.cocoawork.appstore.service.AppOutlineService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -23,22 +23,24 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class AppRecoderServiceImpl implements AppRecoderService {
+public class AppOutlineServiceImpl implements AppOutlineService {
+
+    public static final String APP_STORE_BASE_URL = "https://rss.itunes.apple.com/api/v1/";
 
     @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
-    private AppRecoderMapper appRecoderMapper;
+    private AppOutlineMapper appOutlineMapper;
 
     @Autowired
     private GenreMapper genreMapper;
 
 
     @Override
-    public List<AppRecoder> fetchAppsFromRemote(String countryCode, Constant.MediaType mediaType, Constant.FeedType feedType) throws Exception {
+    public List<AppOutline> fetchAppsFromRemote(String countryCode, Constant.MediaType mediaType, Constant.FeedType feedType) throws Exception {
 
-        String url = Constant.APP_STORE_BASE_URL + countryCode + "/" + mediaType.getRawValue() + "/" + feedType.getRawValue() + "/all/100/explicit.json";
+        String url = APP_STORE_BASE_URL + countryCode + "/" + mediaType.getRawValue() + "/" + feedType.getRawValue() + "/all/100/explicit.json";
         String resultString = restTemplate.getForObject(url, String.class);
         if (null == resultString || "".equals(resultString)) {
             throw new CustomException("请求数据失败");
@@ -48,22 +50,22 @@ public class AppRecoderServiceImpl implements AppRecoderService {
         JSONObject feedJsonObject = (JSONObject) jsonObject.get("feed");
 
         JSONArray resultJsonObject = (JSONArray) feedJsonObject.get("results");
-        List<AppRecoder> appRecoders = JSONArray.parseArray(resultJsonObject.toString(), AppRecoder.class);
+        List<AppOutline> appOutlines = JSONArray.parseArray(resultJsonObject.toString(), AppOutline.class);
 
-        for (AppRecoder appRecoder : appRecoders) {
-            appRecoder.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
-            appRecoder.setCountryCode(countryCode);
-            appRecoder.setMediaType(mediaType.getRawValue());
+        for (AppOutline appOutline : appOutlines) {
+            appOutline.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
+            appOutline.setCountryCode(countryCode);
+            appOutline.setMediaType(mediaType.getRawValue());
         }
-        return appRecoders;
+        return appOutlines;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public Integer addAppRecoder(AppRecoder appRecoder) {
+    public Integer addAppRecoder(AppOutline appOutline) {
         try {
-            Integer result = appRecoderMapper.addAppRecoder(appRecoder);
-            for (Genre genre: appRecoder.getGenres()) {
+            Integer result = appOutlineMapper.addAppRecoder(appOutline);
+            for (Genre genre: appOutline.getGenres()) {
                 try {
                     genreMapper.addGenre(genre);
                 }catch (DuplicateKeyException e) {
@@ -81,8 +83,25 @@ public class AppRecoderServiceImpl implements AppRecoderService {
     }
 
     @Override
-    public AppRecoder getOne() {
-        return appRecoderMapper.getOne();
+    public AppOutline getOne() {
+        return appOutlineMapper.getOne();
+    }
+
+    @Override
+    public AppOutline getAppById(String appId) {
+        return appOutlineMapper.getAppById(appId);
+    }
+
+    @Override
+    public List<AppOutline> getApps(String countryCode, String mediaType, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<AppOutline> apps = appOutlineMapper.getApps(countryCode, mediaType);
+        return apps;
+    }
+
+    @Override
+    public Integer deleteAppById(String appId) {
+        return appOutlineMapper.deleteAppById(appId);
     }
 
 

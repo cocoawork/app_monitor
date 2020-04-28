@@ -1,29 +1,25 @@
 package com.cocoawork.appstore.config.shiro;
 
 import com.cocoawork.appstore.config.Jwt.JWTToken;
-import com.cocoawork.appstore.constant.Constant;
 import com.cocoawork.appstore.entity.Permission;
 import com.cocoawork.appstore.entity.Role;
 import com.cocoawork.appstore.entity.User;
 import com.cocoawork.appstore.entity.UserRole;
 import com.cocoawork.appstore.exception.CustomException;
 import com.cocoawork.appstore.exception.ExceptionEnum;
-import com.cocoawork.appstore.exception.UserException;
 import com.cocoawork.appstore.service.UserRoleService;
 import com.cocoawork.appstore.service.UserService;
 import com.cocoawork.appstore.util.JwtUtil;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.request.RequestContextHolder;
-
-import javax.servlet.http.HttpServletRequest;
 
 
-public class UserAccountRelam extends AuthorizingRealm {
+public class AccountLoginRelam extends AuthorizingRealm {
 
     @Autowired
     private UserRoleService userRoleService;
@@ -40,7 +36,6 @@ public class UserAccountRelam extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String uid = JwtUtil.decodeUserId(principals.toString());
-//        User user = userService.getUser(uid);
 
         if (null != uid) {
             UserRole userRole = userRoleService.getUserRole(uid);
@@ -54,8 +49,9 @@ public class UserAccountRelam extends AuthorizingRealm {
                 }
             }
             return authorizationInfo;
+        }else {
+            throw new CustomException(ExceptionEnum.REQUEST_TOKEN_EXCEPTION);
         }
-        return null;
     }
 
     @Override

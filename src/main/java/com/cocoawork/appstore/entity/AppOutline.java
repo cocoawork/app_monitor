@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AppRecoder {
+public class AppOutline {
 
     private String artistName;
 
