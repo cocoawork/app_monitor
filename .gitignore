@@ -260,5 +260,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 .flattened-pom.xml
+.mvn/*
+HELP.md
 
 # End of https://www.gitignore.io/api/java,macos,maven,intellij,intellij+all,intellij+iml
