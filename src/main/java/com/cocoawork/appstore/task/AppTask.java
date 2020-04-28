@@ -2,13 +2,12 @@ package com.cocoawork.appstore.task;
 
 import com.cocoawork.appstore.constant.Constant;
 import com.cocoawork.appstore.entity.Country;
-import com.cocoawork.appstore.service.AppRecoderService;
+import com.cocoawork.appstore.service.AppOutlineService;
 import com.cocoawork.appstore.service.CountryService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +24,7 @@ public class AppTask {
     private static final Logger logger = LoggerFactory.getLogger(AppTask.class);
 
     @Autowired
-    private AppRecoderService appRecoderService;
+    private AppOutlineService appOutlineService;
 
     @Autowired
     private CountryService countryService;
@@ -77,7 +76,7 @@ public class AppTask {
                 for (Constant.FeedType feedType: feedTypeList) {
                     try {
                         log.info("开始获取数据》》国家：" + country.getCountryName() + "| media类型：" + mediaType.getRawValue() + "| feed类型：" + feedType.getRawValue());
-                        appRecoderService.fetchAppsFromRemote(country.getCountryCode(), mediaType, feedType);
+                        appOutlineService.fetchAppsFromRemote(country.getCountryCode(), mediaType, feedType);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

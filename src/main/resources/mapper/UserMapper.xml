@@ -28,9 +28,14 @@
 
 
     <select id="getUser" resultMap="BaseResultMap">
-        SELECT * FROM `user` WHERE
-        <if test="userName!=null">user_name = #{userName}</if>
-        <if test="userName!=null and password!=null">AND</if>
-        <if test="password!=null">password = #{password}</if>
+        SELECT * FROM `user` WHERE 1=1
+        <if test="userName!=null">AND user_name = #{userName}</if>
+        <if test="password!=null">AND password = #{password}</if>
     </select>
+
+    <select id="getUserById" resultMap="BaseResultMap">
+        SELECT * FROM `user` WHERE uid=#{uid}
+    </select>
+
+
 </mapper>

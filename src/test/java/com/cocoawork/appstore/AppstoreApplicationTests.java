@@ -6,7 +6,7 @@ import com.cocoawork.appstore.mapper.CountryMapper;
 import com.cocoawork.appstore.mapper.RoleMapper;
 import com.cocoawork.appstore.mapper.UserMapper;
 import com.cocoawork.appstore.mapper.UserRoleMapper;
-import com.cocoawork.appstore.service.AppRecoderService;
+import com.cocoawork.appstore.service.AppOutlineService;
 import com.cocoawork.appstore.service.UserService;
 import com.cocoawork.appstore.task.AppTask;
 import org.junit.Test;
@@ -16,12 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ResourceUtils;
 
-import javax.sound.midi.Soundbank;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +27,7 @@ import java.util.regex.Pattern;
 public class AppstoreApplicationTests {
 
     @Autowired
-    AppRecoderService appRecoderService;
+    AppOutlineService appOutlineService;
 
     @Autowired
     private CountryMapper countryMapper;
@@ -44,7 +41,7 @@ public class AppstoreApplicationTests {
 
     @Test
     public void appServiceTest() throws Exception {
-        appRecoderService.fetchAppsFromRemote("cn", Constant.MediaType.IOS_APP, Constant.FeedType.NEW_GAME_WE_LOVE);
+        appOutlineService.fetchAppsFromRemote("cn", Constant.MediaType.IOS_APP, Constant.FeedType.NEW_GAME_WE_LOVE);
     }
 
     @Test

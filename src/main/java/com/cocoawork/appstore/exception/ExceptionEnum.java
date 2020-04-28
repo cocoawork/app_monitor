@@ -12,6 +12,9 @@ public enum ExceptionEnum {
 
     REQUEST_TOKEN_EXCEPTION(2000,"token error"),
     REQUEST_TOKEN_EMPTY(2001, "token empty!"),
+
+    ACCESS_FORIDDEN(4003,"unauthority!"),
+    NOT_LOGIN(4002,"not login!")
     ;
 
     private Integer code;
