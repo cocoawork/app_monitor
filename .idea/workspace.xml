@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c57a234f-21fa-44a8-86db-a0097e410311" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="app_store@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="app_store@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="app_store@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="app_store: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Properties" />
+        <option value="Mybatis Mapper" />
+        <option value="Enum" />
+        <option value="mybatisMapper" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="$USER_HOME$/Documents/apache-maven-3.6.3/respository" />
+        <option name="mavenHome" value="$USER_HOME$/Documents/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="$USER_HOME$/Documents/apache-maven-3.6.3/conf/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ayYICsentQputorAtGsch83c2L" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AppstoreApplication">
+    <configuration name="AppstoreApplicationTests.addUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="appstore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cocoawork.appstore.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cocoawork.appstore" />
+      <option name="MAIN_CLASS_NAME" value="com.cocoawork.appstore.AppstoreApplicationTests" />
+      <option name="METHOD_NAME" value="addUserTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppstoreApplicationTests.appTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="appstore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cocoawork.appstore.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cocoawork.appstore" />
+      <option name="MAIN_CLASS_NAME" value="com.cocoawork.appstore.AppstoreApplicationTests" />
+      <option name="METHOD_NAME" value="appTask" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppstoreApplicationTests.testRoleInsert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="appstore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cocoawork.appstore.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cocoawork.appstore" />
+      <option name="MAIN_CLASS_NAME" value="com.cocoawork.appstore.AppstoreApplicationTests" />
+      <option name="METHOD_NAME" value="testRoleInsert" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppstoreApplicationTests.testUserLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="appstore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cocoawork.appstore.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cocoawork.appstore" />
+      <option name="MAIN_CLASS_NAME" value="com.cocoawork.appstore.AppstoreApplicationTests" />
+      <option name="METHOD_NAME" value="testUserLogin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppstoreApplicationTests.testUserRoleInsert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="appstore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cocoawork.appstore.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cocoawork.appstore" />
+      <option name="MAIN_CLASS_NAME" value="com.cocoawork.appstore.AppstoreApplicationTests" />
+      <option name="METHOD_NAME" value="testUserRoleInsert" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppstoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="appstore" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cocoawork.appstore.AppstoreApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.AppstoreApplicationTests.testUserRoleInsert" />
+        <item itemvalue="JUnit.AppstoreApplicationTests.testUserLogin" />
+        <item itemvalue="JUnit.AppstoreApplicationTests.addUserTest" />
+        <item itemvalue="JUnit.AppstoreApplicationTests.testRoleInsert" />
+        <item itemvalue="JUnit.AppstoreApplicationTests.appTask" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c57a234f-21fa-44a8-86db-a0097e410311" name="Default Changelist" comment="" />
+      <created>1587709218998</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587709218998</updated>
+      <workItem from="1587709230180" duration="13225000" />
+      <workItem from="1587786909190" duration="62362000" />
+      <workItem from="1588034956251" duration="17559000" />
+      <workItem from="1588057159784" duration="7086000" />
+    </task>
+    <task id="LOCAL-00001" summary="add README.md">
+      <created>1587862543914</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587862543915</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="add README.md" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2618" y="188" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587948128749">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2618" y="188" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1587948128749" />
+    <state x="2453" y="242" key="#com.intellij.ide.util.MemberChooser" timestamp="1588060198729">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2453" y="242" key="#com.intellij.ide.util.MemberChooser/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588060198729" />
+    <state x="676" y="236" key="#com.intellij.ide.util.MemberChooser/0.23.1680.1027@0.23.1680.1027" timestamp="1587799886026" />
+    <state x="2193" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1588061908753">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2193" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588061908753" />
+    <state x="449" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1587799413538" />
+    <state x="2206" y="147" key="CommitChangelistDialog2" timestamp="1587862543541">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2206" y="147" key="CommitChangelistDialog2/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1587862543541" />
+    <state width="614" height="466" key="DebuggerActiveHint" timestamp="1588052099261">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="614" height="466" key="DebuggerActiveHint/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588052099261" />
+    <state width="1732" height="39" key="GridCell.Tab.0.bottom" timestamp="1588065354595">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1732" height="39" key="GridCell.Tab.0.bottom/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588065354595" />
+    <state width="1638" height="340" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1587800803061" />
+    <state width="1732" height="39" key="GridCell.Tab.0.center" timestamp="1588065354594">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1732" height="39" key="GridCell.Tab.0.center/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588065354594" />
+    <state width="1638" height="340" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1587800803059" />
+    <state width="1732" height="39" key="GridCell.Tab.0.left" timestamp="1588065354593">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1732" height="39" key="GridCell.Tab.0.left/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588065354593" />
+    <state width="1638" height="340" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1587800803059" />
+    <state width="1732" height="39" key="GridCell.Tab.0.right" timestamp="1588065354595">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1732" height="39" key="GridCell.Tab.0.right/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588065354595" />
+    <state width="1638" height="340" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1587800803060" />
+    <state width="1732" height="39" key="GridCell.Tab.1.bottom" timestamp="1588065354598">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1732" height="39" key="GridCell.Tab.1.bottom/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588065354598" />
+    <state width="1638" height="340" key="GridCell.Tab.1.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1587800803434" />
+    <state width="1732" height="39" key="GridCell.Tab.1.center" timestamp="1588065354596">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1732" height="39" key="GridCell.Tab.1.center/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588065354596" />
+    <state width="1638" height="340" key="GridCell.Tab.1.center/0.23.1680.1027@0.23.1680.1027" timestamp="1587800803425" />
+    <state width="1732" height="39" key="GridCell.Tab.1.left" timestamp="1588065354596">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1732" height="39" key="GridCell.Tab.1.left/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588065354596" />
+    <state width="1638" height="340" key="GridCell.Tab.1.left/0.23.1680.1027@0.23.1680.1027" timestamp="1587800803422" />
+    <state width="1732" height="39" key="GridCell.Tab.1.right" timestamp="1588065354597">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1732" height="39" key="GridCell.Tab.1.right/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588065354597" />
+    <state width="1638" height="340" key="GridCell.Tab.1.right/0.23.1680.1027@0.23.1680.1027" timestamp="1587800803428" />
+    <state width="239" height="457" key="HiddenNamespacesPopup" timestamp="1587948224826">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="239" height="457" key="HiddenNamespacesPopup/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1587948224826" />
+    <state x="2277" y="189" key="SettingsEditor" timestamp="1587948480610">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2277" y="189" key="SettingsEditor/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1587948480610" />
+    <state x="2400" y="469" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587862561064">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2400" y="469" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1587862561064" />
+    <state x="2342" y="262" width="670" height="676" key="search.everywhere.popup" timestamp="1588064725454">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2342" y="262" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027/1680.23.1920.1057@1680.23.1920.1057" timestamp="1588064725454" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/cocoawork/appstore/AppstoreApplicationTests.java</url>
+          <line>205</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cocoawork/appstore/controller/AppOutlineController.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/appstore$AppstoreApplication.ic" NAME="AppstoreApplication Coverage Results" MODIFIED="1588056983874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/appstore$AppstoreApplicationTests_appServiceTest.ic" NAME="AppstoreApplicationTests.appServiceTest Coverage Results" MODIFIED="1587722593011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cocoawork.appstore.*</FILTER>
+    </SUITE>
+  </component>
+</project>
