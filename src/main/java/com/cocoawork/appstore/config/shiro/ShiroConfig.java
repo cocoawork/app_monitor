@@ -1,8 +1,10 @@
 package com.cocoawork.appstore.config.shiro;
 
+import com.cocoawork.appstore.config.Jwt.JWTFilter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -11,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
@@ -35,6 +40,14 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(@Autowired SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        Map filters = new HashMap();
+        filters.put("jwt", new JWTFilter());
+        shiroFilterFactoryBean.setFilters(filters);
+
+        Map filterMap = new HashMap();
+        filterMap.put("/**", "jwt");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
+
         return shiroFilterFactoryBean;
     }
 
@@ -45,6 +58,11 @@ public class ShiroConfig {
         DefaultAdvisorAutoProxyCreator defaultAAP = new DefaultAdvisorAutoProxyCreator();
         defaultAAP.setProxyTargetClass(true);
         return defaultAAP;
+    }
+
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
     }
 
     @Bean

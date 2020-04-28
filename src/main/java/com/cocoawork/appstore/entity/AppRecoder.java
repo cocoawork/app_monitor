@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,8 +42,8 @@ public class AppRecoder {
 
     private String url;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
+//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp updateTime;
 
     private List<Genre> genres;
 }

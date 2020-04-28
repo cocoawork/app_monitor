@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUser(String uid) {
+        return userMapper.getUserById(uid);
+    }
+
+    @Override
     public User login(String userName, String password) {
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
             throw new UserException(ExceptionEnum.USER_LOGIN_FAILED);

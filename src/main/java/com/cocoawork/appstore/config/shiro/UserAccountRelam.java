@@ -1,11 +1,13 @@
 package com.cocoawork.appstore.config.shiro;
 
+import com.cocoawork.appstore.config.Jwt.JWTToken;
 import com.cocoawork.appstore.constant.Constant;
 import com.cocoawork.appstore.entity.Permission;
 import com.cocoawork.appstore.entity.Role;
 import com.cocoawork.appstore.entity.User;
 import com.cocoawork.appstore.entity.UserRole;
 import com.cocoawork.appstore.exception.CustomException;
+import com.cocoawork.appstore.exception.ExceptionEnum;
 import com.cocoawork.appstore.exception.UserException;
 import com.cocoawork.appstore.service.UserRoleService;
 import com.cocoawork.appstore.service.UserService;
@@ -27,11 +29,19 @@ public class UserAccountRelam extends AuthorizingRealm {
     private UserRoleService userRoleService;
 
     @Autowired
-    private HttpServletRequest request;
+    private UserService userService;
+
+
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof JWTToken;
+    }
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String uid = (String) request.getAttribute(Constant.REQUEST_UID_KEY);
+        String uid = JwtUtil.decodeUserId(principals.toString());
+//        User user = userService.getUser(uid);
+
         if (null != uid) {
             UserRole userRole = userRoleService.getUserRole(uid);
 
@@ -50,8 +60,16 @@ public class UserAccountRelam extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        String userName = (String) token.getPrincipal();
-        String userPwd = new String((char[]) token.getCredentials());
-        return new SimpleAuthenticationInfo(userName, userPwd, userName);
+        String uid = JwtUtil.decodeUserId(token.getPrincipal().toString());
+        User user = userService.getUser(uid);
+        if (null == user) {
+            throw new AuthenticationException(ExceptionEnum.USER_LOGIN_ACCOUNT_NOT_EXIST.getMessage());
+        }
+        Boolean verify = JwtUtil.verify(token.getPrincipal().toString(), user.getPassword());
+        if (!verify) {
+            throw new AuthenticationException(ExceptionEnum.REQUEST_TOKEN_EXCEPTION.getMessage());
+        }
+
+        return new SimpleAuthenticationInfo(token.getPrincipal(), token.getCredentials(), token.toString());
     }
 }

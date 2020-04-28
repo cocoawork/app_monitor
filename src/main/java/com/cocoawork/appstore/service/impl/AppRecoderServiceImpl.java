@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class AppRecoderServiceImpl implements AppRecoderService {
         List<AppRecoder> appRecoders = JSONArray.parseArray(resultJsonObject.toString(), AppRecoder.class);
 
         for (AppRecoder appRecoder : appRecoders) {
-            appRecoder.setUpdateTime(LocalDateTime.now());
+            appRecoder.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
             appRecoder.setCountryCode(countryCode);
             appRecoder.setMediaType(mediaType.getRawValue());
         }
@@ -77,6 +78,11 @@ public class AppRecoderServiceImpl implements AppRecoderService {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    @Override
+    public AppRecoder getOne() {
+        return appRecoderMapper.getOne();
     }
 
 

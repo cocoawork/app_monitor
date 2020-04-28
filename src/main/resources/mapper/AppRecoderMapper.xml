@@ -4,6 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocoawork.appstore.mapper.AppRecoderMapper">
 
+
+    <resultMap id="baseResultMap" type="com.cocoawork.appstore.entity.AppRecoder">
+        <result column="artist_name" property="artistName" jdbcType="VARCHAR"/>
+        <result column="app_id" property="appId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="kind" property="kind" jdbcType="VARCHAR"/>
+        <result column="copyright" property="copyright" jdbcType="VARCHAR"/>
+        <result column="artist_id" property="artistId" jdbcType="VARCHAR"/>
+        <result column="artist_url" property="artistUrl" jdbcType="VARCHAR"/>
+        <result column="artwork_url100" property="artworkUrl100" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
     <insert id="addAppRecoder" parameterType="com.cocoawork.appstore.entity.AppRecoder">
         INSERT INTO recoder (artist_name, app_id, `name`, kind, copyright, artist_id, artist_url, artwork_url100, url, country_code, media_type, update_time
         <if test="genres!=null and genres.size()>0">,genres</if>)
@@ -13,5 +27,9 @@
         </if>
         )
     </insert>
+
+    <select id="getOne" resultMap="baseResultMap">
+        select * FROM recoder where 1=1 LIMIT 1
+    </select>
 
 </mapper>

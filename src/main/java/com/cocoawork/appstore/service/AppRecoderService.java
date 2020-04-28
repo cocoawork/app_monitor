@@ -14,4 +14,6 @@ public interface AppRecoderService {
 
     public Integer addAppRecoder(AppRecoder appRecoder);
 
+    public AppRecoder getOne();
+
 }

@@ -8,4 +8,5 @@ public interface AppRecoderMapper {
 
     public Integer addAppRecoder(AppRecoder appRecoder);
 
+    public AppRecoder getOne();
 }
