@@ -1,11 +1,15 @@
 package com.cocoawork.appstore.constant;
 
-import lombok.Data;
-
 public class Constant {
 
     public final static String SUCCESS = "success";
     public final static String FAILED = "failed";
+
+    //请求头中token字段key
+    public final static String REQUEST_HEADER_AUTHORITY_KEY = "Authority";
+    //解析token后获取userid存储到request域中的key
+    public final static String REQUEST_UID_KEY = "UID";
+
 
     public static final String APP_STORE_BASE_URL = "https://rss.itunes.apple.com/api/v1/";
 

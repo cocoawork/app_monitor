@@ -1,5 +1,7 @@
 package com.cocoawork.appstore.config.shiro;
 
+import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
+import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -21,6 +23,11 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager(@Autowired UserAccountRelam userAccountRelam) {
         DefaultWebSecurityManager webSecurityManager = new DefaultWebSecurityManager(userAccountRelam);
+        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
+        DefaultSessionStorageEvaluator sessionStorageEvaluator = new DefaultSessionStorageEvaluator();
+        sessionStorageEvaluator.setSessionStorageEnabled(false);
+        subjectDAO.setSessionStorageEvaluator(sessionStorageEvaluator);
+        webSecurityManager.setSubjectDAO(subjectDAO);
         return webSecurityManager;
     }
 

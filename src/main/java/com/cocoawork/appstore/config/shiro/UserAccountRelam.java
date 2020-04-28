@@ -1,5 +1,6 @@
 package com.cocoawork.appstore.config.shiro;
 
+import com.cocoawork.appstore.constant.Constant;
 import com.cocoawork.appstore.entity.Permission;
 import com.cocoawork.appstore.entity.Role;
 import com.cocoawork.appstore.entity.User;
@@ -30,7 +31,7 @@ public class UserAccountRelam extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String uid = (String) request.getAttribute("UID");
+        String uid = (String) request.getAttribute(Constant.REQUEST_UID_KEY);
         if (null != uid) {
             UserRole userRole = userRoleService.getUserRole(uid);
 

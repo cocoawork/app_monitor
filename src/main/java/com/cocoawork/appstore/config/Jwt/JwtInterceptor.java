@@ -1,6 +1,7 @@
 package com.cocoawork.appstore.config.Jwt;
 
 import com.cocoawork.appstore.annotation.IgnoreToken;
+import com.cocoawork.appstore.constant.Constant;
 import com.cocoawork.appstore.exception.ExceptionEnum;
 import com.cocoawork.appstore.exception.UserException;
 import com.cocoawork.appstore.util.JwtUtil;
@@ -25,9 +26,9 @@ public class JwtInterceptor implements HandlerInterceptor {
             }
         }
 
-        String token = request.getHeader(JwtUtil.AUTH_KEY);
+        String token = request.getHeader(Constant.REQUEST_HEADER_AUTHORITY_KEY);
         String userId = JwtUtil.decodeUserId(token);
-        request.setAttribute("UID", userId);
+        request.setAttribute(Constant.REQUEST_UID_KEY, userId);
         return true;
     }
 }

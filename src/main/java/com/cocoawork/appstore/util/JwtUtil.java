@@ -17,8 +17,6 @@ import java.util.Map;
 
 public class JwtUtil {
 
-    public static final String AUTH_KEY = "Author";
-
     private static final Long EXPIRE_TIME = 60 * 60 * 24 * 1000L;
 
     private static final String TOKEN_SECRET = "zxcvbnmasdfghjklqwertyuiop0123456789";
