@@ -76,7 +76,7 @@ public class AppTask {
                 for (Constant.FeedType feedType: feedTypeList) {
                     try {
                         log.info("开始获取数据》》国家：" + country.getCountryName() + "| media类型：" + mediaType.getRawValue() + "| feed类型：" + feedType.getRawValue());
-                        appService.fetchAppsFromRemote(country.getCountryCode(), mediaType, feedType);
+                        appService.fetchAppOutlinesFromRemote(country.getCountryCode(), mediaType, feedType);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

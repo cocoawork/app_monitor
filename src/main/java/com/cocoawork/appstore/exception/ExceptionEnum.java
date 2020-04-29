@@ -4,6 +4,8 @@ package com.cocoawork.appstore.exception;
 
 public enum ExceptionEnum {
 
+    SERVICE_EXCEPTION(1000, "server exception!"),
+
     USER_LOGIN_FAILED(1001, "login failed!"),
     USER_LOGIN_ACCOUNT_ERROR(1002,"account error"),
     USER_LOGIN_PASSWORD_ERROR(1003,"password error"),
@@ -13,8 +15,11 @@ public enum ExceptionEnum {
     REQUEST_TOKEN_EXCEPTION(2000,"token error"),
     REQUEST_TOKEN_EMPTY(2001, "token empty!"),
 
-    ACCESS_FORIDDEN(4003,"unauthority!"),
-    NOT_LOGIN(4002,"not login!")
+    ACCESS_FORBIDDEN(4003,"unauthority!"),
+    NOT_LOGIN(4002,"not login!"),
+
+    INVALID_PARAMETER(3000,"invalid parameter！"),
+
     ;
 
     private Integer code;

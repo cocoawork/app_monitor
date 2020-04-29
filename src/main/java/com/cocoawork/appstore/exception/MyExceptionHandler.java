@@ -1,20 +1,12 @@
 package com.cocoawork.appstore.exception;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.cocoawork.appstore.response.Response;
-import com.cocoawork.appstore.response.ResponseData;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import javax.servlet.ServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 @RestControllerAdvice
 public class MyExceptionHandler {
@@ -23,7 +15,7 @@ public class MyExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(value = AuthorizationException.class)
     public Response exceptionHandler(AuthorizationException e) {
-        return new Response(ExceptionEnum.ACCESS_FORIDDEN);
+        return new Response(ExceptionEnum.ACCESS_FORBIDDEN);
     }
 
 

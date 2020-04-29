@@ -41,7 +41,7 @@ public class AppstoreApplicationTests {
 
     @Test
     public void appServiceTest() throws Exception {
-        appService.fetchAppsFromRemote("cn", Constant.MediaType.IOS_APP, Constant.FeedType.NEW_GAME_WE_LOVE);
+        appService.fetchAppOutlinesFromRemote("cn", Constant.MediaType.IOS_APP, Constant.FeedType.NEW_GAME_WE_LOVE);
     }
 
     @Test

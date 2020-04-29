@@ -15,12 +15,12 @@ mybatis:
 
 logging:
   level:
-    com:
-      cocoawork:
-        appstore:
-          mapper: debug
-  path: /
+    root: info
+    com.cocoawork.appstore: debug
+  path: /Users/cocoawork/Desktop/java/appstore/log
   file:
     max-history: 30
+
+
 
 

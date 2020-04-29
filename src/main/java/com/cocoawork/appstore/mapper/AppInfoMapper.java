@@ -10,7 +10,7 @@ public interface AppInfoMapper {
 
     public Integer addAppInfo(AppInfo appInfo);
 
-    public Appinfo getAppInfoById(@Param("appId") String appId);
+    public AppInfo getAppInfoById(@Param("appId") String appId);
 
     public Integer deleteAppInfoById(@Param("appId") String appId);
 
