@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cocoawork.appstore.mapper.AppInfoMapper">
+    <insert id="addAppInfo" parameterType="com.cocoawork.appstore.entity.AppInfo">
+        INSERT INTO app_info
+        (app_id, track_name, bundle_id, artist_id, screenshot_urls, artwork_url512, artwork_url60, artwork_url100, supported_devices, file_size_bytes, average_user_rating, formatted_price,
+        minimum_os_version, current_version_release_date, release_notes, description, content_advisory_rating)
+        VALUES
+        (#{appId}, #{trackName}, #{bundleId}, #{artistId}, #{screenshotUrls}, #{artworkUrl512}, #{artworkUrl60}, #{artworkUrl100}, #{supportedDevices}, #{fileSizeBytes}, #{averageUserRating},
+        #{formattedPrice}, #{minimumOsVersion}, #{currentVersionReleaseDate}, #{releaseNotes}, #{description}, #{contentAdvisoryRating})
+        ON DUPLICATE KEY UPDATE
+        track_name = values(trackName),
+        bundle_id = values(bundleId),
+        artist_id = values(artistId),
+        screenshot_urls = values(screenshotUrls),
+        artwork_url512 = values(artworkUrl512),
+        artwork_url60 = values(artworkUrl60),
+        artwork_url100 = values(artworkUrl100),
+        supported_devices = values(supportedDevices),
+        file_size_bytes = values(fileSizeBytes),
+        average_user_rating = values(averageUserRating),
+        formatted_price = values(formattedPrice),
+        minimum_os_version = values(minimumOsVersion),
+        current_version_release_date = values(currentVersionReleaseDate),
+        release_notes = values(releaseNotes),
+        description = values(description),
+        content_advisory_rating = values(contentAdvisoryRating)
+    </insert>
+
+    <select id="getAppInfoById" resultType="com.cocoawork.appstore.entity.AppInfo">
+        SELECT * FROM app_info WHERE app_id=#{appId}
+    </select>
+
+    <delete id="deleteAppInfoById">
+        DELETE FROM app_info WHERE app_id=#{appId}
+    </delete>
+
+</mapper>

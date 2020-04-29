@@ -6,7 +6,7 @@ import com.cocoawork.appstore.mapper.CountryMapper;
 import com.cocoawork.appstore.mapper.RoleMapper;
 import com.cocoawork.appstore.mapper.UserMapper;
 import com.cocoawork.appstore.mapper.UserRoleMapper;
-import com.cocoawork.appstore.service.AppOutlineService;
+import com.cocoawork.appstore.service.AppService;
 import com.cocoawork.appstore.service.UserService;
 import com.cocoawork.appstore.task.AppTask;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class AppstoreApplicationTests {
 
     @Autowired
-    AppOutlineService appOutlineService;
+    AppService appService;
 
     @Autowired
     private CountryMapper countryMapper;
@@ -41,7 +41,7 @@ public class AppstoreApplicationTests {
 
     @Test
     public void appServiceTest() throws Exception {
-        appOutlineService.fetchAppsFromRemote("cn", Constant.MediaType.IOS_APP, Constant.FeedType.NEW_GAME_WE_LOVE);
+        appService.fetchAppsFromRemote("cn", Constant.MediaType.IOS_APP, Constant.FeedType.NEW_GAME_WE_LOVE);
     }
 
     @Test

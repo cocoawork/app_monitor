@@ -1,6 +1,12 @@
+server:
+  port: 8080
+
+
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
+  application:
+    name: app-store-rss
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
@@ -13,4 +19,8 @@ logging:
       cocoawork:
         appstore:
           mapper: debug
+  path: /
+  file:
+    max-history: 30
+
 

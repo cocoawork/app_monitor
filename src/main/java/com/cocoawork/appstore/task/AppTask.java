@@ -2,7 +2,7 @@ package com.cocoawork.appstore.task;
 
 import com.cocoawork.appstore.constant.Constant;
 import com.cocoawork.appstore.entity.Country;
-import com.cocoawork.appstore.service.AppOutlineService;
+import com.cocoawork.appstore.service.AppService;
 import com.cocoawork.appstore.service.CountryService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class AppTask {
     private static final Logger logger = LoggerFactory.getLogger(AppTask.class);
 
     @Autowired
-    private AppOutlineService appOutlineService;
+    private AppService appService;
 
     @Autowired
     private CountryService countryService;
@@ -76,7 +76,7 @@ public class AppTask {
                 for (Constant.FeedType feedType: feedTypeList) {
                     try {
                         log.info("开始获取数据》》国家：" + country.getCountryName() + "| media类型：" + mediaType.getRawValue() + "| feed类型：" + feedType.getRawValue());
-                        appOutlineService.fetchAppsFromRemote(country.getCountryCode(), mediaType, feedType);
+                        appService.fetchAppsFromRemote(country.getCountryCode(), mediaType, feedType);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

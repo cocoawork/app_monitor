@@ -8,7 +8,7 @@ import com.cocoawork.appstore.entity.Genre;
 import com.cocoawork.appstore.exception.CustomException;
 import com.cocoawork.appstore.mapper.AppOutlineMapper;
 import com.cocoawork.appstore.mapper.GenreMapper;
-import com.cocoawork.appstore.service.AppOutlineService;
+import com.cocoawork.appstore.service.AppService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class AppOutlineServiceImpl implements AppOutlineService {
+public class AppServiceImpl implements AppService {
 
     public static final String APP_STORE_BASE_URL = "https://rss.itunes.apple.com/api/v1/";
 
@@ -62,9 +62,9 @@ public class AppOutlineServiceImpl implements AppOutlineService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public Integer addAppRecoder(AppOutline appOutline) {
+    public Integer addAppOutline(AppOutline appOutline) {
         try {
-            Integer result = appOutlineMapper.addAppRecoder(appOutline);
+            Integer result = appOutlineMapper.addAppOutline(appOutline);
             for (Genre genre: appOutline.getGenres()) {
                 try {
                     genreMapper.addGenre(genre);
@@ -83,25 +83,25 @@ public class AppOutlineServiceImpl implements AppOutlineService {
     }
 
     @Override
-    public AppOutline getOne() {
-        return appOutlineMapper.getOne();
+    public AppOutline getOneAppOutline() {
+        return appOutlineMapper.getOneAppOutline();
     }
 
     @Override
-    public AppOutline getAppById(String appId) {
-        return appOutlineMapper.getAppById(appId);
+    public AppOutline getAppOutlineById(String appId) {
+        return appOutlineMapper.getAppOutlineById(appId);
     }
 
     @Override
-    public List<AppOutline> getApps(String countryCode, String mediaType, Integer pageNum, Integer pageSize) {
+    public List<AppOutline> getAppOutlines(String countryCode, String mediaType, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<AppOutline> apps = appOutlineMapper.getApps(countryCode, mediaType);
+        List<AppOutline> apps = appOutlineMapper.getAppOutlines(countryCode, mediaType);
         return apps;
     }
 
     @Override
-    public Integer deleteAppById(String appId) {
-        return appOutlineMapper.deleteAppById(appId);
+    public Integer deleteAppOutlineById(String appId) {
+        return appOutlineMapper.deleteAppOutlineById(appId);
     }
 
 

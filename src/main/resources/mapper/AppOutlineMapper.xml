@@ -23,7 +23,7 @@
         <foreach collection="genres.split(',')" open="(" close=")" separator="," item="genreId">#{genreId}</foreach>
     </select>
 
-    <insert id="addAppRecoder" parameterType="com.cocoawork.appstore.entity.AppOutline">
+    <insert id="addAppOutline" parameterType="com.cocoawork.appstore.entity.AppOutline">
         INSERT INTO app_outline (artist_name, app_id, `name`, kind, copyright, artist_id, artist_url, artwork_url100, url, country_code, media_type, update_time
         <if test="genres!=null and genres.size()>0">,genres</if>)
         VALUES (#{artistName}, #{appId}, #{name}, #{kind}, #{copyright}, #{artistId}, #{artistUrl}, #{artworkUrl100}, #{url}, #{countryCode}, #{mediaType}, #{updateTime}
@@ -33,21 +33,21 @@
         )
     </insert>
 
-    <select id="getOne" resultMap="baseResultMap">
+    <select id="getOneAppOutline" resultMap="baseResultMap">
         select * FROM app_outline where 1=1 LIMIT 1
     </select>
 
-    <select id="getApps" resultMap="baseResultMap">
+    <select id="getAppOutlines" resultMap="baseResultMap">
         SELECT * FROM app_outline where 1=1
         <if test="countryCode!=null">AND country_code = #{countryCode}</if>
         <if test="mediaType!=null">AND media_type = #{mediaType}</if>
     </select>
 
-    <select id="getAppById" resultMap="baseResultMap">
+    <select id="getAppOutlineById" resultMap="baseResultMap">
         SELECT * FROM app_outline WHERE app_id=#{id}
     </select>
 
-    <delete id="deleteAppById" >
+    <delete id="deleteAppOutlineById" >
         DELETE FROM app_outline WHERE app_id=#{id}
     </delete>
 

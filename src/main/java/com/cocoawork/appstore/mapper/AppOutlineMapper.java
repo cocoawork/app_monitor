@@ -9,13 +9,13 @@ import java.util.List;
 @Mapper
 public interface AppOutlineMapper {
 
-    public Integer addAppRecoder(AppOutline appOutline);
+    public Integer addAppOutline(AppOutline appOutline);
 
-    public AppOutline getOne();
+    public AppOutline getOneAppOutline();
 
-    public List<AppOutline> getApps(@Param("countryCode") String countryCode, @Param("mediaType") String mediaType);
+    public List<AppOutline> getAppOutlines(@Param("countryCode") String countryCode, @Param("mediaType") String mediaType);
 
-    public AppOutline getAppById(String id);
+    public AppOutline getAppOutlineById(String id);
 
-    public Integer deleteAppById(String id);
+    public Integer deleteAppOutlineById(String id);
 }
