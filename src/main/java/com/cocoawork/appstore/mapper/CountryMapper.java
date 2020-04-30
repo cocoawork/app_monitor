@@ -12,4 +12,5 @@ public interface CountryMapper {
     public Integer addCountry(Country country);
 
     public List<Country> getAllCountry();
+
 }

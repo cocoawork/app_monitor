@@ -93,6 +93,13 @@ public class AppstoreApplicationTests {
     }
 
 
+    @Test
+    public void testcount() {
+        List<String> tables = countryMapper.getTables();
+        System.out.println(tables);
+    }
+
+
     @Autowired
     private RoleMapper roleMapper;
     @Test

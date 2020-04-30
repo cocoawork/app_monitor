@@ -14,4 +14,8 @@
     <select id="getAllCountry" resultMap="BaseResultMap">
         SELECT * FROM country
     </select>
+
+
+
+
 </mapper>
