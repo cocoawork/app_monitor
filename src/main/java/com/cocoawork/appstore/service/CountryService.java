@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CountryService {
 
-    public Integer addCountry(Country country);
+    Integer addCountry(Country country);
 
-    public List<Country> getAllCountry();
+    List<Country> getAllCountry();
 }

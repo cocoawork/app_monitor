@@ -3,14 +3,13 @@ package com.cocoawork.appstore.service;
 import com.cocoawork.appstore.entity.User;
 
 public interface UserService {
+    Integer addUser(User user);
 
-    public Integer addUser(User user);
+    User getUser(String userName, String password);
 
-    public User getUser(String userName, String password);
+    User getUser(String uid);
 
-    public User getUser(String uid);
-
-    public User login(String userName, String password);
+    User login(String userName, String password);
 
 
 }

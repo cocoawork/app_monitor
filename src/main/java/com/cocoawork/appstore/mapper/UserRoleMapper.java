@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserRoleMapper {
 
-    public Integer addOrUpdate(UserRole userRole);
+    Integer addOrUpdate(UserRole userRole);
 
-    public UserRole getUserRoleById(@Param("id") String userId);
+    UserRole getUserRoleById(@Param("id") String userId);
 
 }

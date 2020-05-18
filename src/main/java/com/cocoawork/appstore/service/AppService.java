@@ -10,25 +10,25 @@ import java.util.List;
 
 public interface AppService {
 
-    public List<AppOutline> fetchAppOutlinesFromRemote(String countryCode, Constant.MediaType mediaType, Constant.FeedType feedType);
+    List<AppOutline> fetchAppOutlinesFromRemote(String countryCode, Constant.MediaType mediaType, Constant.FeedType feedType);
 
-    public Integer addAppOutline(AppOutline appOutline);
+    Integer addAppOutline(AppOutline appOutline);
 
-    public AppOutline getOneAppOutline();
+    AppOutline getOneAppOutline();
 
-    public AppOutline getAppOutlineById(String appId);
+    AppOutline getAppOutlineById(String appId);
 
-    public List<AppOutline> getAppOutlines(String countryCode, String mediaType, Integer pageNum, Integer pageSize);
+    List<AppOutline> getAppOutlines(String countryCode, String mediaType, Integer pageNum, Integer pageSize);
 
-    public Integer deleteAppOutlineById(String appId);
+    Integer deleteAppOutlineById(String appId);
 
-    public Integer addAppInfo(AppInfo appinfo);
+    Integer addAppInfo(AppInfo appinfo);
 
-    public AppInfo getAppInfoById(String appId);
+    AppInfo getAppInfoById(String appId);
 
-    public Integer deleteAppInfoById(String appId);
+    Integer deleteAppInfoById(String appId);
 
-    public Integer deleteAppById(String appId);
+    Integer deleteAppById(String appId);
 
 
 }

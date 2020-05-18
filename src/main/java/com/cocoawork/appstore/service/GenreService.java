@@ -4,6 +4,6 @@ import com.cocoawork.appstore.entity.Genre;
 
 public interface GenreService {
 
-    public Integer addGenre(Genre genre);
+    Integer addGenre(Genre genre);
 
 }
