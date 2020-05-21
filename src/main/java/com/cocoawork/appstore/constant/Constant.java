@@ -11,24 +11,6 @@ public class Constant {
     public final static String REQUEST_UID_KEY = "UID";
 
 
-
-    public enum CountryCode {
-        CHINA("cn"),
-        BU_DAN("bt"),
-        DAN_MAI("dk");
-
-        private String rawValue;
-        public String getRawValue() {
-            return rawValue;
-        }
-        public void setRawValue(String rawValue) {
-            this.rawValue = rawValue;
-        }
-        CountryCode(String rawValue) {
-            this.rawValue = rawValue;
-        }
-    }
-
     /*
     * 媒体类型
     * */

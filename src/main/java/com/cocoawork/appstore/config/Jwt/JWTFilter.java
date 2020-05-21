@@ -3,7 +3,9 @@ package com.cocoawork.appstore.config.Jwt;
 import com.cocoawork.appstore.constant.Constant;
 import com.cocoawork.appstore.exception.CustomException;
 import com.cocoawork.appstore.exception.ExceptionEnum;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -21,7 +23,8 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         String token = servletRequest.getHeader(Constant.REQUEST_HEADER_AUTHORITY_KEY);
-        return (!StringUtils.isEmpty(token));
+        boolean isEmpty = StringUtils.isEmpty(token);
+        return !isEmpty;
     }
 
     @Override

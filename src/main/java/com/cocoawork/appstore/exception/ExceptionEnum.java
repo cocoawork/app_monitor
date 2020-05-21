@@ -12,7 +12,7 @@ public enum ExceptionEnum {
     USER_LOGIN_ACCOUNT_MULTI(1004,"account multi"),
     USER_LOGIN_ACCOUNT_NOT_EXIST(1005,"account not exist"),
 
-    REQUEST_TOKEN_EXCEPTION(2000,"token error"),
+    REQUEST_TOKEN_EXCEPTION(2000,"token error!"),
     REQUEST_TOKEN_EMPTY(2001, "token empty!"),
 
     ACCESS_FORBIDDEN(4003,"unauthority!"),

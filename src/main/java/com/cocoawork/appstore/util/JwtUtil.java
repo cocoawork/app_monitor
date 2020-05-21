@@ -22,13 +22,7 @@ public class JwtUtil {
 
     private static final String USERID_KEY = "UID";
 
-    private static final Long EXPIRE_TIME = 10 * 60 * 1000L * 600;
-
-//    private static final String TOKEN_SECRET = "zxcvbnmasdfghjklqwertyuiop0123456789";
-//
-//    private static final Algorithm ALGORITHM = Algorithm.HMAC256(TOKEN_SECRET);
-
-
+    private static final Long EXPIRE_TIME = 10 * 60 * 1000L;
 
     public static String genreToken(String userId, String userName, String secret) {
         Date expired = new Date(System.currentTimeMillis() + EXPIRE_TIME);
