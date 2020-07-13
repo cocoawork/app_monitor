@@ -1,0 +1,35 @@
+server:
+  port: 23705
+
+spring:
+  application:
+    name: app-mointor-data-fetche-service
+
+
+  activemq:
+    broker-url: tcp://baiduyun-server.com:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: false
+      max-connections: 10
+      idle-timeout: 60
+
+dubbo:
+  application:
+    name: app-mointor-data-fetch-service
+  protocol:
+    name: dubbo
+    port: 20801
+  registry:
+    address: zookeeper://baiduyun-server.com:2181
+    timeout: 60000
+  consumer:
+    timeout: 60000
+
+
+activemq:
+  topic: email-topic
+
+
+

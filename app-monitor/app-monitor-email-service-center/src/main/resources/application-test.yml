@@ -1,0 +1,27 @@
+#服务端口
+server:
+  port: 23800
+spring:
+  application:
+    name: email-service
+
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: 296832852@qq.com
+    password: pqzizwlvsmebbice
+    default-encoding: utf-8
+
+  activemq:
+    broker-url: tcp://baiduyun-server.com:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: false
+      max-connections: 10
+      idle-timeout: 60
+  jms:
+    pub-sub-domain: true
+
+activemq:
+  topic: email-topic

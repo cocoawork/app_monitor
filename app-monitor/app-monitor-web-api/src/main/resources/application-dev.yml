@@ -1,0 +1,18 @@
+server:
+  port: 23900
+
+spring:
+  application:
+    name: app-mointor-web-api
+
+dubbo:
+  application:
+    name: app-mointor-web-api
+  protocol:
+    name: dubbo
+    port: 20801
+  registry:
+    address: zookeeper://baiduyun-server.com:2181
+    timeout: 60000
+  consumer:
+    timeout: 60000

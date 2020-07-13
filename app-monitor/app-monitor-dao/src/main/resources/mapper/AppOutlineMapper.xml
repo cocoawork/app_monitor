@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.cocoawork.mapper.AppOutlineMapper">
+
+    <resultMap id="baseResuleMap" type="top.cocoawork.entity.AppOutlineEntity">
+        <id column="app_id" property="appId" jdbcType="VARCHAR"></id>
+        <result column="kind" property="kind" jdbcType="VARCHAR"></result>
+        <result column="artist_name" property="artistName" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="copyright" property="copyright" jdbcType="VARCHAR"/>
+        <result column="artist_id" property="artistId" jdbcType="VARCHAR"/>
+        <result column="artist_url" property="artistUrl" jdbcType="VARCHAR"/>
+        <result column="artwork_url100" property="artworkUrl100" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="feed_type" property="feedType" jdbcType="VARCHAR"/>
+        <result column="update_at" property="updateAt" jdbcType="TIMESTAMP"/>
+        <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+        <collection property="genres" column="genres" ofType="top.cocoawork.entity.GenreEntity" select="selectGenresByGenreIds"></collection>
+    </resultMap>
+
+
+    <!-- 子查询 -->
+    <select id="selectGenresByGenreIds" resultType="top.cocoawork.entity.GenreEntity">
+        select * from t_genre where genre_id in
+        <foreach collection="ids.split(',')" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </select>
+
+
+
+    <update id="updateAppOutline" parameterType="top.cocoawork.entity.AppOutlineEntity">
+        update t_app_outline set
+        <trim suffixOverrides=",">
+            <if test="kind != null">
+            kind = #{kind},
+        </if>
+            <if test="artistName != null">
+            artist_name = #{artistName},
+        </if>
+            <if test="name != null">
+            `name` = #{name},
+        </if>
+            <if test="copyright != null">
+            copyright = #{copyright},
+        </if>
+            <if test="artistId != null">
+            artist_id = #{artistId},
+        </if>
+            <if test="artistUrl != null">
+            artist_url = #{artistUrl},
+        </if>
+            <if test="artworkUrl100 != null">
+            artwork_url100 = #{artworkUrl100},
+        </if>
+            <if test="url != null">
+            url = #{url},
+        </if>
+            <if test="feedType != null">
+            feed_type = #{feedType},
+        </if>
+            <if test="genres != null and genres.size()>0">
+            genres =
+            <trim suffixOverrides=" " prefixOverrides=" ">
+                <foreach collection="genres" item="genre" separator="," open="'" close="'">${genre.genreId}</foreach>
+            </trim>
+        </if>
+        </trim>
+        where app_id = #{appId}
+    </update>
+
+    <insert id="insertAssociation" parameterType="top.cocoawork.entity.AppOutlineEntity">
+        INSERT INTO t_app_outline (artist_name, app_id, `name`, kind, copyright, artist_id, artist_url, artwork_url100, url, country_code, media_type
+        <if test="genres!=null and genres.size()>0">,genres</if>)
+        VALUES ( #{artistName}, #{appId}, #{name}, #{kind}, #{copyright}, #{artistId}, #{artistUrl}, #{artworkUrl100}, #{url}, #{countryCode}, #{mediaType}
+        <if test="genres!=null and genres.size()>0">
+            <foreach collection="genres" open=",(" close=")" separator="','" item="gener">#{gener.genreId}</foreach>
+        </if>
+        )
+    </insert>
+
+
+    <select id="selectAssociationByAppId" resultMap="baseResuleMap" >
+        select * from t_app_outline where app_id = #{appId}
+    </select>
+
+    <select id="selectAppOutlinesByPage" resultMap="baseResuleMap">
+        select * from t_app_outline where 1=1 LIMIT ${pageSize*pageIndex}, ${pageSize*(pageIndex+1)-1}
+    </select>
+
+    <select id="selectAllAppOutlineAppIds" resultType="string">
+        select app_id from t_app_outline;
+    </select>
+
+
+</mapper>
