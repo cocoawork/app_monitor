@@ -10,10 +10,9 @@
    * JWT+Shiro权限控制
     
 ### 模块介绍（主要功能）
-   * app-monitor-common：项目公共组件
-   * app-monitor-dao：基于Mybais-Plus的数据存储层
+   * app-monitor-dao：基于Mybatis-Plus的数据存储层
    * app-monitor-service：数据存储业务层
-   * app-monitor-service-api：业务接口层次
+   * app-monitor-service-api：业务接口层
    * app-monitor-fetcher：从AppStore获取数据，调用service业务层存储数据
    * app-monitor-email-service-center：一个简单的邮件发送中心
    
