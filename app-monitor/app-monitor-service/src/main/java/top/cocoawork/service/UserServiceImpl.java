@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public boolean insertUser(User user) throws CustomServiceException {
+    public boolean insertUser(@NotNull User user) throws CustomServiceException {
         UserEntity userEntity = new UserEntity();
         BeanUtil.convert(user, userEntity);
         try {
@@ -32,19 +32,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public boolean updateUser(@NotNull User user) {
         UserEntity userEntity = new UserEntity();
         BeanUtil.convert(user, userEntity);
         return userMapper.updateById(userEntity) != 0;
     }
 
     @Override
-    public boolean deleteUserById(String id) {
+    public boolean deleteUserById(@NotNull String id) {
         return userMapper.deleteById(id) != 0;
     }
 
     @Override
-    public User loginByUsernameAndPasword(String username, String password) throws CustomServiceException {
+    public User loginByUsernameAndPasword(@NotNull String username, @NotNull  String password) throws CustomServiceException {
         QueryWrapper<UserEntity> wrapper = new QueryWrapper<UserEntity>().eq("username", username);
         UserEntity userEntity = userMapper.selectOne(wrapper);
         if (null == userEntity) {

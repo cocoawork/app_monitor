@@ -1,5 +1,6 @@
 package top.cocoawork.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import top.cocoawork.mapper.UserAppMapper;
 import top.cocoawork.model.UserApp;
 import top.cocoawork.util.BeanUtil;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +20,7 @@ public class UserAppServiceImpl implements UserAppService {
     private UserAppMapper userAppMapper;
 
     @Override
-    public boolean inserUserApp(UserApp userApp) {
+    public boolean inserUserApp(@NotNull UserApp userApp) {
 
         UserAppEntity userAppEntity = new UserAppEntity();
         BeanUtil.convert(userApp, userAppEntity);
@@ -28,14 +30,16 @@ public class UserAppServiceImpl implements UserAppService {
     }
 
     @Override
-    public boolean deleteUserApp(UserApp userApp) {
-        return userAppMapper.deleteById(userApp.getAppId()) != 0;
+    public boolean deleteUserApp(@NotNull UserApp userApp) {
+        Wrapper<UserAppEntity> wrapper = new QueryWrapper<UserAppEntity>().eq("app_id", userApp.getAppId())
+                                                                        .eq("user_id", userApp.getUserId());
+        int delete = userAppMapper.delete(wrapper);
+        return delete != 0;
     }
 
     @Override
-    public List<UserApp> selectUserAppsByUserId(String userId) {
-        QueryWrapper<UserAppEntity> queryWrapper = new QueryWrapper<UserAppEntity>().eq("user_id", userId);
-        List<UserAppEntity> userAppEntities = userAppMapper.selectList(queryWrapper);
+    public List<UserApp> selectUserAppsByUserId(@NotNull String userId) {
+        List<UserAppEntity> userAppEntities = userAppMapper.selectUserAppsByUserId(userId);
         return userAppEntities.stream().map(userAppEntity -> {
             UserApp userApp = new UserApp();
             BeanUtil.convert(userAppEntity, userApp);
@@ -44,7 +48,7 @@ public class UserAppServiceImpl implements UserAppService {
     }
 
     @Override
-    public List<UserApp> selectUserAppsByAppId(String appId) {
+    public List<UserApp> selectUserAppsByAppId(@NotNull String appId) {
         QueryWrapper<UserAppEntity> queryWrapper = new QueryWrapper<UserAppEntity>().eq("app_id", appId);
         List<UserAppEntity> userAppEntities = userAppMapper.selectList(queryWrapper);
         return userAppEntities.stream().map(userAppEntity -> {

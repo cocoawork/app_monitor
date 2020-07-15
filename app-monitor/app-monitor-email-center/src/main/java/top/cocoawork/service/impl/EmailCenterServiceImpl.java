@@ -8,12 +8,12 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import top.cocoawork.service.EmailService;
+import top.cocoawork.service.EmailCenterService;
 
 @Service
-public class EmailServiceImpl implements EmailService {
+public class EmailCenterServiceImpl implements EmailCenterService {
 
-    private Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(EmailCenterServiceImpl.class);
 
     @Autowired(required = false)
     private JavaMailSender mailSender;

@@ -7,8 +7,9 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-public class UserApp extends BaseModel implements Serializable {
+public class UserRole implements Serializable {
+
     private String userId;
-    private String appId;
-    private AppOutline appOutline;
+    private String userRole;
+
 }

@@ -37,6 +37,13 @@ public interface AppInfoService {
     AppInfo selectAppInfoByAppId(String appId);
 
     /**
+     * @Description: 根据bundleId查询
+     * @Param: [根据bundleId查询]
+     * @return: top.cocoawork.model.AppInfo
+     */
+    AppInfo selectAppInfoByBundleId(String bundleId);
+
+    /**
     * @Description: 分页 查询
     * @Param: [页码（从0开始）, 每页数据个数]
     * @return: java.util.List<top.cocoawork.model.AppInfo>

@@ -56,10 +56,5 @@ public class ServiceTest {
 
     }
 
-    @Test
-    public void test1() {
-        List<AppOutline> list = appOutlineService.selectAppOutlinesByPage(1, 10);
-        System.out.println(list);
-    }
 
 }

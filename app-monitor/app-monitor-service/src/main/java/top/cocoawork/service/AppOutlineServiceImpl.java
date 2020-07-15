@@ -16,6 +16,8 @@ import top.cocoawork.model.AppOutline;
 import top.cocoawork.model.Genre;
 import top.cocoawork.util.BeanUtil;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
@@ -81,13 +83,13 @@ public class AppOutlineServiceImpl implements AppOutlineService {
     }
 
     @Override
-    public List<AppOutline> selectAppOutlinesByPage(Integer pageIndex, Integer pageSize) {
-        List<AppOutlineEntity> list = appOutlineMapper.selectAppOutlinesByPage(pageIndex, pageSize);
+    public List<AppOutline> selectAppOutlinesByPage(String countryCode, @Min(0) Integer pageIndex, @Max(100) Integer pageSize) {
+        List<AppOutlineEntity> list = appOutlineMapper.selectAppOutlinesByCountryAndPage(countryCode, pageIndex, pageSize);
         return list.stream().map(appOutlineEntity -> {
             AppOutline appOutline = new AppOutline();
             BeanUtil.convert(appOutlineEntity, appOutline);
             return appOutline;
-        }).collect(Collectors.toList());
+    }).collect(Collectors.toList());
 
     }
 

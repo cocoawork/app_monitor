@@ -1,6 +1,6 @@
 package top.cocoawork.service;
 
-public interface EmailService {
+public interface EmailCenterService {
 
     void sendMail(String reveiver, String subject, String content);
 

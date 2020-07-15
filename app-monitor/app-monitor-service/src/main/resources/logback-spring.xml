@@ -105,7 +105,7 @@
     <!-- 4. 最终的策略 -->
     <!-- 4.1 开发环境:打印控制台-->
     <springProfile name="dev,test">
-        <logger name="top.cocoawork.*" level="debug"/>
+        <logger name="top.cocoawork" level="debug"/>
         <root level="info">
             <appender-ref ref="CONSOLE_LOG"/>
         </root>

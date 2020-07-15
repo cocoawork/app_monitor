@@ -1,13 +1,15 @@
 package top.cocoawork.conf.jwt;
 
+import lombok.Getter;
 import org.apache.shiro.authc.AuthenticationToken;
 
 public class JwtToken implements AuthenticationToken {
 
+    @Getter
     private String token;
 
     public JwtToken(String token) {
-        this.token = token;
+       this.token = token;
     }
 
     @Override
@@ -19,4 +21,6 @@ public class JwtToken implements AuthenticationToken {
     public Object getCredentials() {
         return token;
     }
+
+
 }

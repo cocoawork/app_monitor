@@ -1,5 +1,6 @@
 package top.cocoawork.conf.shiro;
 
+import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
@@ -14,17 +15,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import top.cocoawork.conf.jwt.JwtFilter;
+import top.cocoawork.service.UserService;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class ShiroConfig {
-//    @Bean
-//    public UsernamePasswordRelam userAccountRelam() {
-//        return new UsernamePasswordRelam();
-//    }
 
+
+
+    @Bean
+    public UsernamePasswordRealm usernamePasswordRealm(){
+        return new UsernamePasswordRealm();
+    }
 
     @Bean
     public SecurityManager securityManager(@Autowired UsernamePasswordRealm usernamePasswordRelam) {
@@ -41,12 +47,14 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(@Autowired SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        Map filters = new HashMap();
+        Map<String, Filter>  filters = new HashMap(1);
         filters.put("jwt", new JwtFilter());
         shiroFilterFactoryBean.setFilters(filters);
 
-        Map filterMap = new HashMap();
+        Map<String, String> filterMap = new HashMap(2);
         filterMap.put("/**", "jwt");
+        //401无需验证
+        filterMap.put("/handlerUnAuthorized", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilterFactoryBean;

@@ -25,4 +25,12 @@ public class WebResponse implements IResponse {
         return response;
     }
 
+    public static WebResponse result(Boolean okOrFail){
+        if (okOrFail){
+            return ok();
+        }else {
+            return fail();
+        }
+    }
+
 }

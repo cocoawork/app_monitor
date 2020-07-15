@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo
+http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+    <!-- 应用配置，不要与提供方相同 -->
+    <dubbo:application name="app-mointor-web-api"/>
+
+
+    <!-- 注册中心配置，使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="zookeeper://baiduyun-server.com:2181" timeout="60000" />
+
+
+    <!-- 监控中心配置，protocol="registry"，表示从注册中心发现服务地址 -->
+    <dubbo:protocol  name="dubbo" port="20801"/>
+
+
+    <!-- 使用注解方式创建远程服务代理-->
+    <!--   <dubbo:annotation package="com.srpingboot.example"/> -->
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:reference id="userRoleService" interface="top.cocoawork.service.UserRoleService" />
+    <dubbo:reference id="userService" interface="top.cocoawork.service.UserService"/>
+
+
+</beans>

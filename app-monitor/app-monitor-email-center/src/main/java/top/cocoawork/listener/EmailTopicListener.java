@@ -5,20 +5,19 @@ import org.apache.activemq.command.ActiveMQMapMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
-import top.cocoawork.service.EmailService;
+import top.cocoawork.service.EmailCenterService;
 
 import javax.jms.JMSException;
 
 @Component
-public class MQListener {
+public class EmailTopicListener {
 
-    private Logger logger = LoggerFactory.getLogger(MQListener.class);
+    private Logger logger = LoggerFactory.getLogger(EmailTopicListener.class);
 
     @Autowired
-    private EmailService emailService;
+    private EmailCenterService emailService;
 
     @JmsListener(destination = "${activemq.topic}")
     public void receivedMailMessage(Message message) {

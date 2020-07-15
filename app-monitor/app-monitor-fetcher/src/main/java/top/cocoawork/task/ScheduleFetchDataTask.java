@@ -1,12 +1,9 @@
 package top.cocoawork.task;
 
 import org.apache.dubbo.config.annotation.Reference;
-import org.apache.zookeeper.data.Stat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
-import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import top.cocoawork.Constant.Constant;
@@ -14,50 +11,24 @@ import top.cocoawork.model.AppInfo;
 import top.cocoawork.model.AppOutline;
 import top.cocoawork.model.Country;
 import top.cocoawork.model.DataFetchRecoder;
-import top.cocoawork.service.DataFetchRecoderService;
-import top.cocoawork.service.RemoteEmailService;
-import top.cocoawork.service.impl.AppDataFetcheServiceImpl;
-import top.cocoawork.service.AppOutlineService;
-import top.cocoawork.service.CountryService;
+import top.cocoawork.service.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
 @Component
-public class ScheduleTask {
-    private Logger logger = LoggerFactory.getLogger(ScheduleTask.class);
+public class ScheduleFetchDataTask {
+
+    private Logger logger = LoggerFactory.getLogger(ScheduleFetchDataTask.class);
 
     private ThreadPoolExecutor threadPoolExecutor;
 
-    //信号量，用于控制提交任务速率
-    private Semaphore semaphore;
-
-    @PostConstruct
-    public void initialize() {
-        Runtime runtime = Runtime.getRuntime();
-        int coreCount = runtime.availableProcessors();
-
-        int maxSize = 2 * coreCount + 1;
-
-        semaphore = new Semaphore(maxSize);
-
-        threadPoolExecutor = new ThreadPoolExecutor(coreCount,
-                    maxSize,
-                60,
-                TimeUnit.SECONDS,
-                new LinkedBlockingDeque<>(),
-                Executors.defaultThreadFactory(),
-                new ThreadPoolExecutor.DiscardPolicy()
-        );
-    }
-
     @Autowired
-    private AppDataFetcheServiceImpl appDataFetcheService;
+    private AppDataFetchService appDataFetcheService;
 
     @Reference
     private CountryService countryService;
@@ -71,9 +42,28 @@ public class ScheduleTask {
     @Autowired
     private RemoteEmailService emailService;
 
+
+    @PostConstruct
+    public void initialize() {
+        Runtime runtime = Runtime.getRuntime();
+        int coreCount = runtime.availableProcessors();
+
+        int maxSize = 2 * coreCount + 1;
+
+        threadPoolExecutor = new ThreadPoolExecutor(coreCount,
+                maxSize,
+                60,
+                TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.DiscardPolicy()
+        );
+    }
+
+
     //对象销毁前执行
     @PreDestroy
-    public void willDestory() {
+    public void destroy() {
         //对象销毁之前关闭线程池
         threadPoolExecutor.shutdownNow();
     }
@@ -108,13 +98,7 @@ public class ScheduleTask {
                 this.threadPoolExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-//                        try {
-//                            semaphore.acquire();
-//                        } catch (Exception e) {
-//                            logger.warn("信号量线程被中断",e);
-//                        }
                         appDataFetcheService.fetchAppOutline(country.getCountryCode(), Constant.MediaType.IOS_APP, feedType);
-//                        semaphore.release();
                     }
                 });
             }
@@ -134,6 +118,8 @@ public class ScheduleTask {
 
         //获取结束时间
         LocalDateTime end = LocalDateTime.now();
+
+        logger.info("完成执行定时任务获取app简介信息{}", end.toString());
 
         //记录本次请求记录
         DataFetchRecoder recoder = new DataFetchRecoder();
@@ -157,6 +143,7 @@ public class ScheduleTask {
 
         //记录开始时间
         LocalDateTime begin = LocalDateTime.now();
+        logger.info("开始执行定时任务获取app详细信息{}", begin.toString());
 
         //执行获取详情
         List<String> ids = appOutlineService.selectAllAppOutlineAppIds();
@@ -164,13 +151,7 @@ public class ScheduleTask {
 
             String appid = id;
             this.threadPoolExecutor.execute(() -> {
-//                try {
-//                    semaphore.acquire();
-//                } catch (Exception e) {
-//                    logger.warn("信号量线程被中断",e);
-//                }
                 appDataFetcheService.fetchAppInfo(appid);
-//                semaphore.release();
             });
         }
 
@@ -191,6 +172,10 @@ public class ScheduleTask {
         }
         //记录结束时间
         LocalDateTime end = LocalDateTime.now();
+
+
+        logger.info("完成执行定时任务获取app详细信息{}", end.toString());
+
 
         //记录本次请求记录
         DataFetchRecoder recoder = new DataFetchRecoder();

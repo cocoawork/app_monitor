@@ -26,7 +26,7 @@
         <module>app-monitor-util</module>
         <module>app-monitor-web-api</module>
         <module>app-monitor-fetcher</module>
-        <module>app-monitor-email-service-center</module>
+        <module>app-monitor-email-center</module>
     </modules>
 
     <properties>

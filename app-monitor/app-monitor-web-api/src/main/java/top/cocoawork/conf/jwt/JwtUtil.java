@@ -16,15 +16,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JwtUtil {
-    private static final String USERNAME_KEY = "UNAME";
+    private static final String USERNAME_KEY = "USERNAME";
 
-    private static final String USERID_KEY = "UID";
+    private static final String USERID_KEY = "USER_ID";
 
     private static final Long EXPIRE_TIME = 10 * 60 * 1000L;
 
-    public static String genreToken(String userId, String userName, String secret) {
+    private static final String SECRET_KEY = "*03zfxcgEv.bn%Aga1SD_+";
+
+
+    public static String genreToken(String userId, String userName, String password) {
         Date expired = new Date(System.currentTimeMillis() + EXPIRE_TIME);
-        Map header = new HashMap<String,Object>();
+        Map<String, Object> header = new HashMap<String,Object>();
         header.put("type", "JWT");
         header.put("alg", "HS256");
 
@@ -34,43 +37,34 @@ public class JwtUtil {
                 .withClaim(USERNAME_KEY, userName)
                 .withIssuedAt(new Date())
                 .withExpiresAt(expired)
-                .sign(Algorithm.HMAC256(secret));
+                .sign(Algorithm.HMAC256(SECRET_KEY));
     }
 
 
-    public static Boolean verify(String token, String secret) throws CustomWebException {
-        if (StringUtils.isEmpty(token)){
+    public static Boolean verify(String token) throws JWTVerificationException {
+        if (StringUtils.isEmpty(token)) {
             throw new CustomWebException(WebExceptionEnum.UNAVALIABLE_TOKEN_EXCEPTION);
         }
-        try {
-            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
-                    .build();
-            verifier.verify(token);
-            return true;
-        }catch (JWTVerificationException e) {
-            throw new CustomWebException(WebExceptionEnum.UNAVALIABLE_TOKEN_EXCEPTION);
-        }
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET_KEY))
+                .build();
+        verifier.verify(token);
+        return true;
+
 
     }
 
-    public static String decodeUserId(String token) throws CustomWebException {
-        try {
-            DecodedJWT decodedJWT = JWT.decode(token);
-            String userId = decodedJWT.getClaim(USERID_KEY).asString();
-            return userId;
-        }catch (JWTDecodeException e) {
-            throw new CustomWebException(WebExceptionEnum.UNAVALIABLE_TOKEN_EXCEPTION);
-        }
+    public static String decode4UserId(String token) throws JWTDecodeException {
+
+        DecodedJWT decodedjwt = JWT.decode(token);
+        return decodedjwt.getClaim(USERID_KEY).asString();
 
     }
 
-    public static String decodeUserName(String token) throws CustomWebException {
-        try{
-            DecodedJWT decodedJWT = JWT.decode(token);
-            String uname = decodedJWT.getClaim(USERNAME_KEY).asString();
-            return uname;
-        }catch (JWTDecodeException e) {
-            throw new CustomWebException(WebExceptionEnum.UNAVALIABLE_TOKEN_EXCEPTION);
-        }
+    public static String decode4UserName(String token) throws JWTDecodeException {
+
+        DecodedJWT decodedjwt = JWT.decode(token);
+        return decodedjwt.getClaim(USERNAME_KEY).asString();
+
     }
+
 }

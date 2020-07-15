@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BaseModel implements Serializable {
 
-    private LocalDateTime createAt;
-
-    private LocalDateTime updateAt;
+//    private LocalDateTime createAt;
+//
+//    private LocalDateTime updateAt;
 }

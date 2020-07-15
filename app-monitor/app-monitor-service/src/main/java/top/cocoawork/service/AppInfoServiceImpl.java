@@ -66,6 +66,18 @@ public class AppInfoServiceImpl implements AppInfoService {
     }
 
     @Override
+    public AppInfo selectAppInfoByBundleId(@NotNull String bundleId) {
+        QueryWrapper<AppInfoEntity> wrapper = new QueryWrapper<AppInfoEntity>().eq("bundle_id", bundleId);
+        AppInfoEntity entity = appInfoMapper.selectOne(wrapper);
+        if (null != entity) {
+            AppInfo appInfo = new AppInfo();
+            BeanUtil.convert(entity, appInfo);
+            return appInfo;
+        }
+        return null;
+    }
+
+    @Override
     public List<AppInfo> selectAppInfosByPage(@Min(value = 0) Integer pageIndex, @Min(value = 0) @Max(value = 100) Integer pageSize) {
         Page<AppInfoEntity> appInfoEntityPage = appInfoMapper.selectPage(new Page<>(pageIndex, pageSize), null);
         List<AppInfoEntity> records = appInfoEntityPage.getRecords();

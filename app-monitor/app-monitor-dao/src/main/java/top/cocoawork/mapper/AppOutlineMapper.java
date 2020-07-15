@@ -20,6 +20,8 @@ public interface AppOutlineMapper extends BaseMapper<AppOutlineEntity> {
 
     List<AppOutlineEntity> selectAppOutlinesByPage(@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
 
+    List<AppOutlineEntity> selectAppOutlinesByCountryAndPage(@Param("country")String country, @Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+
     List<String> selectAllAppOutlineAppIds();
 
 

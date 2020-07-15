@@ -1,18 +1,29 @@
 package top.cocoawork.conf.jwt;
 
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.cocoawork.constant.Constant;
+import top.cocoawork.exception.ExceptionEnum;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JwtFilter extends BasicHttpAuthenticationFilter {
+
+    Logger logger = LoggerFactory.getLogger(JwtFilter.class);
+
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
@@ -22,7 +33,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     }
 
     @Override
-    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
+    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws AuthenticationException {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         String token = servletRequest.getHeader(Constant.REQUEST_HEADER_AUTHORITY_KEY);
         JwtToken jwtToken = new JwtToken(token);
@@ -35,9 +46,8 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         if (isLoginAttempt(request, response)) {
             try {
                 executeLogin(request, response);
-            }catch (Exception e) {
-//                throw new CustomException(ExceptionEnum.REQUEST_TOKEN_EMPTY);
-                e.printStackTrace();
+            }catch (AuthenticationException e){
+                handlerUnAuthorized(request, response);
             }
         }
         return true;
@@ -58,4 +68,15 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         }
         return super.preHandle(request, response);
     }
+
+    private void handlerUnAuthorized(ServletRequest req, ServletResponse resp) {
+        try {
+            HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
+            //登陆过程失败请求重定向未授权==》handlerUnAuthorized
+            httpServletResponse.sendRedirect("/handlerUnAuthorized");
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
 }

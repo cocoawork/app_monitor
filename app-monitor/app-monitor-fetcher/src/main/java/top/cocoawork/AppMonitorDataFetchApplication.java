@@ -9,21 +9,19 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
-import top.cocoawork.service.AppDataFetchService;
-import top.cocoawork.service.impl.AppDataFetcheServiceImpl;
-import top.cocoawork.task.ScheduleTask;
+import top.cocoawork.task.ScheduleFetchDataTask;
 
 @EnableScheduling
 @EnableDubbo
 @SpringBootApplication
-public class AppMonitorDataFetcheServiceApplication implements ApplicationListener<ApplicationReadyEvent> {
+public class AppMonitorDataFetchApplication implements ApplicationListener<ApplicationReadyEvent> {
 
     @Autowired
-    private ScheduleTask task;
+    private ScheduleFetchDataTask task;
 
 
     public static void main(String[] args) {
-        SpringApplication.run(AppMonitorDataFetcheServiceApplication.class, args);
+        SpringApplication.run(AppMonitorDataFetchApplication.class, args);
     }
 
 

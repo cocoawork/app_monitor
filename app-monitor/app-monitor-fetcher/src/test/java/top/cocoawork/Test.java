@@ -4,13 +4,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import top.cocoawork.Constant.Constant;
 import top.cocoawork.service.AppDataFetchService;
 import top.cocoawork.service.RemoteEmailService;
-import top.cocoawork.task.ScheduleTask;
-
-import java.io.IOException;
-import java.util.HashMap;
+import top.cocoawork.task.ScheduleFetchDataTask;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -20,7 +16,7 @@ public class Test {
     private AppDataFetchService appDataFetchService;
 
     @Autowired
-    private ScheduleTask task;
+    private ScheduleFetchDataTask task;
 
     @Autowired
     private RemoteEmailService emailService;

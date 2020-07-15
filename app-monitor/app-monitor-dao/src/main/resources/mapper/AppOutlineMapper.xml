@@ -87,11 +87,20 @@
     </select>
 
     <select id="selectAppOutlinesByPage" resultMap="baseResuleMap">
-        select * from t_app_outline where 1=1 LIMIT ${pageSize*pageIndex}, ${pageSize*(pageIndex+1)-1}
+        select * from t_app_outline where 1=1 order by create_at desc LIMIT ${pageSize*pageIndex}, ${pageSize*(pageIndex+1)-1}
     </select>
 
     <select id="selectAllAppOutlineAppIds" resultType="string">
         select app_id from t_app_outline;
+    </select>
+
+
+    <select id="selectAppOutlinesByCountryAndPage" resultMap="baseResuleMap">
+         select * from t_app_outline where 1=1
+          <if test="country != null">
+              AND country_code=#{country}
+          </if>
+           order by create_at desc LIMIT ${pageSize*pageIndex}, ${pageSize*(pageIndex+1)-1}
     </select>
 
 
