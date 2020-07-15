@@ -7,6 +7,7 @@
    * Dubbo+Zookeeper
    * ActiveMQ
    * Spring邮件服务
+   * JWT+Shiro权限控制
     
 ### 模块介绍（主要功能）
    * app-monitor-common：项目公共组件
