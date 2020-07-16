@@ -1,6 +1,12 @@
 package top.cocoawork.enums;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.TreeMap;
+
 public class AppType {
+
 
     public enum MediaType {
         APPLE_MUSIC("apple-music"),
@@ -20,7 +26,7 @@ public class AppType {
         }
     }
 
-    /*
+    /**
      * Feed类型
      * */
     public enum FeedType {
@@ -50,5 +56,4 @@ public class AppType {
             this.rawValue = rawValue;
         }
     }
-
 }
