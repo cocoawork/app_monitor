@@ -18,7 +18,6 @@ spring:
       connection-timeout: 60000
 
 
-
 #mybatis-plus配置
 mybatis-plus:
   global-config:
@@ -31,13 +30,20 @@ mybatis-plus:
 
 dubbo:
   application:
-    name: app-mointor-service
+    name: ${spring.application.name}
+    logger: slf4j
   protocol:
     name: dubbo
     port: 20801
   registry:
-    address: zookeeper://baiduyun-server.com:2181
-    timeout: 60000
+    protocol: zookeeper
+    address: baiduyun-server.com:2181
+    timeout: 120000
   provider:
     timeout: 60000
-
+    retries: 0
+    loadbalance: roundrobin
+  consumer:
+    timeout: 6000
+    retries: 0
+    actives: 200

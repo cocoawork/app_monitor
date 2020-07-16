@@ -6,7 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import top.cocoawork.Constant.Constant;
+import top.cocoawork.constant.Constant;
+import top.cocoawork.enums.AppType;
 import top.cocoawork.model.AppInfo;
 import top.cocoawork.model.AppOutline;
 import top.cocoawork.model.Country;
@@ -81,24 +82,24 @@ public class ScheduleFetchDataTask {
 
         logger.info("开始执行定时任务获取app简介信息{}", start.toString());
 
-        List<Constant.FeedType> appFeedTypeList = new ArrayList<>();
-        appFeedTypeList.add(Constant.FeedType.NEW_APPS_WE_LOVE);
-        appFeedTypeList.add(Constant.FeedType.NEW_GAME_WE_LOVE);
-        appFeedTypeList.add(Constant.FeedType.TOP_FREE);
-        appFeedTypeList.add(Constant.FeedType.TOP_FREE_IPAD);
-        appFeedTypeList.add(Constant.FeedType.TOP_GROSSING);
-        appFeedTypeList.add(Constant.FeedType.TOP_GROSSING_IPAD);
+        List<AppType.FeedType> appFeedTypeList = new ArrayList<>();
+        appFeedTypeList.add(AppType.FeedType.NEW_APPS_WE_LOVE);
+        appFeedTypeList.add(AppType.FeedType.NEW_GAME_WE_LOVE);
+        appFeedTypeList.add(AppType.FeedType.TOP_FREE);
+        appFeedTypeList.add(AppType.FeedType.TOP_FREE_IPAD);
+        appFeedTypeList.add(AppType.FeedType.TOP_GROSSING);
+        appFeedTypeList.add(AppType.FeedType.TOP_GROSSING_IPAD);
 
         //获取所有国家
         List<Country> countries = countryService.selectAllCountry();
 
         for (Country country : countries) {
-            for (Constant.FeedType feedType : appFeedTypeList) {
+            for (AppType.FeedType feedType : appFeedTypeList) {
 
                 this.threadPoolExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        appDataFetcheService.fetchAppOutline(country.getCountryCode(), Constant.MediaType.IOS_APP, feedType);
+                        appDataFetcheService.fetchAppOutline(country.getCountryCode(), AppType.MediaType.IOS_APP, feedType);
                     }
                 });
             }

@@ -28,7 +28,7 @@ public class UserFavourController {
 
     @GetMapping
     public IResponse getFavourList(HttpServletRequest request) {
-        String userId = (String) request.getAttribute(Constant.REQUEST_UID_KEY);
+        String userId = (String) request.getAttribute(Constant.REQUEST_HEADER_UID_KEY);
         List<UserApp> userApps = userAppService.selectUserAppsByUserId(userId);
         return WebResponseObject.ok(userApps);
     }
@@ -36,7 +36,7 @@ public class UserFavourController {
 
     @PostMapping("/add")
     public IResponse addFavour(@RequestParam("appId") String appId) {
-        String userId = (String) request.getAttribute(Constant.REQUEST_UID_KEY);
+        String userId = (String) request.getAttribute(Constant.REQUEST_HEADER_UID_KEY);
         UserApp userApp = new UserApp();
         userApp.setAppId(appId);
         userApp.setUserId(userId);
@@ -46,7 +46,7 @@ public class UserFavourController {
 
     @DeleteMapping("/appId")
     public IResponse deleteFavor(@PathVariable("appId") String appId){
-        String userId = (String) request.getAttribute(Constant.REQUEST_UID_KEY);
+        String userId = (String) request.getAttribute(Constant.REQUEST_HEADER_UID_KEY);
         UserApp userApp = new UserApp();
         userApp.setAppId(appId);
         userApp.setUserId(userId);

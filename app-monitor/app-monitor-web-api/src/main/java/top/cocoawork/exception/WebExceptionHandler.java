@@ -15,19 +15,19 @@ import top.cocoawork.response.WebResponse;
 @ControllerAdvice
 public class WebExceptionHandler {
 
-    @ExceptionHandler(value = AuthenticationException.class)
-    public IResponse exceptionHandler(AuthenticationException e) {
-        Integer code = 10005;
+    @ExceptionHandler(value = ShiroException.class)
+    public IResponse exceptionHandler(ShiroException e) {
+        Integer code = 105;
         String msg = "未认证";
         return new WebResponse(code, msg);
     }
 
-    @ExceptionHandler(value = UnauthenticatedException.class)
-    public IResponse exceptionHandler(UnauthenticatedException e) {
-        Integer code = 10004;
-        String msg = "未授权";
-        return new WebResponse(code, msg);
-    }
+//    @ExceptionHandler(value = UnauthenticatedException.class)
+//    public IResponse exceptionHandler(UnauthenticatedException e) {
+//        Integer code = 104;
+//        String msg = "未授权";
+//        return new WebResponse(code, msg);
+//    }
 
     @ExceptionHandler(value = CustomWebException.class)
     public IResponse exceptionHandler(CustomWebException e) {
@@ -45,8 +45,8 @@ public class WebExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public IResponse exceptionHandler(Exception e) {
-        Integer code = 50000;
-        String msg = "未知异常";
+        Integer code = 500;
+        String msg = "未知错误";
         return new WebResponse(code, msg);
     }
 

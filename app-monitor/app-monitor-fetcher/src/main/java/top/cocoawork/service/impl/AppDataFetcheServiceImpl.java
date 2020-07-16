@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import top.cocoawork.Constant.Constant;
+import top.cocoawork.constant.Constant;
+import top.cocoawork.enums.AppType;
 import top.cocoawork.model.AppInfo;
 import top.cocoawork.model.AppOutline;
 import top.cocoawork.model.User;
@@ -50,7 +51,7 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
 
 
     @Override
-    public void fetchAppOutline(String countryCode, Constant.MediaType mediaType, Constant.FeedType feedType){
+    public void fetchAppOutline(String countryCode, AppType.MediaType mediaType, AppType.FeedType feedType){
 
         logger.info("开始抓取app简介信息==>>国家{}|类型{}", countryCode, feedType);
 
