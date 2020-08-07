@@ -3,10 +3,13 @@ package top.cocoawork.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import top.cocoawork.entity.UserEntity;
+import top.cocoawork.entity.UserRoleEntity;
 import top.cocoawork.exception.CustomServiceException;
 import top.cocoawork.exception.ExceptionEnum;
 import top.cocoawork.mapper.UserMapper;
+import top.cocoawork.mapper.UserRoleMapper;
 import top.cocoawork.model.User;
 import top.cocoawork.util.BeanUtil;
 
@@ -18,12 +21,22 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean insertUser(@NotNull User user) throws CustomServiceException {
         UserEntity userEntity = new UserEntity();
         BeanUtil.convert(user, userEntity);
         try {
             userMapper.insert(userEntity);
+            //为用户创建身份，默认为普通用户
+            UserRoleEntity userRoleEntity = new UserRoleEntity();
+            userRoleEntity.setUserId(userEntity.getId());
+            userRoleEntity.setUserRole("user");
+            userRoleMapper.insert(userRoleEntity);
+
         }catch (Exception e) {
             throw new CustomServiceException(ExceptionEnum.USER_REGIST_EXCEPTION);
         }

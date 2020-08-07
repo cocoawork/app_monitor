@@ -111,53 +111,56 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
         try {
             jsonNode = om.readTree(result);
         } catch (IOException e) {
-            logger.error("app详细信息json解析错误",e);
+            logger.error("app详细信息json解析错误", e);
             return;
         }
         JsonNode results = jsonNode.get("results");
         JsonNode element = results.get(0);
-        if (null != element){
+        if (null != element) {
             AppInfo appinfo = null;
             try {
                 appinfo = om.treeToValue(element, AppInfo.class);
             } catch (JsonProcessingException e) {
-                logger.error("获取app详细信息json转AppInfo错误",e);
+                logger.error("获取app详细信息json转AppInfo错误", e);
                 return;
             }
             appinfo.setAppId(appId);
 
-                //根据appid查询appinfo
-                AppInfo existAppInfo = appInfoService.selectAppInfoByAppId(appId);
-                if (null != existAppInfo){
-                    //比较两个对象的日期，判断是否发生版本更新
-                    String oldVersion = existAppInfo.getVersion();
-                    String newVersion = appinfo.getVersion();
-                    int ret = oldVersion.compareTo(newVersion);
-                    if (ret < 0) {
-                        //发生版本更新
-                        //1.根据appid查找关注的用户
-                        //2.根据userid查找用户email
-                        //3.根据email想用户发送邮件提醒更新
-                        List<UserApp> userApps = userAppService.selectUserAppsByAppId(appId);
-                        for (UserApp userApp: userApps) {
+            //根据appid查询appinfo
+            AppInfo existAppInfo = appInfoService.selectAppInfoByAppId(appId);
+            if (null != existAppInfo) {
+                appInfoService.updateAppInfo(appinfo);
+            } else {
+                appInfoService.insertAppInfo(appinfo);
+            }
 
-                            String userId = userApp.getUserId();
-                            User user = userService.selectUserByUserId(userId);
-                            if (null != user) {
+            int ret = -1;
+            if (existAppInfo != null) {
+                //比较两个对象的日期，判断是否发生版本更新
+                String oldVersion = existAppInfo.getVersion();
+                String newVersion = appinfo.getVersion();
+                ret = oldVersion.compareTo(newVersion);
+            }
+            if (ret < 0) {
+                //发生版本更新
+                //1.根据appid查找关注的用户
+                //2.根据userid查找用户email
+                //3.根据email想用户发送邮件提醒更新
+                List<UserApp> userApps = userAppService.selectUserAppsByAppId(appId);
+                for (UserApp userApp : userApps) {
 
-                                String email = user.getEmail();
-                                if (null != email && email.length() > 0) {
-                                    //发送邮件
-                                    String text = "您关注的App：\"" + appinfo.getTrackName() + "\"已经更新了，快去看看吧！链接：" + "";
-                                    emailService.sendEmail(email, "");
-                                }
-                            }
+                    String userId = userApp.getUserId();
+                    User user = userService.selectUserByUserId(userId);
+                    if (null != user) {
+                        String email = user.getEmail();
+                        if (null != email && email.length() > 0) {
+                            //发送邮件
+                            String text = "您关注的App：\"" + appinfo.getTrackName() + "\"已经更新了，快去看看吧！链接：" + "";
+                            emailService.sendEmail(email, text);
                         }
                     }
-                    appInfoService.updateAppInfo(appinfo);
-                }else {
-                    appInfoService.insertAppInfo(appinfo);
                 }
+            }
 
         }
     }

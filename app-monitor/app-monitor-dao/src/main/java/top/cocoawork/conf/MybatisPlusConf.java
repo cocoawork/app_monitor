@@ -2,12 +2,13 @@ package top.cocoawork.conf;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PageConf {
+public class MybatisPlusConf {
 
     @Bean
     public PaginationInterceptor paginationInterceptor() {
@@ -19,6 +20,14 @@ public class PageConf {
         // 开启 count 的 join 优化,只针对部分 left join
         paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
         return paginationInterceptor;
+    }
+
+
+    @Bean
+    public MapperScannerConfigurer mapperScannerConfigurer(){
+        MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
+        scannerConfigurer.setBasePackage("top.cocoawork.mapper");
+        return scannerConfigurer;
     }
 
 }

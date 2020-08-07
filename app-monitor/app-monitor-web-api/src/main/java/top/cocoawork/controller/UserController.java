@@ -1,5 +1,6 @@
 package top.cocoawork.controller;
 
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -13,10 +14,12 @@ import top.cocoawork.exception.CustomWebException;
 import top.cocoawork.exception.ExceptionEnum;
 import top.cocoawork.model.User;
 import top.cocoawork.model.UserApp;
+import top.cocoawork.model.UserRole;
 import top.cocoawork.response.IResponse;
 import top.cocoawork.response.WebResponse;
 import top.cocoawork.response.WebResponseObject;
 import top.cocoawork.service.UserAppService;
+import top.cocoawork.service.UserRoleService;
 import top.cocoawork.service.UserService;
 
 import javax.annotation.PostConstruct;
@@ -30,6 +33,9 @@ public class UserController {
 
     @Reference
     private UserService userService;
+
+    @Reference
+    private UserRoleService userRoleService;
 
     @PostMapping("/user/login")
     public IResponse login(@RequestParam("username") String username,
@@ -49,15 +55,15 @@ public class UserController {
         return WebResponseObject.ok(tokenData);
     }
 
+    @GlobalTransactional(timeoutMills = 3000, rollbackFor = Exception.class)
     @PostMapping("/user/regist")
     public IResponse regist(@RequestBody User user) {
-        boolean ret = false;
-        try {
-            ret = userService.insertUser(user);
-        }catch (CustomServiceException e) {
-            throw new CustomWebException(ExceptionEnum.USER_REGIST_EXCEPTION);
-        }
-        if (ret) {
+        boolean ret1 = userService.insertUser(user);
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getId());
+        userRole.setUserRole("user");
+        boolean ret2 = userRoleService.insertUserRole(userRole);
+        if (ret1 && ret2) {
             return WebResponse.ok();
         }else {
             return WebResponse.fail();

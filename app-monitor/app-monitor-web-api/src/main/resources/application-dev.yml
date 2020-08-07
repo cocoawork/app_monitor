@@ -20,3 +20,19 @@ spring:
 #    timeout: 60000
 #    retries: 0
 #    check: false
+
+seata:
+  enabled: false
+  tx-service-group: my_test_tx_group
+  application-id: app-monitor-service
+  config:
+    type: file
+    file:
+      name: file.conf
+  registry:
+    type: file
+    file:
+      name: file.conf
+  service:
+    disable-global-transaction: false
+

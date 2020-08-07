@@ -36,6 +36,7 @@
         <dubbo-version>2.7.6</dubbo-version>
         <shiro-version>1.4.0</shiro-version>
         <jwt-version>3.5.0</jwt-version>
+        <seata.version>1.0.0</seata.version>
     </properties>
 
     <dependencyManagement>
@@ -86,6 +87,12 @@
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>${jwt-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
             </dependency>
 
 

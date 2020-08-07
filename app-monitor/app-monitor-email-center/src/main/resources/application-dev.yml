@@ -23,6 +23,8 @@ spring:
     pub-sub-domain: true
     template:
       delivery-mode: persistent
+    listener:
+      acknowledge-mode: auto
 
 
 

@@ -70,11 +70,11 @@ public class ScheduleFetchDataTask {
     }
 
     /**
-    * @Description: 定时任务获取数据，每天1,6,11,16,21点执行一次
+    * @Description: 定时任务获取数据，每天0,12点执行一次
     * @Param: []
     * @return: void
     */
-    @Scheduled(cron = "0 0 1,6,11,16,21 * * *")
+    @Scheduled(cron = "0 0 0,12 * * *")
     public void scheduleFetchAppOutline() {
 
         //获取开始时间
@@ -139,7 +139,8 @@ public class ScheduleFetchDataTask {
     }
 
 
-    @Scheduled(fixedRate = 1000*60*60)
+    //每天0点后每隔8小时执行一次
+    @Scheduled(cron = "0 0 0/8 * * *")
     public void scheduleFetchAppInfo() {
 
         //记录开始时间
@@ -168,9 +169,6 @@ public class ScheduleFetchDataTask {
             }
         }
 
-        if (ids.size() == 0) {
-            return;
-        }
         //记录结束时间
         LocalDateTime end = LocalDateTime.now();
 

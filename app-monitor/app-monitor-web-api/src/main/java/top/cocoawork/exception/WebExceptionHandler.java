@@ -1,5 +1,6 @@
 package top.cocoawork.exception;
 
+import org.apache.dubbo.rpc.RpcException;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthenticatedException;
@@ -22,13 +23,6 @@ public class WebExceptionHandler {
         return new WebResponse(code, msg);
     }
 
-//    @ExceptionHandler(value = UnauthenticatedException.class)
-//    public IResponse exceptionHandler(UnauthenticatedException e) {
-//        Integer code = 104;
-//        String msg = "未授权";
-//        return new WebResponse(code, msg);
-//    }
-
     @ExceptionHandler(value = CustomWebException.class)
     public IResponse exceptionHandler(CustomWebException e) {
         Integer code = e.getCode();
@@ -40,6 +34,13 @@ public class WebExceptionHandler {
     public IResponse exceptionHandler(CustomServiceException e) {
         Integer code = e.getCode();
         String msg = e.getMessage();
+        return new WebResponse(code, msg);
+    }
+
+    @ExceptionHandler(value = RpcException.class)
+    public IResponse exceptionHandler(RpcException e) {
+        Integer code = 501;
+        String msg = "远程服务异常";
         return new WebResponse(code, msg);
     }
 
