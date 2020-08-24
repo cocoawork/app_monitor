@@ -77,11 +77,6 @@ public class ScheduleFetchDataTask {
     @Scheduled(cron = "0 0 0,12 * * *")
     public void scheduleFetchAppOutline() {
 
-        //获取开始时间
-        LocalDateTime start = LocalDateTime.now();
-
-        logger.info("开始执行定时任务获取app简介信息{}", start.toString());
-
         List<AppType.FeedType> appFeedTypeList = new ArrayList<>();
         appFeedTypeList.add(AppType.FeedType.NEW_APPS_WE_LOVE);
         appFeedTypeList.add(AppType.FeedType.NEW_GAME_WE_LOVE);
@@ -92,6 +87,14 @@ public class ScheduleFetchDataTask {
 
         //获取所有国家
         List<Country> countries = countryService.selectAllCountry();
+        if (null == countries || countries.size() == 0) {
+            return;
+        }
+
+        //获取开始时间
+        LocalDateTime start = LocalDateTime.now();
+
+        logger.info("开始执行定时任务获取app简介信息{}", start.toString());
 
         for (Country country : countries) {
             for (AppType.FeedType feedType : appFeedTypeList) {
@@ -143,12 +146,18 @@ public class ScheduleFetchDataTask {
     @Scheduled(cron = "0 0 0/8 * * *")
     public void scheduleFetchAppInfo() {
 
+
+        //执行获取详情
+        List<String> ids = appOutlineService.selectAllAppOutlineAppIds();
+
+        if (null == ids || ids.size() == 0) {
+            return;
+        }
+
         //记录开始时间
         LocalDateTime begin = LocalDateTime.now();
         logger.info("开始执行定时任务获取app详细信息{}", begin.toString());
 
-        //执行获取详情
-        List<String> ids = appOutlineService.selectAllAppOutlineAppIds();
         for (String id : ids) {
 
             String appid = id;

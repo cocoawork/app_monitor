@@ -161,7 +161,6 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
                     }
                 }
             }
-
         }
     }
 
