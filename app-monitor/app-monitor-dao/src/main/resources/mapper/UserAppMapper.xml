@@ -2,12 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.cocoawork.mapper.UserAppMapper">
+<mapper namespace="top.cocoawork.monitor.dao.mapper.UserAppMapper">
 
-    <resultMap id="baseResultMap" type="top.cocoawork.entity.UserAppEntity">
+    <resultMap id="baseResultMap" type="top.cocoawork.monitor.dao.entity.UserApp">
         <result column="app_id" property="appId" />
         <result column="user_id" property="userId" />
-        <association column="app_id" property="appOutline" select="top.cocoawork.mapper.AppOutlineMapper.selectAssociationByAppId"/>
+        <association column="app_id" property="appOutline" select="top.cocoawork.monitor.dao.mapper.AppOutlineMapper.selectAssociationByAppId"/>
     </resultMap>
 
 

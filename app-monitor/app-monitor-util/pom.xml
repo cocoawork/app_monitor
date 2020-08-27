@@ -13,10 +13,24 @@
     <version>1.0</version>
 
     <dependencies>
+
+        <dependency>
+            <groupId>top.cocoawork</groupId>
+            <artifactId>app-monitor-common</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-core</artifactId>
+            <version>6.5.0</version>
+        </dependency>
+
     </dependencies>
 
 

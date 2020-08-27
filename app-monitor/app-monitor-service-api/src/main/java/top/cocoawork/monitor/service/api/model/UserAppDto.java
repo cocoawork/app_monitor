@@ -1,0 +1,14 @@
+package top.cocoawork.monitor.service.api.model;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+
+@Data
+@NoArgsConstructor
+public class UserAppDto extends BaseModelDto implements Serializable {
+    private String userId;
+    private String appId;
+    private AppOutlineDto appOutline;
+}

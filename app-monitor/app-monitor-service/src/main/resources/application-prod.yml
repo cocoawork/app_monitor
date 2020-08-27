@@ -11,23 +11,11 @@ spring:
     password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://34.92.164.47:3306/app_monitor?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
-    type: com.zaxxer.hikari.HikariDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
     hikari:
       auto-commit: true
       maximum-pool-size: 200
       connection-timeout: 60000
-
-
-#mybatis-plus配置
-mybatis-plus:
-  global-config:
-    db-config:
-      id-type: none #数据库主键手动设置
-      table-underline: true
-  configuration:
-    map-underscore-to-camel-case: true
-  mapper-locations: classpath:mapper/*Mapper.xml
-
 
 
 dubbo:

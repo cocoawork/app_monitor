@@ -13,17 +13,9 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/app_monitor?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
 
-
-
-#mybatis-plus配置
 mybatis-plus:
-  global-config:
-    db-config:
-      id-type: none #数据库主键自增
-      table-underline: true
   configuration:
-    map-underscore-to-camel-case: true
-  mapper-locations: classpath:mapper/*Mapper.xml
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 dubbo:
   application:
@@ -59,3 +51,4 @@ seata:
     type: file
     file:
       name: file.conf
+
