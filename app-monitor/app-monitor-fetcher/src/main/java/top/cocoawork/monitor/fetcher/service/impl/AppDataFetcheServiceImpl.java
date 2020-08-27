@@ -155,7 +155,7 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
                 for (UserAppDto userApp : userApps) {
 
                     String userId = userApp.getUserId();
-                    UserDto user = userService.selectUserByUserId(userId);
+                    UserDto user = userService.selectByUserId(userId);
                     if (null != user) {
                         String email = user.getEmail();
                         if (null != email && email.length() > 0) {

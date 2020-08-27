@@ -9,7 +9,6 @@ import top.cocoawork.monitor.service.api.UserAppService;
 import top.cocoawork.monitor.service.api.model.UserAppDto;
 import top.cocoawork.monitor.web.response.IResponse;
 import top.cocoawork.monitor.web.response.WebResponse;
-import top.cocoawork.monitor.web.response.WebResponseObject;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -28,9 +27,9 @@ public class UserFavourController {
 
     @GetMapping
     public IResponse getFavourList(HttpServletRequest request) {
-        String userId = (String) request.getAttribute(Constant.REQUEST_HEADER_UID_KEY);
+        Long userId = (Long) request.getAttribute(Constant.REQUEST_HEADER_UID_KEY);
         List<UserAppDto> userApps = userAppService.selectUserAppsByUserId(userId);
-        return WebResponseObject.ok(userApps);
+        return WebResponse.ok(userApps);
     }
 
 
@@ -40,8 +39,7 @@ public class UserFavourController {
         UserAppDto userApp = new UserAppDto();
         userApp.setAppId(appId);
         userApp.setUserId(userId);
-        boolean b = userAppService.inserUserApp(userApp);
-        return WebResponse.result(b);
+        return WebResponse.result(userAppService.inserUserApp(userApp));
     }
 
     @DeleteMapping("/appId")

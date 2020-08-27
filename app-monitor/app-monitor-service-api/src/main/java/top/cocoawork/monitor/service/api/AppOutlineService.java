@@ -39,7 +39,7 @@ public interface AppOutlineService {
     * @Param: [countryCode, pageIndex, pageSize]
     * @return: java.util.List<top.cocoawork.model.AppOutline>
     */
-    List<AppOutlineDto> selectByPage(String countryCode, Integer pageIndex, Integer pageSize);
+    List<AppOutlineDto> selectPage(String countryCode, Integer pageIndex, Integer pageSize);
 
     /**
     * @Description: 查询全部数据id

@@ -91,7 +91,7 @@ public class ScheduleFetchDataTask {
         appFeedTypeList.add(AppType.FeedType.TOP_GROSSING_IPAD);
 
         //获取所有国家
-        List<CountryDto> countries = countryService.selectAllCountry();
+        List<CountryDto> countries = countryService.selectAll();
         if (null == countries || countries.size() == 0) {
             return;
         }
@@ -135,7 +135,7 @@ public class ScheduleFetchDataTask {
         recoder.setBeginTime(start);
         recoder.setEndTime(end);
         recoder.setType(AppOutlineDto.class.getName());
-        dataFetchRecoderService.insertDataFetchRecoder(recoder);
+        dataFetchRecoderService.insert(recoder);
 
         String startString = start.getHour() + ":" + start.getMinute();
         String endString = end.getHour() + ":" + end.getMinute();
@@ -195,7 +195,7 @@ public class ScheduleFetchDataTask {
         recoder.setBeginTime(begin);
         recoder.setEndTime(end);
         recoder.setType(AppInfoDto.class.getName());
-        dataFetchRecoderService.insertDataFetchRecoder(recoder);
+        dataFetchRecoderService.insert(recoder);
 
     }
 

@@ -26,7 +26,7 @@ public interface UserAppService {
     * @Param: [userId]
     * @return: java.util.List<top.cocoawork.model.UserApp>
     */
-    List<UserAppDto> selectUserAppsByUserId(String userId);
+    List<UserAppDto> selectUserAppsByUserId(Long userId);
 
     /**
     * @Description: 根据appid查询用户关注

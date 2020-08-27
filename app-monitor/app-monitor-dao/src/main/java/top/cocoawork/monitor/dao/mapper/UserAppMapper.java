@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface UserAppMapper extends BaseMapper<UserApp> {
 
-    List<UserApp> selectUserAppsByUserId(String userId);
+    List<UserApp> selectByUserId(Long userId);
 
-    List<UserApp> selectUserAppsByAppId(String appId);
+    List<UserApp> selectByAppId(String appId);
 }

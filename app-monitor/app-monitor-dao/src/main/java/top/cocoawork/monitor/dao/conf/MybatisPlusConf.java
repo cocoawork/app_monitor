@@ -25,7 +25,7 @@ public class MybatisPlusConf {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
         MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
-        scannerConfigurer.setBasePackage("top.cocoawork.dao.mapper");
+        scannerConfigurer.setBasePackage("top.cocoawork.monitor.dao.mapper");
         return scannerConfigurer;
     }
 

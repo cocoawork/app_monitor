@@ -1,54 +1,53 @@
 package top.cocoawork.monitor.web.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import top.cocoawork.monitor.service.api.AppInfoService;
 import top.cocoawork.monitor.service.api.model.AppInfoDto;
 import top.cocoawork.monitor.web.response.IResponse;
 import top.cocoawork.monitor.web.response.WebResponse;
-import top.cocoawork.monitor.web.response.WebResponseObject;
 
 @RequiresUser
 @RestController
 @RequestMapping("/appInfo")
+@Api(value = "rrr",tags = "app详细信息", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppInfoController {
 
     @Reference
     private AppInfoService appInfoService;
 
+    @ApiOperation(value = "根据id获取app详细信息")
     @GetMapping("/{appId}")
-    public IResponse getAppInfoByAppId(@PathVariable("/appId") String appId){
+    public IResponse<AppInfoDto> getAppInfoByAppId(@ApiParam(name = "appid", required = true) @PathVariable("appId") String appId){
         AppInfoDto appInfo = appInfoService.selectById(appId);
-        if (null != appInfo){
-            return WebResponseObject.ok(appInfo);
-        }else {
-            return WebResponse.fail();
-        }
+        return WebResponse.ok(appInfo);
     }
 
-
+    @ApiOperation(value = "根据bundle id获取app详细信息")
     @GetMapping("/{bundleId}")
-    public IResponse getAppInfoByBundleId(@PathVariable("/bundleId") String bundleId){
+    public IResponse<AppInfoDto> getAppInfoByBundleId(@ApiParam(name = "bundle id", required = true) @PathVariable("bundleId") String bundleId){
         AppInfoDto appInfo = appInfoService.selectByBundleId(bundleId);
-        if (null != appInfo){
-            return WebResponseObject.ok(appInfo);
-        }else {
-            return WebResponse.fail();
-        }
+        return WebResponse.ok(appInfo);
     }
 
+    @ApiOperation(value = "新增appInfo")
     @RequiresRoles("admin")
     @PostMapping("/add")
-    public IResponse addAppInfo(@RequestBody AppInfoDto appinfo){
-        boolean b = appInfoService.insert(appinfo);
-        return WebResponse.result(b);
+    public IResponse<AppInfoDto> addAppInfo(@RequestBody AppInfoDto appinfo){
+        return WebResponse.ok(appInfoService.insert(appinfo));
     }
 
+    @ApiOperation(value = "根据id删除appinfo")
     @RequiresRoles("admin")
     @DeleteMapping("/{appId}")
-    public IResponse deleteAppInfoByAppId(@PathVariable("appId") String appId){
+    public IResponse deleteAppInfoByAppId(@ApiParam(name = "appid", required = true)  @PathVariable("appId") String appId){
         boolean b = appInfoService.deleteById(appId);
         return WebResponse.result(b);
     }

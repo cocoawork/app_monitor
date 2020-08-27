@@ -21,7 +21,7 @@ dubbo:
     logger: slf4j
   protocol:
     name: dubbo
-    port: 20801
+    port: 20802
   registry:
     address: zookeeper://baiduyun-server.com:2181
     timeout: 60000

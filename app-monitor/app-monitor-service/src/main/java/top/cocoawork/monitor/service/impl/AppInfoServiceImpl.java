@@ -7,12 +7,12 @@ import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 import top.cocoawork.monitor.dao.mapper.AppInfoMapper;
 import top.cocoawork.monitor.dao.entity.AppInfo;
 import top.cocoawork.monitor.service.api.AppInfoService;
 import top.cocoawork.monitor.service.api.model.AppInfoDto;
+import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
 import top.cocoawork.monitor.util.BeanUtil;
 
 import javax.validation.constraints.Max;
@@ -23,22 +23,18 @@ import java.util.stream.Collectors;
 
 @Component
 @Service
-public class AppInfoServiceImpl implements AppInfoService {
+public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> implements AppInfoService {
 
     private Logger logger = LoggerFactory.getLogger(AppInfoServiceImpl.class);
 
-    @Autowired(required = false)
+    @Autowired
     private AppInfoMapper appInfoMapper;
 
     @Override
-    public boolean insert(@NotNull AppInfoDto appinfo) {
-        AppInfo entity = new AppInfo();
-        BeanUtil.copyProperties(appinfo, entity);
-        try {
-            return appInfoMapper.insert(entity) != 0;
-        }catch (DuplicateKeyException e) {
-            return appInfoMapper.updateById(entity) != 0;
-        }
+    public AppInfoDto insert(@NotNull AppInfoDto appInfoDto) {
+        AppInfo appInfo = dto2d(appInfoDto);
+        appInfoMapper.insert(appInfo);
+        return d2dto(appInfo);
     }
 
 
@@ -49,19 +45,17 @@ public class AppInfoServiceImpl implements AppInfoService {
     }
 
     @Override
-    public boolean update(@NotNull AppInfoDto appinfo) {
-        AppInfo appInfoEntity = new AppInfo();
-        BeanUtil.copyProperties(appinfo, appInfoEntity);
-        return appInfoMapper.updateById(appInfoEntity) != 0;
+    public AppInfoDto update(@NotNull AppInfoDto appInfoDto) {
+        AppInfo appInfo = dto2d(appInfoDto);
+        appInfoMapper.updateById(appInfo);
+        return d2dto(appInfo);
     }
 
     @Override
     public AppInfoDto selectById(@NotNull String appId) {
-        AppInfo entity = appInfoMapper.selectById(appId);
-        if (null != entity) {
-            AppInfoDto appInfo = new AppInfoDto();
-            BeanUtil.copyProperties(entity, appInfo);
-            return appInfo;
+        AppInfo appInfo = appInfoMapper.selectById(appId);
+        if (null != appInfo) {
+            return d2dto(appInfo);
         }
         return null;
     }
@@ -69,23 +63,19 @@ public class AppInfoServiceImpl implements AppInfoService {
     @Override
     public AppInfoDto selectByBundleId(@NotNull String bundleId) {
         QueryWrapper<AppInfo> wrapper = new QueryWrapper<AppInfo>().eq("bundleId", bundleId);
-        AppInfo entity = appInfoMapper.selectOne(wrapper);
-        if (null != entity) {
-            AppInfoDto appInfo = new AppInfoDto();
-            BeanUtil.copyProperties(entity, appInfo);
-            return appInfo;
+        AppInfo appInfo = appInfoMapper.selectOne(wrapper);
+        if (null != appInfo) {
+            return d2dto(appInfo);
         }
         return null;
     }
 
     @Override
-    public List<AppInfoDto> selectByPage(@Min(value = 0) Integer pageIndex, @Min(value = 0) @Max(value = 100) Integer pageSize) {
+    public List<AppInfoDto> selectPage(@Min(value = 0) Integer pageIndex, @Min(value = 0) @Max(value = 100) Integer pageSize) {
         Page<AppInfo> appInfoEntityPage = appInfoMapper.selectPage(new Page<>(pageIndex, pageSize), null).addOrder(OrderItem.desc("createAt"));
         List<AppInfo> records = appInfoEntityPage.getRecords();
-        return records.stream().map(appInfoEntity -> {
-            AppInfoDto appInfo = new AppInfoDto();
-            BeanUtil.copyProperties(appInfoEntity, appInfo);
-            return appInfo;
+        return records.stream().map(appInfo -> {
+            return d2dto(appInfo);
         }).collect(Collectors.toList());
     }
 }

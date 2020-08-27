@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import top.cocoawork.monitor.dao.mapper.UserMapper;
 import top.cocoawork.monitor.dao.entity.User;
 import top.cocoawork.monitor.dao.entity.UserRole;
-import top.cocoawork.monitor.service.api.exception.CustomServiceException;
+import top.cocoawork.monitor.service.api.exception.ServiceException;
 import top.cocoawork.monitor.service.api.exception.ExceptionEnum;
 import top.cocoawork.monitor.dao.mapper.UserRoleMapper;
 import top.cocoawork.monitor.service.api.model.UserDto;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean insertUser(@NotNull UserDto user) throws CustomServiceException {
+    public boolean insert(@NotNull UserDto user) throws ServiceException {
         User userEntity = new User();
         BeanUtil.copyProperties(user, userEntity);
         try {
@@ -39,33 +39,33 @@ public class UserServiceImpl implements UserService {
             userRoleMapper.insert(userRoleEntity);
 
         }catch (Exception e) {
-            throw new CustomServiceException(ExceptionEnum.USER_REGIST_EXCEPTION);
+            throw new ServiceException(ExceptionEnum.USER_REGIST_EXCEPTION);
         }
         user.setId(userEntity.getId());
         return true;
     }
 
     @Override
-    public boolean updateUser(@NotNull UserDto user) {
+    public boolean update(@NotNull UserDto user) {
         User userEntity = new User();
         BeanUtil.copyProperties(user, userEntity);
         return userMapper.updateById(userEntity) != 0;
     }
 
     @Override
-    public boolean deleteUserById(@NotNull String id) {
+    public boolean deleteById(@NotNull String id) {
         return userMapper.deleteById(id) != 0;
     }
 
     @Override
-    public UserDto loginByUsernameAndPasword(@NotNull String username, @NotNull  String password) throws CustomServiceException {
+    public UserDto loginByUsernameAndPasword(@NotNull String username, @NotNull  String password) throws ServiceException {
         QueryWrapper<User> wrapper = new QueryWrapper<User>().eq("username", username);
         User userEntity = userMapper.selectOne(wrapper);
         if (null == userEntity) {
-            throw new CustomServiceException(ExceptionEnum.USER_NOT_EXIST_EXCEPTION);
+            throw new ServiceException(ExceptionEnum.USER_NOT_EXIST_EXCEPTION);
         }
         if (!userEntity.getPassword().equals(password)) {
-            throw new CustomServiceException(ExceptionEnum.USER_LOGIN_EXCEPTION);
+            throw new ServiceException(ExceptionEnum.USER_LOGIN_EXCEPTION);
         }
         UserDto user = new UserDto();
         BeanUtil.copyProperties(userEntity, user);
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto selectUserByUserId(@NotNull String userId) {
+    public UserDto selectByUserId(@NotNull String userId) {
         User userEntity = userMapper.selectById(userId);
         if (null != userEntity) {
             UserDto user = new UserDto();
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDto selectUserByUserName(@NotNull String userName){
+    public UserDto selectByUserName(@NotNull String userName){
         QueryWrapper<User> qw = new QueryWrapper<User>().eq("user_name", userName);
         User userEntity = userMapper.selectOne(qw);
         if (null != userEntity) {

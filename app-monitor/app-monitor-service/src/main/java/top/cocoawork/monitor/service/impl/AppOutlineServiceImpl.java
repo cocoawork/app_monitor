@@ -15,6 +15,7 @@ import top.cocoawork.monitor.dao.entity.Genre;
 import top.cocoawork.monitor.service.api.model.AppOutlineDto;
 import top.cocoawork.monitor.service.api.model.GenreDto;
 import top.cocoawork.monitor.service.api.AppOutlineService;
+import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
 import top.cocoawork.monitor.util.BeanUtil;
 
 import javax.validation.constraints.Max;
@@ -26,7 +27,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class AppOutlineServiceImpl implements AppOutlineService {
+public class AppOutlineServiceImpl extends BaseServiceImpl<AppOutline, AppOutlineDto> implements AppOutlineService {
 
     private Logger logger = LoggerFactory.getLogger(AppOutlineServiceImpl.class);
 
@@ -38,42 +39,36 @@ public class AppOutlineServiceImpl implements AppOutlineService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public AppOutlineDto insert(@NotNull AppOutlineDto appOutline){
-        AppOutline appOutlineEntity = new AppOutline();
-        BeanUtil.copyProperties(appOutline, appOutlineEntity);
+    public AppOutlineDto insert(@NotNull AppOutlineDto appOutlineDto){
+        AppOutline appOutline = dto2d(appOutlineDto);
 
         //先插入类别
-        Set<GenreDto> genres = appOutline.getGenre();
+        Set<Genre> genres = appOutline.getGenre();
         Set<Long> genreIds = new HashSet<>(genres.size());
 
-        for (GenreDto genreDto : genres) {
-            Genre genre = new Genre();
-            BeanUtil.copyProperties(genreDto, genre);
+        for (Genre genre : genres) {
             genreMapper.insert(genre);
             genreIds.add(genre.getId());
         }
 
         String genreIdString = StringUtils.join(genreIds, ",");
-        appOutlineEntity.setGenres(genreIdString);
+        appOutline.setGenres(genreIdString);
 
-        AppOutline exist = appOutlineMapper.selectById(appOutlineEntity.getId());
+        AppOutline exist = appOutlineMapper.selectById(appOutline.getId());
         if (null == exist) {
-            appOutlineMapper.insert(appOutlineEntity);
+            appOutlineMapper.insert(appOutline);
         }else {
-            appOutlineMapper.updateById(appOutlineEntity);
+            appOutlineMapper.updateById(appOutline);
         }
 
-        BeanUtil.copyProperties(appOutlineEntity, appOutline);
-        return appOutline;
+        return d2dto(appOutline);
     }
 
     @Override
-    public AppOutlineDto update(@NotNull AppOutlineDto appOutline) {
-        AppOutline appOutlineEntity = new AppOutline();
-        BeanUtil.copyProperties(appOutline, appOutlineEntity);
-        appOutlineMapper.updateById(appOutlineEntity);
-        BeanUtil.copyProperties(appOutlineEntity, appOutline);
-        return appOutline;
+    public AppOutlineDto update(@NotNull AppOutlineDto appOutlineDto) {
+        AppOutline appOutline = dto2d(appOutlineDto);
+        appOutlineMapper.updateById(appOutline);
+        return d2dto(appOutline);
     }
 
     @Override
@@ -84,24 +79,18 @@ public class AppOutlineServiceImpl implements AppOutlineService {
 
     @Override
     public AppOutlineDto selectById(@NotNull String appId) {
-        AppOutline entity = appOutlineMapper.selectById(appId);
-        if (null != entity) {
-            AppOutlineDto appOutline = new AppOutlineDto();
-            BeanUtil.copyProperties(entity, appOutline);
-            return appOutline;
+        AppOutline appOutline = appOutlineMapper.selectById(appId);
+        if (null != appOutline) {
+            return d2dto(appOutline);
         }else {
             return null;
         }
     }
 
     @Override
-    public List<AppOutlineDto> selectByPage(String countryCode, @Min(0) Integer pageIndex, @Max(100) Integer pageSize) {
+    public List<AppOutlineDto> selectPage(String countryCode, @Min(0) Integer pageIndex, @Max(100) Integer pageSize) {
         IPage<AppOutline> list = appOutlineMapper.selectPage(new Page<>(pageIndex, pageSize), countryCode);
-        return list.getRecords().stream().map(appOutlineEntity -> {
-            AppOutlineDto appOutline = new AppOutlineDto();
-            BeanUtil.copyProperties(appOutlineEntity, appOutline);
-            return appOutline;
-        }).collect(Collectors.toList());
+        return list.getRecords().stream().map(appOutline -> d2dto(appOutline)).collect(Collectors.toList());
     }
 
     @Override

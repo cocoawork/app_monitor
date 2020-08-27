@@ -11,6 +11,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import top.cocoawork.monitor.web.conf.jwt.JwtFilter;
 
@@ -18,10 +19,8 @@ import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Configuration
 public class ShiroConfig {
-
-
 
     @Bean
     public UsernamePasswordRealm usernamePasswordRealm(){

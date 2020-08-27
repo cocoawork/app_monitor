@@ -1,7 +1,10 @@
 package top.cocoawork.monitor.common.exception;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 
+@Getter
 abstract public class AbstractCustomException extends RuntimeException implements Serializable {
 
     private Integer code;
@@ -10,6 +13,9 @@ abstract public class AbstractCustomException extends RuntimeException implement
 
     private Throwable cause;
 
+    public AbstractCustomException() {
+    }
+
     public AbstractCustomException(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
@@ -17,7 +23,7 @@ abstract public class AbstractCustomException extends RuntimeException implement
 
     public AbstractCustomException(Throwable throwable) {
         this.code = -1;
-        this.msg = "error";
+        this.msg = "System Error!";
         this.cause = throwable;
     }
 
@@ -27,4 +33,7 @@ abstract public class AbstractCustomException extends RuntimeException implement
         this.msg = msg;
         this.cause = cause;
     }
+
+
+
 }

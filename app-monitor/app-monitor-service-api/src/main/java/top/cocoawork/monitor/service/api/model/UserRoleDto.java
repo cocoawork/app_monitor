@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-public class UserRoleDto implements Serializable {
+public class UserRoleDto extends BaseModelDto implements Serializable {
 
     private Long userId;
     private String userRole;

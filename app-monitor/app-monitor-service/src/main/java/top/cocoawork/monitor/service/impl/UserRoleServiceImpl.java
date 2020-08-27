@@ -37,8 +37,8 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public UserRoleDto selectUserRoleByUserId(String userId) {
-        UserRole entity = userRoleMapper.selectUserRoleByUserId(userId);
+    public UserRoleDto selectUserRoleByUserId(Long userId) {
+        UserRole entity = userRoleMapper.selectByUserId(userId);
         if (null != entity){
             UserRoleDto userRole = new UserRoleDto();
             BeanUtil.copyProperties(entity, userRole);

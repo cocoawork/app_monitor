@@ -4,12 +4,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @ToString
-public class DataFetchRecoderDto extends BaseModelDto {
+public class DataFetchRecoderDto extends BaseModelDto implements Serializable {
     private Long id;
 
     //开始时间

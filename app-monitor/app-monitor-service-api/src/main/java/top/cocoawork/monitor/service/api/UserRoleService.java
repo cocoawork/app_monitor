@@ -11,6 +11,6 @@ public interface UserRoleService {
 
     boolean deleteUserRole(UserRoleDto userRole);
 
-    UserRoleDto selectUserRoleByUserId(String userId);
+    UserRoleDto selectUserRoleByUserId(Long userId);
 
 }

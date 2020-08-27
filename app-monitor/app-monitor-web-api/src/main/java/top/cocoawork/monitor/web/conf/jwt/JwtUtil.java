@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.util.StringUtils;
-import top.cocoawork.monitor.web.exception.CustomWebException;
+import top.cocoawork.monitor.web.exception.WebException;
 import top.cocoawork.monitor.web.exception.WebExceptionEnum;
 
 import java.util.Date;
@@ -42,7 +42,7 @@ public class JwtUtil {
 
     public static Boolean verify(String token) throws JWTVerificationException {
         if (StringUtils.isEmpty(token)) {
-            throw new CustomWebException(WebExceptionEnum.UNAVALIABLE_TOKEN_EXCEPTION);
+            throw new WebException(WebExceptionEnum.UNAVALIABLE_TOKEN_EXCEPTION);
         }
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET_KEY))
                 .build();

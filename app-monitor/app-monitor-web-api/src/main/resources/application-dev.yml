@@ -5,22 +5,6 @@ spring:
   application:
     name: app-mointor-web-api
 
-
-#dubbo:
-#  application:
-#    name: ${spring.application.name}
-#    logger: slf4j
-#  protocol:
-#    name: dubbo
-#    port: 20801
-#  registry:
-#    address: zookeeper://baiduyun-server.com:2181
-#    timeout: 60000
-#  consumer:
-#    timeout: 60000
-#    retries: 0
-#    check: false
-
 seata:
   enabled: false
   tx-service-group: my_test_tx_group
@@ -35,4 +19,3 @@ seata:
       name: file.conf
   service:
     disable-global-transaction: false
-

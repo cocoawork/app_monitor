@@ -38,7 +38,7 @@ public class UsernamePasswordRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String uid = JwtUtil.decode4UserId(principals.toString());
-        UserRoleDto userRole = userRoleService.selectUserRoleByUserId(uid);
+        UserRoleDto userRole = userRoleService.selectUserRoleByUserId(Long.parseLong(uid));
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         if (null != userRole) {
             authorizationInfo.addRole(userRole.getUserRole());
@@ -56,7 +56,7 @@ public class UsernamePasswordRealm extends AuthorizingRealm {
         } catch (JWTVerificationException e) {
             throw new AuthenticationException("token无效");
         }
-        UserDto user = userService.selectUserByUserId(userId);
+        UserDto user = userService.selectByUserId(userId);
         if (null == user) {
             throw new AuthenticationException("授权失败");
         }

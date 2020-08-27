@@ -14,7 +14,7 @@ public interface AppInfoService {
     * @Param: [appinfo]
     * @return: boolean
     */
-    boolean insert(AppInfoDto appinfo);
+    AppInfoDto insert(AppInfoDto appinfo);
 
     /**
     * @Description: 根据appid删除
@@ -28,7 +28,7 @@ public interface AppInfoService {
     * @Param: [appinfo]
     * @return: boolean
     */
-    boolean update(AppInfoDto appinfo);
+    AppInfoDto update(AppInfoDto appinfo);
 
     /**
     * @Description: 根据appId查询
@@ -49,6 +49,6 @@ public interface AppInfoService {
     * @Param: [页码（从0开始）, 每页数据个数]
     * @return: java.util.List<top.cocoawork.model.AppInfo>
     */
-    List<AppInfoDto> selectByPage(Integer pageIndex, Integer pageSize);
+    List<AppInfoDto> selectPage(Integer pageIndex, Integer pageSize);
 
 }

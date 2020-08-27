@@ -1,6 +1,6 @@
 package top.cocoawork.monitor.service.api;
 
-import top.cocoawork.monitor.service.api.exception.CustomServiceException;
+import top.cocoawork.monitor.service.api.exception.ServiceException;
 import top.cocoawork.monitor.service.api.model.UserDto;
 
 public interface UserService {
@@ -10,41 +10,41 @@ public interface UserService {
     * @Param: [user]
     * @return: boolean
     */
-    boolean insertUser(UserDto user) throws CustomServiceException;
+    boolean insert(UserDto user) throws ServiceException;
 
     /**
     * @Description: 更新用户信息
     * @Param: [user]
     * @return: boolean
     */
-    boolean updateUser(UserDto user);
+    boolean update(UserDto user);
 
     /**
     * @Description: 根据id删除用户
     * @Param: [id]
     * @return: boolean
     */
-    boolean deleteUserById(String id);
+    boolean deleteById(String id);
 
     /**
     * @Description: 根据用户名密码查找用户
     * @Param: [username, password]
     * @return: top.cocoawork.model.User
     */
-    UserDto loginByUsernameAndPasword(String username, String password) throws CustomServiceException;
+    UserDto loginByUsernameAndPasword(String username, String password) throws ServiceException;
 
     /**
     * @Description: 根据userID查询user
     * @Param: [userId]
     * @return: top.cocoawork.model.User
     */
-    UserDto selectUserByUserId(String userId);
+    UserDto selectByUserId(String userId);
 
     /**
     * @Description: 根据用户名查找用户
     * @Param: 用户名
     * @return: top.cocoawork.model.User
     */
-    UserDto selectUserByUserName(String userName);
+    UserDto selectByUserName(String userName);
 
 }

@@ -11,12 +11,12 @@
     </resultMap>
 
 
-    <select id="selectUserAppsByUserId" resultMap="baseResultMap" >
-        select * from t_user_app where user_id = #{userId}
+    <select id="selectByUserId" resultMap="baseResultMap" >
+        select * from t_user_app where user_id = #{userId} and is_delete = 0
     </select>
 
-    <select id="selectUserAppsByAppId" resultMap="baseResultMap" >
-        select * from t_user_app where app_id = #{appId}
+    <select id="selectByAppId" resultMap="baseResultMap" >
+        select * from t_user_app where app_id = #{appId} and is_delete = 0
     </select>
 
 </mapper>

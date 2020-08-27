@@ -7,15 +7,12 @@ import java.util.List;
 
 public interface GenreService {
 
-    boolean insertGenre(GenreDto genre) throws Exception;
+    GenreDto insert(GenreDto genre) throws Exception;
 
-    boolean deleteGenreByAppId(String appId);
+    boolean deleteById(String appId);
 
-    boolean updateGenre(GenreDto genre);
+    GenreDto update(GenreDto genre);
 
-    GenreDto selectGenreByGenreId(String genreId);
-
-    List<GenreDto> selectGenresByPage(Integer pageIndex, Integer pageNum);
-
+    GenreDto selectById(String genreId);
 
 }

@@ -6,24 +6,21 @@ import top.cocoawork.monitor.dao.mapper.CountryMapper;
 import top.cocoawork.monitor.dao.entity.Country;
 import top.cocoawork.monitor.service.api.model.CountryDto;
 import top.cocoawork.monitor.service.api.CountryService;
+import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
 import top.cocoawork.monitor.util.BeanUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CountryServiceImpl implements CountryService {
+public class CountryServiceImpl extends BaseServiceImpl<Country, CountryDto> implements CountryService {
 
-    @Autowired(required = false)
+    @Autowired
     private CountryMapper countryMapper;
 
     @Override
-    public List<CountryDto> selectAllCountry() {
-        List<Country> countryEntities = countryMapper.selectList(null);
-        return countryEntities.stream().map(countryEntity -> {
-            CountryDto country = new CountryDto();
-            BeanUtil.copyProperties(countryEntity, country);
-            return country;
-        }).collect(Collectors.toList());
+    public List<CountryDto> selectAll() {
+        List<Country> countries = countryMapper.selectList(null);
+        return countries.stream().map(country -> d2dto(country)).collect(Collectors.toList());
     }
 }

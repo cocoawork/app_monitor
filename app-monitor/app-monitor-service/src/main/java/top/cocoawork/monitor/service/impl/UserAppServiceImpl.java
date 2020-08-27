@@ -39,8 +39,8 @@ public class UserAppServiceImpl implements UserAppService {
     }
 
     @Override
-    public List<UserAppDto> selectUserAppsByUserId(@NotNull String userId) {
-        List<UserApp> userAppEntities = userAppMapper.selectUserAppsByUserId(userId);
+    public List<UserAppDto> selectUserAppsByUserId(@NotNull Long userId) {
+        List<UserApp> userAppEntities = userAppMapper.selectByUserId(userId);
         return userAppEntities.stream().map(userAppEntity -> {
             UserAppDto userApp = new UserAppDto();
             BeanUtil.copyProperties(userAppEntity, userApp);

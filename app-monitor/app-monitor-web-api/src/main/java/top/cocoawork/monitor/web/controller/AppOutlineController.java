@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import top.cocoawork.monitor.service.api.model.AppOutlineDto;
 import top.cocoawork.monitor.web.response.IResponse;
 import top.cocoawork.monitor.web.response.WebResponse;
-import top.cocoawork.monitor.web.response.WebResponseObject;
 import top.cocoawork.monitor.service.api.AppOutlineService;
 
 import java.util.List;
@@ -23,19 +22,16 @@ public class AppOutlineController {
     @GetMapping("/{appId}")
     public IResponse getAppOutline(@PathVariable("appId") String appId){
         AppOutlineDto appOutline = appOutlineService.selectById(appId);
-        if (null != appOutline){
-            return WebResponseObject.ok(appOutline);
-        }else {
-            return WebResponse.fail();
-        }
+        return WebResponse.ok(appOutline);
+
     }
 
     @GetMapping
     public IResponse getAppOutline(@RequestParam(value = "pageIndex", defaultValue = "0")Integer pageIndex,
                                    @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                                    @RequestParam(value = "country",required = false) String country){
-        List<AppOutlineDto> appOutlines = appOutlineService.selectByPage(country, pageIndex, pageSize);
-        return WebResponseObject.ok(appOutlines);
+        List<AppOutlineDto> appOutlines = appOutlineService.selectPage(country, pageIndex, pageSize);
+        return WebResponse.ok(appOutlines);
     }
 
 

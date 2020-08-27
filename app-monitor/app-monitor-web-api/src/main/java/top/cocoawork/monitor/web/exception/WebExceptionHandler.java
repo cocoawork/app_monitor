@@ -3,7 +3,7 @@ package top.cocoawork.monitor.web.exception;
 import org.apache.dubbo.rpc.RpcException;
 import org.apache.shiro.ShiroException;
 import org.springframework.web.bind.annotation.*;
-import top.cocoawork.monitor.service.api.exception.CustomServiceException;
+import top.cocoawork.monitor.service.api.exception.ServiceException;
 import top.cocoawork.monitor.web.response.IResponse;
 import top.cocoawork.monitor.web.response.WebResponse;
 
@@ -18,15 +18,15 @@ public class WebExceptionHandler {
         return new WebResponse(code, msg);
     }
 
-    @ExceptionHandler(value = CustomWebException.class)
-    public IResponse exceptionHandler(CustomWebException e) {
+    @ExceptionHandler(value = WebException.class)
+    public IResponse exceptionHandler(WebException e) {
         Integer code = e.getCode();
         String msg = e.getMsg();
         return new WebResponse(code, msg);
     }
 
-    @ExceptionHandler(value = CustomServiceException.class)
-    public IResponse exceptionHandler(CustomServiceException e) {
+    @ExceptionHandler(value = ServiceException.class)
+    public IResponse exceptionHandler(ServiceException e) {
         Integer code = e.getCode();
         String msg = e.getMessage();
         return new WebResponse(code, msg);

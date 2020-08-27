@@ -12,6 +12,6 @@ public interface CountryService {
     * @Param: []
     * @return: java.util.List<top.cocoawork.model.Country>
     */
-    List<CountryDto> selectAllCountry();
+    List<CountryDto> selectAll();
 
 }

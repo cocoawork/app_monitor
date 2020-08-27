@@ -60,8 +60,6 @@
             <scope>runtime</scope>
         </dependency>
 
-
-
         <dependency>
             <artifactId>app-monitor-common</artifactId>
             <groupId>top.cocoawork</groupId>

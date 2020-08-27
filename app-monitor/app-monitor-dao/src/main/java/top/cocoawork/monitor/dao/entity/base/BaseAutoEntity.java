@@ -17,7 +17,7 @@ public class BaseAutoEntity {
     private LocalDateTime updateAt;
 
     @TableLogic
-    @TableField(value = "is_delete")
+    @TableField(value = "is_delete", select = false)
     private Integer delete;
 
 }

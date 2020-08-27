@@ -23,7 +23,7 @@ dubbo:
     logger: slf4j
   protocol:
     name: dubbo
-    port: 20801
+    port: 20802
   registry:
     protocol: zookeeper
     address: baiduyun-server.com:2181
