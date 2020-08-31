@@ -16,11 +16,11 @@ import top.cocoawork.monitor.fetcher.service.AppDataFetchService;
 import top.cocoawork.monitor.fetcher.service.RemoteEmailService;
 import top.cocoawork.monitor.service.api.AppInfoService;
 import top.cocoawork.monitor.service.api.AppOutlineService;
-import top.cocoawork.monitor.service.api.UserAppService;
+import top.cocoawork.monitor.service.api.UserFavourService;
 import top.cocoawork.monitor.service.api.UserService;
 import top.cocoawork.monitor.service.api.model.AppInfoDto;
 import top.cocoawork.monitor.service.api.model.AppOutlineDto;
-import top.cocoawork.monitor.service.api.model.UserAppDto;
+import top.cocoawork.monitor.service.api.model.UserFavourDto;
 import top.cocoawork.monitor.service.api.model.UserDto;
 
 
@@ -45,7 +45,7 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
     private AppInfoService appInfoService;
 
     @Reference
-    private UserAppService userAppService;
+    private UserFavourService userAppService;
 
     @Reference
     private UserService userService;
@@ -151,8 +151,8 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
                 //1.根据appid查找关注的用户
                 //2.根据userid查找用户email
                 //3.根据email想用户发送邮件提醒更新
-                List<UserAppDto> userApps = userAppService.selectUserAppsByAppId(appId);
-                for (UserAppDto userApp : userApps) {
+                List<UserFavourDto> userApps = userAppService.selectUserAppsByAppId(appId);
+                for (UserFavourDto userApp : userApps) {
 
                     String userId = userApp.getUserId();
                     UserDto user = userService.selectByUserId(userId);

@@ -1,37 +1,39 @@
 package top.cocoawork.monitor.service.api;
 
 
-import top.cocoawork.monitor.service.api.model.UserAppDto;
+import top.cocoawork.monitor.service.api.model.UserFavourDto;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public interface UserAppService {
+public interface UserFavourService {
 
     /**
     * @Description: 添加用户关注
     * @Param: [userApp]
     * @return: boolean
     */
-    boolean inserUserApp(UserAppDto userApp);
+    boolean insert(@Valid @NotNull(message = "插入对象不能为空") UserFavourDto userApp);
 
     /**
     * @Description: 删除用户关注
     * @Param: [userApp]
     * @return: boolean
     */
-    boolean deleteUserApp(UserAppDto userApp);
+    boolean deleteById(UserFavourDto userApp);
 
     /**
     * @Description: 根据用户id查询关注列表
     * @Param: [userId]
     * @return: java.util.List<top.cocoawork.model.UserApp>
     */
-    List<UserAppDto> selectUserAppsByUserId(Long userId);
+    List<UserFavourDto> selectUserAppsByUserId(Long userId);
 
     /**
     * @Description: 根据appid查询用户关注
     * @Param: [appId]
     * @return: java.util.List<top.cocoawork.model.UserApp>
     */
-    List<UserAppDto> selectUserAppsByAppId(String appId);
+    List<UserFavourDto> selectUserAppsByAppId(String appId);
 }

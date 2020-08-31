@@ -2,48 +2,45 @@ package top.cocoawork.monitor.service.impl;
 
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import top.cocoawork.monitor.dao.entity.User;
 import top.cocoawork.monitor.dao.mapper.UserRoleMapper;
+import top.cocoawork.monitor.service.api.model.UserDto;
 import top.cocoawork.monitor.service.api.model.UserRoleDto;
 import top.cocoawork.monitor.dao.entity.UserRole;
 import top.cocoawork.monitor.service.api.UserRoleService;
+import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
 import top.cocoawork.monitor.util.BeanUtil;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
+@Validated
 @Service
-public class UserRoleServiceImpl implements UserRoleService {
+public class UserRoleServiceImpl extends BaseServiceImpl<UserRole, UserRoleDto> implements UserRoleService {
 
     @Autowired(required = false)
     private UserRoleMapper userRoleMapper;
 
     @Override
-    public boolean insertUserRole(@NotNull UserRoleDto userRole) {
-        UserRole entity = new UserRole();
-        BeanUtil.copyProperties(userRole, entity);
-        int insert = userRoleMapper.insert(entity);
-        return insert != 0;
+    public UserRoleDto insert(@Valid @NotNull(message = "插入对象不能为空") UserRoleDto userRoleDto) {
+        UserRole userRole = dto2d(userRoleDto);
+        userRoleMapper.insert(userRole);
+        return d2dto(userRole);
     }
 
     @Override
-    public boolean updateUserRole(@NotNull UserRoleDto userRole) {
-
-        return false;
+    public UserRoleDto update(@NotNull(message = "更新对象不能为空") UserRoleDto userRoleDto) {
+        UserRole userRole = dto2d(userRoleDto);
+        userRoleMapper.updateById(userRole);
+        return d2dto(userRole);
     }
 
 
     @Override
-    public boolean deleteUserRole(@NotNull UserRoleDto userRole) {
-        return false;
+    public boolean delete(@NotNull(message = "id不能为空") Long id) {
+        return userRoleMapper.deleteById(id) != 0;
     }
 
-    @Override
-    public UserRoleDto selectUserRoleByUserId(Long userId) {
-        UserRole entity = userRoleMapper.selectByUserId(userId);
-        if (null != entity){
-            UserRoleDto userRole = new UserRoleDto();
-            BeanUtil.copyProperties(entity, userRole);
-            return userRole;
-        }
-        return null;
-    }
 }

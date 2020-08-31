@@ -5,13 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.cocoawork.monitor.dao.entity.base.BaseAutoEntity;
+import top.cocoawork.monitor.dao.entity.base.BaseAutoIdEntity;
 
 @Data
 @NoArgsConstructor
-@TableName("t_user_app")
-public class UserApp extends BaseAutoEntity {
-
-    private String userId;
+@TableName("t_user_favour")
+public class UserFavour extends BaseAutoIdEntity {
+    private Long userId;
     private String appId;
 
     @TableField(select = false)

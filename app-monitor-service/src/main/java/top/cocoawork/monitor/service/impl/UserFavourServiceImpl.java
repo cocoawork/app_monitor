@@ -4,26 +4,28 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import top.cocoawork.monitor.dao.mapper.UserAppMapper;
-import top.cocoawork.monitor.dao.entity.UserApp;
-import top.cocoawork.monitor.service.api.model.UserAppDto;
-import top.cocoawork.monitor.service.api.UserAppService;
+import org.springframework.validation.annotation.Validated;
+import top.cocoawork.monitor.dao.mapper.UserFavourMapper;
+import top.cocoawork.monitor.dao.entity.UserFavour;
+import top.cocoawork.monitor.service.api.model.UserFavourDto;
+import top.cocoawork.monitor.service.api.UserFavourService;
 import top.cocoawork.monitor.util.BeanUtil;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @Service
-public class UserAppServiceImpl implements UserAppService {
+public class UserFavourServiceImpl implements UserFavourService {
 
     @Autowired(required = false)
-    private UserAppMapper userAppMapper;
+    private UserFavourMapper userAppMapper;
 
     @Override
-    public boolean inserUserApp(@NotNull UserAppDto userApp) {
+    public boolean insert(@NotNull UserFavourDto userApp) {
 
-        UserApp userAppEntity = new UserApp();
+        UserFavour userAppEntity = new UserFavour();
         BeanUtil.copyProperties(userApp, userAppEntity);
         userAppMapper.insert(userAppEntity);
         userApp.setAppId(userAppEntity.getAppId());
@@ -31,29 +33,29 @@ public class UserAppServiceImpl implements UserAppService {
     }
 
     @Override
-    public boolean deleteUserApp(@NotNull UserAppDto userApp) {
-        Wrapper<UserApp> wrapper = new QueryWrapper<UserApp>().eq("app_id", userApp.getAppId())
+    public boolean deleteById(@NotNull UserFavourDto userApp) {
+        Wrapper<UserFavour> wrapper = new QueryWrapper<UserFavour>().eq("app_id", userApp.getAppId())
                                                                         .eq("user_id", userApp.getUserId());
         int delete = userAppMapper.delete(wrapper);
         return delete != 0;
     }
 
     @Override
-    public List<UserAppDto> selectUserAppsByUserId(@NotNull Long userId) {
-        List<UserApp> userAppEntities = userAppMapper.selectByUserId(userId);
+    public List<UserFavourDto> selectUserAppsByUserId(@NotNull Long userId) {
+        List<UserFavour> userAppEntities = userAppMapper.selectByUserId(userId);
         return userAppEntities.stream().map(userAppEntity -> {
-            UserAppDto userApp = new UserAppDto();
+            UserFavourDto userApp = new UserFavourDto();
             BeanUtil.copyProperties(userAppEntity, userApp);
             return userApp;
         }).collect(Collectors.toList());
     }
 
     @Override
-    public List<UserAppDto> selectUserAppsByAppId(@NotNull String appId) {
-        QueryWrapper<UserApp> queryWrapper = new QueryWrapper<UserApp>().eq("app_id", appId);
-        List<UserApp> userAppEntities = userAppMapper.selectList(queryWrapper);
+    public List<UserFavourDto> selectUserAppsByAppId(@NotNull String appId) {
+        QueryWrapper<UserFavour> queryWrapper = new QueryWrapper<UserFavour>().eq("app_id", appId);
+        List<UserFavour> userAppEntities = userAppMapper.selectList(queryWrapper);
         return userAppEntities.stream().map(userAppEntity -> {
-            UserAppDto userApp = new UserAppDto();
+            UserFavourDto userApp = new UserFavourDto();
             BeanUtil.copyProperties(userAppEntity, userApp);
             return userApp;
         }).collect(Collectors.toList());

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MybatisPlusConf {
+public class MybatisPlusConfig {
 
     @Bean
     public PaginationInterceptor paginationInterceptor() {

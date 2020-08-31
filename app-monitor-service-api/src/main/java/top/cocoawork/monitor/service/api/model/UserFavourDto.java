@@ -7,8 +7,11 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-public class UserAppDto extends BaseModelDto implements Serializable {
-    private String userId;
+public class UserFavourDto extends BaseModelDto implements Serializable {
+
+    private Long userId;
+
     private String appId;
+
     private AppOutlineDto appOutline;
 }

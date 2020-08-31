@@ -4,13 +4,15 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.cocoawork.monitor.dao.entity.base.BaseAutoEntity;
+import top.cocoawork.monitor.dao.entity.base.BaseAutoIdEntity;
 
 @Data
 @NoArgsConstructor
 @TableName("t_user_role")
-public class UserRole extends BaseAutoEntity {
+public class UserRole extends BaseAutoIdEntity {
 
-    private Long userId;
-    private String userRole;
+    private String role;
+    private String tag;
+    private String menu;
 
 }

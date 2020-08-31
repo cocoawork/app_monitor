@@ -8,6 +8,11 @@ import top.cocoawork.monitor.web.response.IResponse;
 
 public class WebException extends AbstractCustomException implements IResponse {
 
+
+    public WebException(Integer code, String msg) {
+        super(code, msg);
+    }
+
     public WebException(ExceptionEnum exceptionConstant){
         super(exceptionConstant.getCode(), exceptionConstant.getMsg());
     }

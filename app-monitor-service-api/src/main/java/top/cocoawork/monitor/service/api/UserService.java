@@ -1,7 +1,11 @@
 package top.cocoawork.monitor.service.api;
 
+import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.service.api.exception.ServiceException;
 import top.cocoawork.monitor.service.api.model.UserDto;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 public interface UserService {
 
@@ -10,41 +14,42 @@ public interface UserService {
     * @Param: [user]
     * @return: boolean
     */
-    boolean insert(UserDto user) throws ServiceException;
+    UserDto insert(@Valid @NotNull UserDto user) throws ServiceException;
 
     /**
     * @Description: 更新用户信息
     * @Param: [user]
     * @return: boolean
     */
-    boolean update(UserDto user);
+    UserDto update(@NotNull(message = "更新对象不能为空") UserDto user);
 
     /**
     * @Description: 根据id删除用户
     * @Param: [id]
     * @return: boolean
     */
-    boolean deleteById(String id);
+    boolean deleteById(@NotNull(message = "user id不能为空")String id);
 
     /**
     * @Description: 根据用户名密码查找用户
     * @Param: [username, password]
     * @return: top.cocoawork.model.User
     */
-    UserDto loginByUsernameAndPasword(String username, String password) throws ServiceException;
+    UserDto loginByUsernameAndPasword(@NotNull(message = "用户名不能为空") String username,
+                                      @NotNull(message = "密码不能为空")  String password) throws ServiceException;
 
     /**
     * @Description: 根据userID查询user
     * @Param: [userId]
     * @return: top.cocoawork.model.User
     */
-    UserDto selectByUserId(String userId);
+    UserDto selectByUserId(@NotNull(message = "user id不能为空")Long userId);
 
     /**
     * @Description: 根据用户名查找用户
     * @Param: 用户名
     * @return: top.cocoawork.model.User
     */
-    UserDto selectByUserName(String userName);
+    UserDto selectByUserName(@NotNull(message = "用户名不能为空") String userName);
 
 }

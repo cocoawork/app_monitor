@@ -49,7 +49,7 @@ public class ShiroConfig {
         Map<String, String> filterMap = new HashMap(2);
         filterMap.put("/**", "jwt");
         //401无需验证
-        filterMap.put("/handlerUnAuthorized", "anon");
+        filterMap.put("/user/unAuthorized", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilterFactoryBean;

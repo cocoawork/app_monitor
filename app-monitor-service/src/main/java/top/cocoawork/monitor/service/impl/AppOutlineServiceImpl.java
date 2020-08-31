@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.dao.mapper.AppOutlineMapper;
 import top.cocoawork.monitor.dao.mapper.GenreMapper;
 import top.cocoawork.monitor.dao.entity.AppOutline;
@@ -18,6 +19,7 @@ import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
 import top.cocoawork.monitor.util.BeanUtil;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -26,6 +28,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Validated
 @Service
 public class AppOutlineServiceImpl extends BaseServiceImpl<AppOutline, AppOutlineDto> implements AppOutlineService {
 
@@ -39,7 +42,7 @@ public class AppOutlineServiceImpl extends BaseServiceImpl<AppOutline, AppOutlin
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public AppOutlineDto insert(@NotNull AppOutlineDto appOutlineDto){
+    public AppOutlineDto insert(@Valid @NotNull(message = "插入对象不能为空") AppOutlineDto appOutlineDto){
         AppOutline appOutline = dto2d(appOutlineDto);
 
         //先插入类别
@@ -65,20 +68,20 @@ public class AppOutlineServiceImpl extends BaseServiceImpl<AppOutline, AppOutlin
     }
 
     @Override
-    public AppOutlineDto update(@NotNull AppOutlineDto appOutlineDto) {
+    public AppOutlineDto update(@NotNull(message = "更新对象不能为空") AppOutlineDto appOutlineDto) {
         AppOutline appOutline = dto2d(appOutlineDto);
         appOutlineMapper.updateById(appOutline);
         return d2dto(appOutline);
     }
 
     @Override
-    public boolean deleteById(@NotNull String appId) {
+    public boolean deleteById(@NotNull(message = "id不能为空") String appId) {
         return appOutlineMapper.deleteById(appId) != 0;
     }
 
 
     @Override
-    public AppOutlineDto selectById(@NotNull String appId) {
+    public AppOutlineDto selectById(@NotNull(message = "id不能为空")  String appId) {
         AppOutline appOutline = appOutlineMapper.selectById(appId);
         if (null != appOutline) {
             return d2dto(appOutline);
@@ -88,7 +91,7 @@ public class AppOutlineServiceImpl extends BaseServiceImpl<AppOutline, AppOutlin
     }
 
     @Override
-    public List<AppOutlineDto> selectPage(String countryCode, @Min(0) Integer pageIndex, @Max(100) Integer pageSize) {
+    public List<AppOutlineDto> selectPage(String countryCode, @Min(0) Integer pageIndex, @Min(1) @Max(100) Integer pageSize) {
         IPage<AppOutline> list = appOutlineMapper.selectPage(new Page<>(pageIndex, pageSize), countryCode);
         return list.getRecords().stream().map(appOutline -> d2dto(appOutline)).collect(Collectors.toList());
     }

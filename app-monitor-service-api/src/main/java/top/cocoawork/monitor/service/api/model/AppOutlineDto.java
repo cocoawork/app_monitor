@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +15,8 @@ import java.util.Set;
 @ToString
 public class AppOutlineDto extends BaseModelDto implements Serializable {
 
-
+    @NotBlank(message = "app id不能为空")
+    @NotNull(message = "app id不能为空")
     private String id;
     private String kind;
 

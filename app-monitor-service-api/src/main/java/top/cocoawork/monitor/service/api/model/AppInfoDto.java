@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,6 +17,8 @@ import java.util.List;
 @ApiModel(value = "AppInfoDto", description = "app详细信息")
 public class AppInfoDto extends BaseModelDto implements Serializable {
 
+    @NotBlank(message = "app id不能为空")
+    @NotNull(message = "app id不能为空")
     @ApiModelProperty(value = "appid")
     private String appId;
 

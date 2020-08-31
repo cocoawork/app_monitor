@@ -26,29 +26,9 @@ dubbo:
     port: 20802
   registry:
     protocol: zookeeper
-    address: baiduyun-server.com:2181
+    address: 127.0.0.1:2181
     timeout: 120000
+    register: true
   provider:
     timeout: 60000
     retries: 0
-  consumer:
-    timeout: 6000
-    retries: 0
-    actives: 200
-
-seata:
-  enabled: false
-  tx-service-group: my_test_tx_group
-  application-id: app-monitor-service
-  config:
-    type: zk
-    file:
-      name: file.conf
-    zk:
-      server-addr: local-server1.com:2181
-
-  registry:
-    type: file
-    file:
-      name: file.conf
-

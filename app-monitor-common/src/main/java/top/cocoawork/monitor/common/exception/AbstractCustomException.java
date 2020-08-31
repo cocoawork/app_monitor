@@ -7,9 +7,9 @@ import java.io.Serializable;
 @Getter
 abstract public class AbstractCustomException extends RuntimeException implements Serializable {
 
-    private Integer code;
+    private Integer code = -1;
 
-    private String msg;
+    private String msg = "unknown error!";
 
     private Throwable cause;
 
@@ -22,8 +22,6 @@ abstract public class AbstractCustomException extends RuntimeException implement
     }
 
     public AbstractCustomException(Throwable throwable) {
-        this.code = -1;
-        this.msg = "System Error!";
         this.cause = throwable;
     }
 

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.dao.mapper.AppInfoMapper;
 import top.cocoawork.monitor.dao.entity.AppInfo;
 import top.cocoawork.monitor.service.api.AppInfoService;
@@ -15,13 +16,18 @@ import top.cocoawork.monitor.service.api.model.AppInfoDto;
 import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
 import top.cocoawork.monitor.util.BeanUtil;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+/**
+ * @author cocoawork
+ */
+
+@Validated
 @Service
 public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> implements AppInfoService {
 
@@ -31,7 +37,7 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> imp
     private AppInfoMapper appInfoMapper;
 
     @Override
-    public AppInfoDto insert(@NotNull AppInfoDto appInfoDto) {
+    public AppInfoDto insert(@Valid @NotNull(message = "插入对象不能为空") AppInfoDto appInfoDto) {
         AppInfo appInfo = dto2d(appInfoDto);
         appInfoMapper.insert(appInfo);
         return d2dto(appInfo);
@@ -39,20 +45,20 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> imp
 
 
     @Override
-    public boolean deleteById(@NotNull String appId) {
+    public boolean deleteById(@NotNull(message = "id不能为空") String appId) {
         int delete = appInfoMapper.deleteById(appId);
         return delete != 0;
     }
 
     @Override
-    public AppInfoDto update(@NotNull AppInfoDto appInfoDto) {
+    public AppInfoDto update(@NotNull(message = "更新对象不能为空") AppInfoDto appInfoDto) {
         AppInfo appInfo = dto2d(appInfoDto);
         appInfoMapper.updateById(appInfo);
         return d2dto(appInfo);
     }
 
     @Override
-    public AppInfoDto selectById(@NotNull String appId) {
+    public AppInfoDto selectById(@NotNull(message = "id不能为空") String appId) {
         AppInfo appInfo = appInfoMapper.selectById(appId);
         if (null != appInfo) {
             return d2dto(appInfo);
@@ -61,7 +67,7 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> imp
     }
 
     @Override
-    public AppInfoDto selectByBundleId(@NotNull String bundleId) {
+    public AppInfoDto selectByBundleId(@NotNull(message = "bundle id不能为空") String bundleId) {
         QueryWrapper<AppInfo> wrapper = new QueryWrapper<AppInfo>().eq("bundleId", bundleId);
         AppInfo appInfo = appInfoMapper.selectOne(wrapper);
         if (null != appInfo) {
@@ -71,7 +77,7 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> imp
     }
 
     @Override
-    public List<AppInfoDto> selectPage(@Min(value = 0) Integer pageIndex, @Min(value = 0) @Max(value = 100) Integer pageSize) {
+    public List<AppInfoDto> selectPage(@Min(0) Integer pageIndex, @Min(1) @Max(100) Integer pageSize) {
         Page<AppInfo> appInfoEntityPage = appInfoMapper.selectPage(new Page<>(pageIndex, pageSize), null).addOrder(OrderItem.desc("createAt"));
         List<AppInfo> records = appInfoEntityPage.getRecords();
         return records.stream().map(appInfo -> {

@@ -9,15 +9,16 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import top.cocoawork.monitor.common.constant.ApplicationConstant;
 import top.cocoawork.monitor.service.api.AppInfoService;
 import top.cocoawork.monitor.service.api.model.AppInfoDto;
 import top.cocoawork.monitor.web.response.IResponse;
 import top.cocoawork.monitor.web.response.WebResponse;
 
-@RequiresUser
+@RequiresRoles(ApplicationConstant.USER_ROLE_USER)
 @RestController
 @RequestMapping("/appInfo")
-@Api(value = "rrr",tags = "app详细信息", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(tags = "app详细信息", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppInfoController {
 
     @Reference
@@ -37,15 +38,15 @@ public class AppInfoController {
         return WebResponse.ok(appInfo);
     }
 
+    @RequiresRoles(ApplicationConstant.USER_ROLE_ADMIN)
     @ApiOperation(value = "新增appInfo")
-    @RequiresRoles("admin")
     @PostMapping("/add")
     public IResponse<AppInfoDto> addAppInfo(@RequestBody AppInfoDto appinfo){
         return WebResponse.ok(appInfoService.insert(appinfo));
     }
 
     @ApiOperation(value = "根据id删除appinfo")
-    @RequiresRoles("admin")
+    @RequiresRoles(ApplicationConstant.USER_ROLE_ADMIN)
     @DeleteMapping("/{appId}")
     public IResponse deleteAppInfoByAppId(@ApiParam(name = "appid", required = true)  @PathVariable("appId") String appId){
         boolean b = appInfoService.deleteById(appId);

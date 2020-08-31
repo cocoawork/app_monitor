@@ -19,12 +19,14 @@ public class JwtUtil {
 
     private static final String USERID_KEY = "USER_ID";
 
-    private static final Long EXPIRE_TIME = 10 * 60 * 1000L;
+    private static final String USER_ROLE_KEY = "USER_ROLE";
+
+    private static final Long EXPIRE_TIME = 10 * 60 * 1000L * 100000L;
 
     private static final String SECRET_KEY = "*03zfxcgEv.bn%Aga1SD_+";
 
 
-    public static String genreToken(Long userId, String userName, String password) {
+    public static String genreToken(Long userId, String userName, String role) {
         Date expired = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Map<String, Object> header = new HashMap<String,Object>();
         header.put("type", "JWT");
@@ -34,6 +36,7 @@ public class JwtUtil {
                 .withHeader(header)
                 .withClaim(USERID_KEY, userId)
                 .withClaim(USERNAME_KEY, userName)
+                .withClaim(USER_ROLE_KEY, role)
                 .withIssuedAt(new Date())
                 .withExpiresAt(expired)
                 .sign(Algorithm.HMAC256(SECRET_KEY));
@@ -52,18 +55,16 @@ public class JwtUtil {
 
     }
 
-    public static String decode4UserId(String token) throws JWTDecodeException {
-
-        DecodedJWT decodedjwt = JWT.decode(token);
-        return decodedjwt.getClaim(USERID_KEY).asString();
-
+    public static Long decode4UserId(String token) throws JWTDecodeException {
+        return JWT.require(Algorithm.HMAC256(SECRET_KEY)).build().verify(token).getClaim(USERID_KEY).asLong();
     }
 
     public static String decode4UserName(String token) throws JWTDecodeException {
+        return JWT.require(Algorithm.HMAC256(SECRET_KEY)).build().verify(token).getClaim(USERNAME_KEY).asString();
+    }
 
-        DecodedJWT decodedjwt = JWT.decode(token);
-        return decodedjwt.getClaim(USERNAME_KEY).asString();
-
+    public static String decode4UserRole(String token) throws JWTDecodeException {
+        return JWT.require(Algorithm.HMAC256(SECRET_KEY)).build().verify(token).getClaim(USER_ROLE_KEY).asString();
     }
 
 }

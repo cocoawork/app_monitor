@@ -7,6 +7,6 @@ import top.cocoawork.monitor.dao.entity.UserRole;
 @Mapper
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 
-    UserRole selectByUserId(Long userId);
+
 
 }

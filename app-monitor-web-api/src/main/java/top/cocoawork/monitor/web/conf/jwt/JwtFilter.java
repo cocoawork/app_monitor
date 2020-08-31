@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
-import top.cocoawork.monitor.common.constant.Constant;
+import top.cocoawork.monitor.common.constant.ApplicationConstant;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -22,7 +22,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
-        String token = servletRequest.getHeader(Constant.REQUEST_HEADER_TOKEN_KEY);
+        String token = servletRequest.getHeader(ApplicationConstant.REQUEST_HEADER_TOKEN_KEY);
         boolean isEmpty = StringUtils.isEmpty(token);
         return !isEmpty;
     }
@@ -30,7 +30,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws AuthenticationException {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
-        String token = servletRequest.getHeader(Constant.REQUEST_HEADER_TOKEN_KEY);
+        String token = servletRequest.getHeader(ApplicationConstant.REQUEST_HEADER_TOKEN_KEY);
         JwtToken jwtToken = new JwtToken(token);
         getSubject(request, response).login(jwtToken);
         return true;
@@ -68,7 +68,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         try {
             HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
             //登陆过程失败请求重定向未授权==》handlerUnAuthorized
-            httpServletResponse.sendRedirect("/handlerUnAuthorized");
+            httpServletResponse.sendRedirect("/user/unAuthorized");
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
