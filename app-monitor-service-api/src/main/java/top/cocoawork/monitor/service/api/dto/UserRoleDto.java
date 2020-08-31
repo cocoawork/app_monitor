@@ -1,4 +1,4 @@
-package top.cocoawork.monitor.service.api.model;
+package top.cocoawork.monitor.service.api.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,6 @@ public class UserRoleDto extends BaseModelDto implements Serializable {
     private Long id;
 
     @Size(min = 1, max = 50)
-    @NotNull(message = "角色名称不能为空")
     @NotBlank(message = "角色名称不能为空")
     private String role;
 

@@ -1,4 +1,4 @@
-package top.cocoawork.monitor.service.api.model;
+package top.cocoawork.monitor.service.api.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

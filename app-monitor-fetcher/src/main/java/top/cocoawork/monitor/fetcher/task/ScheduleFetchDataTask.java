@@ -10,13 +10,13 @@ import top.cocoawork.monitor.common.enums.AppType;
 import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.api.CountryService;
 import top.cocoawork.monitor.service.api.DataFetchRecoderService;
-import top.cocoawork.monitor.service.api.model.AppInfoDto;
+import top.cocoawork.monitor.service.api.dto.AppInfoDto;
 
 import top.cocoawork.monitor.fetcher.service.AppDataFetchService;
 import top.cocoawork.monitor.fetcher.service.RemoteEmailService;
-import top.cocoawork.monitor.service.api.model.AppOutlineDto;
-import top.cocoawork.monitor.service.api.model.CountryDto;
-import top.cocoawork.monitor.service.api.model.DataFetchRecoderDto;
+import top.cocoawork.monitor.service.api.dto.AppOutlineDto;
+import top.cocoawork.monitor.service.api.dto.CountryDto;
+import top.cocoawork.monitor.service.api.dto.DataFetchRecoderDto;
 
 
 import javax.annotation.PostConstruct;

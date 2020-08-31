@@ -7,14 +7,12 @@ import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.dao.mapper.AppInfoMapper;
 import top.cocoawork.monitor.dao.entity.AppInfo;
 import top.cocoawork.monitor.service.api.AppInfoService;
-import top.cocoawork.monitor.service.api.model.AppInfoDto;
+import top.cocoawork.monitor.service.api.dto.AppInfoDto;
 import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
-import top.cocoawork.monitor.util.BeanUtil;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;

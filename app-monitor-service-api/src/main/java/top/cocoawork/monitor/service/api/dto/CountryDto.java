@@ -1,4 +1,4 @@
-package top.cocoawork.monitor.service.api.model;
+package top.cocoawork.monitor.service.api.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +12,9 @@ import java.io.Serializable;
 public class CountryDto extends BaseModelDto implements Serializable {
 
     @NotBlank(message = "国家名称不能为空")
-    @NotNull(message = "国家名称不能为空")
     private String countryName;
 
     @NotBlank(message = "国家码不能为空")
-    @NotNull(message = "国家码不能为空")
     private String countryCode;
 
 }

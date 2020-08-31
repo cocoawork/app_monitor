@@ -1,4 +1,4 @@
-package top.cocoawork.monitor.service.api.model;
+package top.cocoawork.monitor.service.api.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +18,6 @@ import java.util.List;
 public class AppInfoDto extends BaseModelDto implements Serializable {
 
     @NotBlank(message = "app id不能为空")
-    @NotNull(message = "app id不能为空")
     @ApiModelProperty(value = "appid")
     private String appId;
 

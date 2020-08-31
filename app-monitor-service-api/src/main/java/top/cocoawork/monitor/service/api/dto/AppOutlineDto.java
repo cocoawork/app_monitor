@@ -1,9 +1,10 @@
-package top.cocoawork.monitor.service.api.model;
+package top.cocoawork.monitor.service.api.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -16,7 +17,6 @@ import java.util.Set;
 public class AppOutlineDto extends BaseModelDto implements Serializable {
 
     @NotBlank(message = "app id不能为空")
-    @NotNull(message = "app id不能为空")
     private String id;
     private String kind;
 
@@ -40,5 +40,6 @@ public class AppOutlineDto extends BaseModelDto implements Serializable {
 
     private String url;
 
+    @Valid
     private Set<GenreDto> genre = new HashSet<>();
 }

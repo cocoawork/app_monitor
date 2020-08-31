@@ -19,6 +19,7 @@ public class User extends BaseAutoIdEntity {
     private String email;
     private String profile;
     private Integer gender;
+    private Integer state;
     private Integer age;
 
     @TableField(select = false)

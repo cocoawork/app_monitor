@@ -26,7 +26,7 @@ public class ExceptionHandlerAspect {
     @AfterThrowing(pointcut = "pointcut()", throwing = "e")
     public void catchException(JoinPoint joinPoint, Exception e){
 
-        logger.error("service执行异常{}, 异常信息：{}", joinPoint, e);
+        logger.error("Service执行异常:{}, 参数列表:{}, 异常原因:{}, 异常信息:{}", joinPoint.getSignature().toLongString(), joinPoint.getArgs(), e.getMessage(), e.getStackTrace());
 
         if (e instanceof ConstraintViolationException) {
             throw new ServiceException(ExceptionEnum.PARAMETER_EXCEPTION.getCode(), e.getMessage());

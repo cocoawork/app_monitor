@@ -13,11 +13,9 @@ import top.cocoawork.monitor.dao.mapper.AppOutlineMapper;
 import top.cocoawork.monitor.dao.mapper.GenreMapper;
 import top.cocoawork.monitor.dao.entity.AppOutline;
 import top.cocoawork.monitor.dao.entity.Genre;
-import top.cocoawork.monitor.service.api.model.AppOutlineDto;
-import top.cocoawork.monitor.service.api.model.GenreDto;
+import top.cocoawork.monitor.service.api.dto.AppOutlineDto;
 import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
-import top.cocoawork.monitor.util.BeanUtil;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;

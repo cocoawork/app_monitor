@@ -17,6 +17,7 @@ abstract public class AbstractCustomException extends RuntimeException implement
     }
 
     public AbstractCustomException(Integer code, String msg) {
+        super(msg);
         this.code = code;
         this.msg = msg;
     }
@@ -27,6 +28,7 @@ abstract public class AbstractCustomException extends RuntimeException implement
 
 
     public AbstractCustomException(Integer code, String msg, Throwable cause) {
+        super(msg);
         this.code = code;
         this.msg = msg;
         this.cause = cause;

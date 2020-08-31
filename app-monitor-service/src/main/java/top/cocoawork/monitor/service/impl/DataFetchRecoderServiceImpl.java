@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.dao.mapper.DataFetchRecoderMapper;
 import top.cocoawork.monitor.dao.entity.DataFetchRecoder;
-import top.cocoawork.monitor.service.api.model.DataFetchRecoderDto;
+import top.cocoawork.monitor.service.api.dto.DataFetchRecoderDto;
 import top.cocoawork.monitor.service.api.DataFetchRecoderService;
 import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
 

@@ -15,7 +15,7 @@ public class JacksonConfig {
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);

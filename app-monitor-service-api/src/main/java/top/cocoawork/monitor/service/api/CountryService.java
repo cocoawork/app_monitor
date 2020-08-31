@@ -1,7 +1,7 @@
 package top.cocoawork.monitor.service.api;
 
 
-import top.cocoawork.monitor.service.api.model.CountryDto;
+import top.cocoawork.monitor.service.api.dto.CountryDto;
 
 import java.util.List;
 

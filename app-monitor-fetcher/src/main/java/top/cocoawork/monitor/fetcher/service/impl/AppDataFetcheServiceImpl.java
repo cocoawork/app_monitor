@@ -18,10 +18,10 @@ import top.cocoawork.monitor.service.api.AppInfoService;
 import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.api.UserFavourService;
 import top.cocoawork.monitor.service.api.UserService;
-import top.cocoawork.monitor.service.api.model.AppInfoDto;
-import top.cocoawork.monitor.service.api.model.AppOutlineDto;
-import top.cocoawork.monitor.service.api.model.UserFavourDto;
-import top.cocoawork.monitor.service.api.model.UserDto;
+import top.cocoawork.monitor.service.api.dto.AppInfoDto;
+import top.cocoawork.monitor.service.api.dto.AppOutlineDto;
+import top.cocoawork.monitor.service.api.dto.UserFavourDto;
+import top.cocoawork.monitor.service.api.dto.UserDto;
 
 
 import java.io.IOException;

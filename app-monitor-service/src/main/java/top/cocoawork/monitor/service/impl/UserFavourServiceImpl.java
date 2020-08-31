@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.dao.mapper.UserFavourMapper;
 import top.cocoawork.monitor.dao.entity.UserFavour;
-import top.cocoawork.monitor.service.api.model.UserFavourDto;
+import top.cocoawork.monitor.service.api.dto.UserFavourDto;
 import top.cocoawork.monitor.service.api.UserFavourService;
 import top.cocoawork.monitor.util.BeanUtil;
 

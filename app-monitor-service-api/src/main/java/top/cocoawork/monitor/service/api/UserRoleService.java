@@ -1,11 +1,10 @@
 package top.cocoawork.monitor.service.api;
 
 
-import top.cocoawork.monitor.service.api.model.UserRoleDto;
+import top.cocoawork.monitor.service.api.dto.UserRoleDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 public interface UserRoleService {
 

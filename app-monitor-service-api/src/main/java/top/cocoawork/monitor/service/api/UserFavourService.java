@@ -1,7 +1,7 @@
 package top.cocoawork.monitor.service.api;
 
 
-import top.cocoawork.monitor.service.api.model.UserFavourDto;
+import top.cocoawork.monitor.service.api.dto.UserFavourDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

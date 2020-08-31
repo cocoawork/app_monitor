@@ -2,7 +2,7 @@ package top.cocoawork.monitor.service.api;
 
 
 
-import top.cocoawork.monitor.service.api.model.AppInfoDto;
+import top.cocoawork.monitor.service.api.dto.AppInfoDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;

@@ -1,8 +1,7 @@
 package top.cocoawork.monitor.service.api;
 
-import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.service.api.exception.ServiceException;
-import top.cocoawork.monitor.service.api.model.UserDto;
+import top.cocoawork.monitor.service.api.dto.UserDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,7 +13,7 @@ public interface UserService {
     * @Param: [user]
     * @return: boolean
     */
-    UserDto insert(@Valid @NotNull UserDto user) throws ServiceException;
+    UserDto insert(@Valid @NotNull(message = "插入对象不能为空") UserDto user) throws ServiceException;
 
     /**
     * @Description: 更新用户信息

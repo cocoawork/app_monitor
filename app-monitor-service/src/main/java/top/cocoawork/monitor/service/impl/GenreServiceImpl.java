@@ -5,13 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.dao.entity.Genre;
 import top.cocoawork.monitor.dao.mapper.GenreMapper;
-import top.cocoawork.monitor.service.api.model.GenreDto;
+import top.cocoawork.monitor.service.api.dto.GenreDto;
 import top.cocoawork.monitor.service.api.GenreService;
 import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Validated
 @Service

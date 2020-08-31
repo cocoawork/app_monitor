@@ -22,21 +22,21 @@ public class WebExceptionHandler {
 
     @ExceptionHandler(value = ShiroException.class)
     public IResponse exceptionHandler(ShiroException e) {
-        Integer code = 104;
+        Integer code = 403;
         String msg = "Access Deny！";
         return new WebResponse(code, msg);
     }
 
     @ExceptionHandler(value = AuthenticationException.class)
     public IResponse exceptionHandler(AuthenticationException e) {
-        Integer code = 105;
+        Integer code = 402;
         String msg = e.getMessage();
         return new WebResponse(code, msg);
     }
 
     @ExceptionHandler(value = JWTDecodeException.class)
     public IResponse exceptionHandler(JWTDecodeException e) {
-        Integer code = 103;
+        Integer code = 401;
         String msg = "token无效";
         return new WebResponse(code, msg);
     }
@@ -58,8 +58,8 @@ public class WebExceptionHandler {
 
     @ExceptionHandler(value = RpcException.class)
     public IResponse exceptionHandler(RpcException e) {
-        Integer code = 501;
-        String msg = "远程服务异常";
+        Integer code = 601;
+        String msg = "远程服务异常!";
         return new WebResponse(code, msg);
     }
 
@@ -72,7 +72,7 @@ public class WebExceptionHandler {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public IResponse exceptionHandler(MethodArgumentNotValidException e) {
-        Integer code = 401;
+        Integer code = 201;
         Set<String> errors = e.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toSet());
         String msg = StringUtils.join(errors, ",");
         return new WebResponse(code, msg);

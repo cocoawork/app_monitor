@@ -3,18 +3,14 @@ package top.cocoawork.monitor.service.impl;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import top.cocoawork.monitor.dao.entity.User;
 import top.cocoawork.monitor.dao.mapper.UserRoleMapper;
-import top.cocoawork.monitor.service.api.model.UserDto;
-import top.cocoawork.monitor.service.api.model.UserRoleDto;
+import top.cocoawork.monitor.service.api.dto.UserRoleDto;
 import top.cocoawork.monitor.dao.entity.UserRole;
 import top.cocoawork.monitor.service.api.UserRoleService;
 import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
-import top.cocoawork.monitor.util.BeanUtil;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Validated
 @Service

@@ -1,9 +1,10 @@
-package top.cocoawork.monitor.service.api.model;
+package top.cocoawork.monitor.service.api.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,10 +16,10 @@ public class GenreDto extends BaseModelDto implements Serializable {
 
     private Long id;
 
-    @NotNull(message = "类别名称不能为空")
+    @NotBlank(message = "类别名称不能为空")
     private String name;
 
-    @NotNull(message = "类别url不能为空")
+    @NotBlank(message = "类别url不能为空")
     private String url;
 
     @Override

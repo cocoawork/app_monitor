@@ -1,6 +1,5 @@
 package top.cocoawork.monitor.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,9 @@ import top.cocoawork.monitor.dao.entity.UserRole;
 import top.cocoawork.monitor.service.api.exception.ServiceException;
 import top.cocoawork.monitor.service.api.exception.ExceptionEnum;
 import top.cocoawork.monitor.dao.mapper.UserRoleMapper;
-import top.cocoawork.monitor.service.api.model.UserDto;
+import top.cocoawork.monitor.service.api.dto.UserDto;
 import top.cocoawork.monitor.service.api.UserService;
 import top.cocoawork.monitor.service.impl.base.BaseServiceImpl;
-import top.cocoawork.monitor.util.BeanUtil;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -37,7 +35,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserDto> implements U
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public UserDto insert(@Valid @NotNull UserDto userDto) throws ServiceException {
+    public UserDto insert(@Valid @NotNull(message = "插入对象不能为空") UserDto userDto) throws ServiceException {
         //查询用用户名，邮箱是否重复
         String username = userDto.getUsername();
         if (!userMapper.selectByUsername(username).isEmpty()) {
@@ -98,7 +96,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserDto> implements U
                                              @NotNull(message = "密码不能为空")  String password) throws ServiceException {
         User user = userMapper.selectByUsernameAndPassword(username, password);
         if (null == user) {
-            throw new ServiceException(ExceptionEnum.USER_LOGIN_EXCEPTION);
+            throw new ServiceException(ExceptionEnum.USER_NOT_EXIST_EXCEPTION);
         }
         return d2dto(user);
     }
