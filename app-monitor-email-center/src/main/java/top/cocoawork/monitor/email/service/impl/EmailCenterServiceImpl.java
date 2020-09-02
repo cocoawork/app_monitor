@@ -15,7 +15,7 @@ public class EmailCenterServiceImpl implements EmailCenterService {
 
     private Logger logger = LoggerFactory.getLogger(EmailCenterServiceImpl.class);
 
-    @Autowired(required = false)
+    @Autowired
     private JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")

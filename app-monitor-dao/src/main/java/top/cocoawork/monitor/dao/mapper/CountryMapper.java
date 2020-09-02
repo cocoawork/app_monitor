@@ -5,7 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 import top.cocoawork.monitor.dao.entity.Country;
 
+import java.util.List;
+
 @Component
 @Mapper
 public interface CountryMapper extends BaseMapper<Country> {
+
 }

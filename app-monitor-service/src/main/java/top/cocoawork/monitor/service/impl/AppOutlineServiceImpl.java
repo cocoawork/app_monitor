@@ -48,8 +48,15 @@ public class AppOutlineServiceImpl extends BaseServiceImpl<AppOutline, AppOutlin
         Set<Long> genreIds = new HashSet<>(genres.size());
 
         for (Genre genre : genres) {
-            genreMapper.insert(genre);
-            genreIds.add(genre.getId());
+            String name = genre.getName();
+            String url = genre.getUrl();
+            Genre exist = genreMapper.selectByNameAndUrl(name, url);
+            if (exist == null){
+                genreMapper.insert(genre);
+                genreIds.add(genre.getId());
+            }else {
+                genreIds.add(exist.getId());
+            }
         }
 
         String genreIdString = StringUtils.join(genreIds, ",");

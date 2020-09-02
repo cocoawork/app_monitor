@@ -21,7 +21,7 @@ public class EmailTopicListener {
 
     @JmsListener(destination = "${activemq.topic}")
     public void receivedMailMessage(Message message) {
-        logger.info("接收到来自消息队列消息==>>>{}", message);
+        logger.info("接收到来自消息队列消息:{}", message);
         if (message instanceof ActiveMQMapMessage) {
             ActiveMQMapMessage mapMessage = (ActiveMQMapMessage)message;
             try {
@@ -29,7 +29,7 @@ public class EmailTopicListener {
                 String content = mapMessage.getString("content");
                 emailService.sendMail(to, "", content);
             } catch (JMSException e) {
-                logger.error("消息队列获取数据异常==>>>", e);
+                logger.error("消息队列获取数据异常", e);
             }
         }
     }

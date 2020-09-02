@@ -5,12 +5,12 @@
     <parent>
         <artifactId>app-monitor</artifactId>
         <groupId>top.cocoawork</groupId>
-        <version>1.0</version>
+        <version>1.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>app-monitor-web-api</artifactId>
-    <version>1.0</version>
+    <version>${project-web-api-version}</version>
 
     <dependencies>
         <dependency>
@@ -21,13 +21,13 @@
         <dependency>
             <artifactId>app-monitor-service-api</artifactId>
             <groupId>top.cocoawork</groupId>
-            <version>1.2</version>
+            <version>${project-service-api-version}</version>
         </dependency>
 
         <dependency>
             <artifactId>app-monitor-common</artifactId>
             <groupId>top.cocoawork</groupId>
-            <version>1.0</version>
+            <version>${project-common-version}</version>
         </dependency>
 
         <dependency>
@@ -77,16 +77,16 @@
             <version>3.5.0</version>
         </dependency>
         <!--    分布式事务seata    -->
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-spring-boot-starter</artifactId>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>com.alibaba</groupId>-->
+<!--                    <artifactId>druid</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
 
         <!--   swagger文档     -->
         <dependency>

@@ -17,6 +17,7 @@ import top.cocoawork.monitor.fetcher.service.RemoteEmailService;
 import top.cocoawork.monitor.service.api.dto.AppOutlineDto;
 import top.cocoawork.monitor.service.api.dto.CountryDto;
 import top.cocoawork.monitor.service.api.dto.DataFetchRecoderDto;
+import top.cocoawork.monitor.util.mgr.CustomThreadPool;
 
 
 import javax.annotation.PostConstruct;
@@ -30,8 +31,6 @@ import java.util.concurrent.*;
 public class ScheduleFetchDataTask {
 
     private Logger logger = LoggerFactory.getLogger(ScheduleFetchDataTask.class);
-
-    private ThreadPoolExecutor threadPoolExecutor;
 
     @Autowired
     private AppDataFetchService appDataFetcheService;
@@ -49,29 +48,11 @@ public class ScheduleFetchDataTask {
     private RemoteEmailService emailService;
 
 
-    @PostConstruct
-    public void initialize() {
-        Runtime runtime = Runtime.getRuntime();
-        int coreCount = runtime.availableProcessors();
-
-        int maxSize = 2 * coreCount + 1;
-
-        threadPoolExecutor = new ThreadPoolExecutor(coreCount,
-                maxSize,
-                60,
-                TimeUnit.SECONDS,
-                new LinkedBlockingDeque<>(),
-                Executors.defaultThreadFactory(),
-                new ThreadPoolExecutor.DiscardPolicy()
-        );
-    }
-
-
     //对象销毁前执行
     @PreDestroy
     public void destroy() {
         //对象销毁之前关闭线程池
-        threadPoolExecutor.shutdownNow();
+        CustomThreadPool.shareInstance().shutdownNow();
     }
 
     /**
@@ -104,7 +85,7 @@ public class ScheduleFetchDataTask {
         for (CountryDto country : countries) {
             for (AppType.FeedType feedType : appFeedTypeList) {
 
-                this.threadPoolExecutor.execute(new Runnable() {
+                CustomThreadPool.shareInstance().execute(new Runnable() {
                     @Override
                     public void run() {
                         appDataFetcheService.fetchAppOutline(country.getCountryCode(), AppType.MediaType.IOS_APP, feedType);
@@ -114,7 +95,10 @@ public class ScheduleFetchDataTask {
         }
 
         while (true) {
-            int activeCount = threadPoolExecutor.getActiveCount();
+            int activeCount = CustomThreadPool.shareInstance().getActiveCount();
+
+            logger.debug("当前线程池中任务个数：{}", activeCount);
+
             if (activeCount == 0) {
                 break;
             }
@@ -166,13 +150,13 @@ public class ScheduleFetchDataTask {
         for (String id : ids) {
 
             String appid = id;
-            this.threadPoolExecutor.execute(() -> {
+            CustomThreadPool.shareInstance().execute(() -> {
                 appDataFetcheService.fetchAppInfo(appid);
             });
         }
 
         while (true) {
-            int activeCount = threadPoolExecutor.getActiveCount();
+            int activeCount = CustomThreadPool.shareInstance().getActiveCount();
             if (activeCount == 0) {
                 break;
             }

@@ -1,7 +1,7 @@
 package top.cocoawork.monitor.web.exception;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.dubbo.common.utils.StringUtils;
 import org.apache.dubbo.rpc.RpcException;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+/**
+ * The type Web exception handler.
+ */
 @ResponseBody
 @ControllerAdvice
 public class WebExceptionHandler {

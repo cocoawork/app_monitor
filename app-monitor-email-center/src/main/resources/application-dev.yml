@@ -3,7 +3,7 @@ server:
   port: 23800
 spring:
   application:
-    name: email-service
+    name: app-monitor-email-center
 
   mail:
     host: smtp.qq.com

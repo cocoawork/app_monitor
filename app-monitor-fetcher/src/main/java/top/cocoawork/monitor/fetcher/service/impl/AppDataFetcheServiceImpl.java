@@ -18,10 +18,7 @@ import top.cocoawork.monitor.service.api.AppInfoService;
 import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.api.UserFavourService;
 import top.cocoawork.monitor.service.api.UserService;
-import top.cocoawork.monitor.service.api.dto.AppInfoDto;
-import top.cocoawork.monitor.service.api.dto.AppOutlineDto;
-import top.cocoawork.monitor.service.api.dto.UserFavourDto;
-import top.cocoawork.monitor.service.api.dto.UserDto;
+import top.cocoawork.monitor.service.api.dto.*;
 
 
 import java.io.IOException;
@@ -90,6 +87,23 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
                     logger.error("获取app详细信息json转AppOutline错误",e);
                     return;
                 }
+
+
+                JsonNode genres = node.get("genres");
+                if (genres.isArray()) {
+                    HashSet<GenreDto> genreDtos = new HashSet<>();
+                    for (JsonNode genre : genres) {
+                        try {
+                            GenreDto genreDto = objectMapper.treeToValue(genre, GenreDto.class);
+                            genreDtos.add(genreDto);
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    appOutline.setGenre(genreDtos);
+                }
+
                 appOutline.setId(appId);
                 appOutline.setFeedType(feedType.getRawValue());
                 appOutline.setCountryCode(countryCode);
@@ -154,16 +168,7 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
                 List<UserFavourDto> userApps = userAppService.selectUserAppsByAppId(appId);
                 for (UserFavourDto userApp : userApps) {
 
-                    String userId = userApp.getUserId();
-                    UserDto user = userService.selectByUserId(userId);
-                    if (null != user) {
-                        String email = user.getEmail();
-                        if (null != email && email.length() > 0) {
-                            //发送邮件
-                            String text = "您关注的App：\"" + appinfo.getTrackName() + "\"已经更新了，快去看看吧！链接：" + "";
-                            emailService.sendEmail(email, text);
-                        }
-                    }
+
                 }
             }
         }

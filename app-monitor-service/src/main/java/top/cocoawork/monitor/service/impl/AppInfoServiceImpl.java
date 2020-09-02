@@ -37,7 +37,12 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> imp
     @Override
     public AppInfoDto insert(@Valid @NotNull(message = "插入对象不能为空") AppInfoDto appInfoDto) {
         AppInfo appInfo = dto2d(appInfoDto);
-        appInfoMapper.insert(appInfo);
+        AppInfo exist = appInfoMapper.selectById(appInfoDto.getAppId());
+        if (null == exist) {
+            appInfoMapper.insert(appInfo);
+        }else {
+            appInfoMapper.updateById(appInfo);
+        }
         return d2dto(appInfo);
     }
 

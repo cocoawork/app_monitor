@@ -21,14 +21,14 @@ dubbo:
   application:
     name: ${spring.application.name}
     logger: slf4j
+    owner: cocoawork
   protocol:
     name: dubbo
-    port: 20802
+    port: 20888
   registry:
     protocol: zookeeper
     address: 127.0.0.1:2181
     timeout: 120000
     register: true
-  provider:
-    timeout: 60000
-    retries: 0
+    group: app-monitor
+    subscribe: false

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cocoawork.monitor.dao.mapper.GenreMapper">
+
+
+    <select id="selectByNameAndUrl" resultType="top.cocoawork.monitor.dao.entity.Genre">
+        select * from t_genre where name = #{name} and url = #{url} and is_delete = 0
+    </select>
+
+</mapper>

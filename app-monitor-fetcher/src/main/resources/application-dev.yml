@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: app-mointor-data-fetche-service
+    name: app-monitor-fetcher
 
 
   activemq:
@@ -19,18 +19,16 @@ dubbo:
   application:
     name: ${spring.application.name}
     logger: slf4j
+    owner: cocoawork
   protocol:
     name: dubbo
-    port: 20802
+    port: 20888
   registry:
-    address: zookeeper://baiduyun-server.com:2181
-    timeout: 60000
-  consumer:
-    timeout: 60000
-    retries: 0
-    check: false
-
-
+    address: zookeeper:localhost:2181
+    timeout: 120000
+    register: true
+    subscribe: true
+    group: app-monitor
 
 activemq:
   topic: email-topic

@@ -5,12 +5,12 @@
     <parent>
         <artifactId>app-monitor</artifactId>
         <groupId>top.cocoawork</groupId>
-        <version>1.0</version>
+        <version>1.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>app-monitor-service</artifactId>
-    <version>1.2</version>
+    <version>${project-service-version}</version>
 
     <dependencies>
 
@@ -23,26 +23,26 @@
         <dependency>
             <artifactId>app-monitor-common</artifactId>
             <groupId>top.cocoawork</groupId>
-            <version>1.0</version>
+            <version>${project-common-version}</version>
         </dependency>
 
         <dependency>
             <artifactId>app-monitor-service-api</artifactId>
             <groupId>top.cocoawork</groupId>
-            <version>1.2</version>
+            <version>${project-service-api-version}</version>
         </dependency>
 
 
         <dependency>
             <artifactId>app-monitor-util</artifactId>
             <groupId>top.cocoawork</groupId>
-            <version>1.0</version>
+            <version>${project-util-version}</version>
         </dependency>
 
         <dependency>
             <artifactId>app-monitor-dao</artifactId>
             <groupId>top.cocoawork</groupId>
-            <version>1.0</version>
+            <version>${project-dao-version}</version>
         </dependency>
 
         <!--    数据校验    -->

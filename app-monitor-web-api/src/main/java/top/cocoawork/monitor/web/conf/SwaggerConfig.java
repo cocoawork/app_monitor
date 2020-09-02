@@ -1,5 +1,6 @@
 package top.cocoawork.monitor.web.conf;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Configuration
 @EnableSwagger2
+@ConditionalOnProperty(value = "swagger.enable", havingValue = "true")
 public class SwaggerConfig {
 
     @Bean

@@ -11,11 +11,10 @@
         <relativePath/>
     </parent>
 
-
     <groupId>top.cocoawork</groupId>
     <artifactId>app-monitor</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.1.0</version>
 
 
     <modules>
@@ -30,6 +29,17 @@
     </modules>
 
     <properties>
+
+        <project-base-version>1.3.0</project-base-version>
+        <project-common-version>1.3.0</project-common-version>
+        <project-dao-version>1.3.0</project-dao-version>
+        <project-service-version>1.3.0</project-service-version>
+        <project-service-api-version>1.3.0</project-service-api-version>
+        <project-util-version>1.3.0</project-util-version>
+        <project-email-center-version>1.3.0</project-email-center-version>
+        <project-data-fetcher-version>1.3.0</project-data-fetcher-version>
+        <project-web-api-version>1.3.0</project-web-api-version>
+
         <mybatis-plus-version>3.3.2</mybatis-plus-version>
         <mysql-driver-version>8.0.16</mysql-driver-version>
         <hutool-version>5.3.5</hutool-version>

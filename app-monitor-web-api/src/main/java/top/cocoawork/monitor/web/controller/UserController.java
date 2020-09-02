@@ -1,6 +1,5 @@
 package top.cocoawork.monitor.web.controller;
 
-import com.sun.deploy.association.utility.AppConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,10 +12,10 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import top.cocoawork.monitor.common.constant.ApplicationConstant;
 import top.cocoawork.monitor.web.conf.jwt.JwtUtil;
 import top.cocoawork.monitor.service.api.exception.ServiceException;
 import top.cocoawork.monitor.web.exception.WebException;

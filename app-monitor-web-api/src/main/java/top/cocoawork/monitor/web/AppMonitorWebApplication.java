@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
 
-@ImportResource(locations = {"classpath:dubbo.xml"})
+//@ImportResource(locations = {"classpath:dubbo.xml"})
 @EnableDubbo
 @SpringBootApplication
 public class AppMonitorWebApplication {

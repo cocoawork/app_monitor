@@ -10,6 +10,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import top.cocoawork.monitor.web.conf.jwt.JwtToken;
@@ -17,13 +18,11 @@ import top.cocoawork.monitor.web.conf.jwt.JwtUtil;
 import top.cocoawork.monitor.common.constant.ApplicationConstant;
 import top.cocoawork.monitor.service.api.UserService;
 import top.cocoawork.monitor.service.api.dto.UserDto;
+import top.cocoawork.monitor.web.util.SpringBeanFactoryUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class UsernamePasswordRealm extends AuthorizingRealm {
-
-    @Reference
-    private UserService userService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -51,6 +50,7 @@ public class UsernamePasswordRealm extends AuthorizingRealm {
         UserDto user = null;
         try {
             Long userId = ((JwtToken) token).getUserId();
+            UserService userService = SpringBeanFactoryUtil.getBean(UserService.class);
             user = userService.selectByUserId(userId);
         }catch (JWTDecodeException e) {
             throw new AuthenticationException("token无效!");

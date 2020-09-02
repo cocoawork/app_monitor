@@ -3,19 +3,23 @@ server:
 
 spring:
   application:
-    name: app-mointor-web-api
+    name: app-monitor-web-api
 
-seata:
-  enabled: false
-  tx-service-group: my_test_tx_group
-  application-id: app-monitor-service
-  config:
-    type: file
-    file:
-      name: file.conf
+dubbo:
+  application:
+    name: ${spring.application.name}
+    logger: slf4j
+  protocol:
+    name: dubbo
+    port: 20888
   registry:
-    type: file
-    file:
-      name: file.conf
-  service:
-    disable-global-transaction: false
+    address: zookeeper://localhost:2181
+    timeout: 120000
+    register: true
+  consumer:
+    timeout: 120000
+    retries: 0
+    check: false
+
+swagger:
+  enable: true
