@@ -210,8 +210,10 @@ gradle-app.setting
 **/application-prod.yml
 **/application-test.yml
 
-###  日志文件   ###
+### 日志文件 ###
 **/log/
 
+### 测试类 ###
+**/test/
 # End of https://www.toptal.com/developers/gitignore/api/maven,java-web,macos,intellij+all,gradle,windows,java
 

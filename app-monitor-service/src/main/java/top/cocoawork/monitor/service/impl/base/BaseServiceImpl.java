@@ -57,6 +57,7 @@ abstract public class BaseServiceImpl<D, DTO> {
             if (types != null && types.length >= (1+index) ) {
                 return (Class) types[index];
             }
+
         }
         return null;
     }

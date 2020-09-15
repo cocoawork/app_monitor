@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 @Validated
 @Service
+@org.springframework.stereotype.Service
 public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> implements AppInfoService {
 
     private Logger logger = LoggerFactory.getLogger(AppInfoServiceImpl.class);

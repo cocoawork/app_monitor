@@ -6,14 +6,15 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import top.cocoawork.monitor.common.constant.ApplicationConstant;
 import top.cocoawork.monitor.common.enums.AppType;
 import top.cocoawork.monitor.fetcher.service.AppDataFetchService;
-import top.cocoawork.monitor.fetcher.service.RemoteEmailService;
 import top.cocoawork.monitor.service.api.AppInfoService;
 import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.api.UserFavourService;
@@ -35,20 +36,19 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Reference
-    private AppOutlineService appOutlineService;
-
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
+//
+//    private AppOutlineService appOutlineService;
+//
     @Reference
     private AppInfoService appInfoService;
 
     @Reference
     private UserFavourService userAppService;
+//
+//    private UserService userService;
 
-    @Reference
-    private UserService userService;
-
-    @Autowired
-    private RemoteEmailService emailService;
 
 
 
@@ -74,7 +74,6 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
         }
         JsonNode feedNode = rootNode.get("feed");
         JsonNode resultNode = feedNode.get("results");
-        List<AppOutlineDto> appOutlines = new ArrayList<>();
         if (resultNode.isArray()) {
             Iterator<JsonNode> iterator = resultNode.iterator();
             while (iterator.hasNext()) {
@@ -108,13 +107,16 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
                 appOutline.setFeedType(feedType.getRawValue());
                 appOutline.setCountryCode(countryCode);
                 appOutline.setMediaType(mediaType.getRawValue());
-                appOutlines.add(appOutline);
-                AppOutlineDto existAppOutline = appOutlineService.selectById(appId);
-                if (null != existAppOutline) {
-                    appOutlineService.update(appOutline);
-                } else {
-                    appOutlineService.insert(appOutline);
-                }
+
+
+                rocketMQTemplate.sendOneWay(ApplicationConstant.MQ_TOPIC+":"+ApplicationConstant.MQ_TOPIC_TAG_APPOUTLINE, appOutline);
+
+//                AppOutlineDto existAppOutline = appOutlineService.selectById(appId);
+//                if (null != existAppOutline) {
+//                    appOutlineService.update(appOutline);
+//                } else {
+//                    appOutlineService.insert(appOutline);
+//                }
             }
         }
     }
@@ -145,13 +147,15 @@ public class AppDataFetcheServiceImpl implements AppDataFetchService {
             }
             appinfo.setAppId(appId);
 
-            //根据appid查询appinfo
+//            //根据appid查询appinfo
             AppInfoDto existAppInfo = appInfoService.selectById(appId);
-            if (null != existAppInfo) {
-                appInfoService.update(appinfo);
-            } else {
-                appInfoService.insert(appinfo);
-            }
+
+            rocketMQTemplate.sendOneWay(ApplicationConstant.MQ_TOPIC+":"+ApplicationConstant.MQ_TOPIC_TAG_APPINFO, appinfo);
+//            if (null != existAppInfo) {
+//                appInfoService.update(appinfo);
+//            } else {
+//                appInfoService.insert(appinfo);
+//            }
 
             int ret = -1;
             if (existAppInfo != null) {

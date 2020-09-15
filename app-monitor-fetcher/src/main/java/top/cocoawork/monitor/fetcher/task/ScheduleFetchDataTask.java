@@ -1,19 +1,21 @@
 package top.cocoawork.monitor.fetcher.task;
 
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import top.cocoawork.monitor.common.constant.ApplicationConstant;
 import top.cocoawork.monitor.common.enums.AppType;
+import top.cocoawork.monitor.fetcher.domain.Email;
 import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.api.CountryService;
 import top.cocoawork.monitor.service.api.DataFetchRecoderService;
 import top.cocoawork.monitor.service.api.dto.AppInfoDto;
 
 import top.cocoawork.monitor.fetcher.service.AppDataFetchService;
-import top.cocoawork.monitor.fetcher.service.RemoteEmailService;
 import top.cocoawork.monitor.service.api.dto.AppOutlineDto;
 import top.cocoawork.monitor.service.api.dto.CountryDto;
 import top.cocoawork.monitor.service.api.dto.DataFetchRecoderDto;
@@ -41,11 +43,8 @@ public class ScheduleFetchDataTask {
     @Reference
     private AppOutlineService appOutlineService;
 
-    @Reference
-    private DataFetchRecoderService dataFetchRecoderService;
-
     @Autowired
-    private RemoteEmailService emailService;
+    private RocketMQTemplate rocketMQTemplate;
 
 
     //对象销毁前执行
@@ -115,19 +114,23 @@ public class ScheduleFetchDataTask {
         logger.info("完成执行定时任务获取app简介信息{}", end.toString());
 
         //记录本次请求记录
-        DataFetchRecoderDto recoder = new DataFetchRecoderDto();
-        recoder.setBeginTime(start);
-        recoder.setEndTime(end);
-        recoder.setType(AppOutlineDto.class.getName());
-        dataFetchRecoderService.insert(recoder);
+//        DataFetchRecoderDto recoder = new DataFetchRecoderDto();
+//        recoder.setBeginTime(start);
+//        recoder.setEndTime(end);
+//        recoder.setType(AppOutlineDto.class.getName());
+//        dataFetchRecoderService.insert(recoder);
 
         String startString = start.getHour() + ":" + start.getMinute();
         String endString = end.getHour() + ":" + end.getMinute();
 
         //邮件通知任务完成
-        String emailTo = "657633723@qq.com";
+        Email email = new Email();
+        email.setTo("657633723@qq.com");
+        email.setSubject("任务完成");
         String text = "完成当前批次任务「获取app简介信息」！\n开始时间：" + startString + "\n" + "结束时间：" + endString;
-        emailService.sendEmail(emailTo, text);
+        email.setContent(text);
+        rocketMQTemplate.sendOneWay(ApplicationConstant.MQ_TOPIC+":"+ApplicationConstant.MQ_TOPIC_TAG_EMAIL, email);
+
     }
 
 
@@ -173,13 +176,13 @@ public class ScheduleFetchDataTask {
 
         logger.info("完成执行定时任务获取app详细信息{}", end.toString());
 
-
-        //记录本次请求记录
-        DataFetchRecoderDto recoder = new DataFetchRecoderDto();
-        recoder.setBeginTime(begin);
-        recoder.setEndTime(end);
-        recoder.setType(AppInfoDto.class.getName());
-        dataFetchRecoderService.insert(recoder);
+//
+//        //记录本次请求记录
+//        DataFetchRecoderDto recoder = new DataFetchRecoderDto();
+//        recoder.setBeginTime(begin);
+//        recoder.setEndTime(end);
+//        recoder.setType(AppInfoDto.class.getName());
+//        dataFetchRecoderService.insert(recoder);
 
     }
 

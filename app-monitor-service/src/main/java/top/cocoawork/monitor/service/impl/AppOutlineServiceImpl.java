@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 
 @Validated
 @Service
+@org.springframework.stereotype.Service
 public class AppOutlineServiceImpl extends BaseServiceImpl<AppOutline, AppOutlineDto> implements AppOutlineService {
 
     private Logger logger = LoggerFactory.getLogger(AppOutlineServiceImpl.class);

@@ -25,6 +25,12 @@ public class CountryServiceImpl extends BaseServiceImpl<Country, CountryDto> imp
     @Override
     public List<CountryDto> selectAll() {
         List<Country> countries = countryMapper.selectList(null);
-        return countries.stream().map(country -> d2dto(country)).collect(Collectors.toList());
+        return countries.stream().map(country -> {
+            CountryDto countryDto = d2dto(country);
+            countryDto.setCountryName(null);
+            countryDto.setCreateAt(null);
+            countryDto.setUpdateAt(null);
+            return countryDto;
+        }).collect(Collectors.toList());
     }
 }

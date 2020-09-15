@@ -12,21 +12,5 @@ spring:
     password: qdryxgeumqqsbeib
     default-encoding: utf-8
 
-  activemq:
-    broker-url: tcp://baiduyun-server.com:61616
-    user: admin
-    password: admin
-    pool:
-      enabled: false
-      max-connections: 100
-  jms:
-    pub-sub-domain: true
-    template:
-      delivery-mode: persistent
-    listener:
-      acknowledge-mode: auto
-
-
-
-activemq:
-  topic: email-topic
+rocketmq:
+  name-server: local-server1.com:9876;local-server2.com:9876
