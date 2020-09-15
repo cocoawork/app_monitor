@@ -1,10 +1,12 @@
 package top.cocoawork.monitor.fetcher.task;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import top.cocoawork.monitor.common.constant.ApplicationConstant;
@@ -12,22 +14,18 @@ import top.cocoawork.monitor.common.enums.AppType;
 import top.cocoawork.monitor.fetcher.domain.Email;
 import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.api.CountryService;
-import top.cocoawork.monitor.service.api.DataFetchRecoderService;
-import top.cocoawork.monitor.service.api.dto.AppInfoDto;
 
 import top.cocoawork.monitor.fetcher.service.AppDataFetchService;
-import top.cocoawork.monitor.service.api.dto.AppOutlineDto;
 import top.cocoawork.monitor.service.api.dto.CountryDto;
-import top.cocoawork.monitor.service.api.dto.DataFetchRecoderDto;
 import top.cocoawork.monitor.util.mgr.CustomThreadPool;
 
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.Set;
 
 @Component
 public class ScheduleFetchDataTask {
@@ -46,6 +44,8 @@ public class ScheduleFetchDataTask {
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
+    @Autowired
+    private RedisTemplate<String, CountryDto> redisTemplate;
 
     //对象销毁前执行
     @PreDestroy
@@ -71,10 +71,17 @@ public class ScheduleFetchDataTask {
         appFeedTypeList.add(AppType.FeedType.TOP_GROSSING_IPAD);
 
         //获取所有国家
-        List<CountryDto> countries = countryService.selectAll();
+        String key = "top.cocoawork.monitor.fetcher.countriesKey";
+        List<CountryDto> countries = redisTemplate.opsForList().range(key, 0, -1);
+
+        if (null == countries || countries.isEmpty()) {
+            countries = countryService.selectAll();
+            redisTemplate.opsForList().leftPushAll(key, countries);
+        }
         if (null == countries || countries.size() == 0) {
             return;
         }
+
 
         //获取开始时间
         LocalDateTime start = LocalDateTime.now();

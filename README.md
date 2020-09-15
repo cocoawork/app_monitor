@@ -16,7 +16,7 @@
    * app-monitor-fetcher：从AppStore获取数据，存入RocketMQ消息队列
    * app-monitor-email-center：一个简单的邮件发送中心
    
-#### 执行流程
+### 执行流程
    app-monitor-fetcher是一个定时任务，定时从App-Store读取抓据,将数据存入RocketMQ，Service层作为消费者监听RocketMQ消息，调用持久层将数据持久化；
    数据抓取完毕后向RocketMQ消息队列发送email消息，消息队列emial服务监听到消息会发送邮件提醒任务完成。
     

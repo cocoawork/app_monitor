@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: app-monitor-fetcher
+  redis:
+    host: local-server1.com
+    port: 6379
+    database: 0
+    timeout: 6000
+
 
 rocketmq:
   name-server: local-server1.com:9876;local-server2.com:9876
@@ -26,4 +32,3 @@ dubbo:
     register: false
     subscribe: true
     group: app-monitor
-
