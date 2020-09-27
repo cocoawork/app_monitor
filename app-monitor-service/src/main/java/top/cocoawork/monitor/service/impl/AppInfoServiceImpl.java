@@ -7,6 +7,7 @@ import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.dao.mapper.AppInfoMapper;
 import top.cocoawork.monitor.dao.entity.AppInfo;
@@ -40,7 +41,11 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo, AppInfoDto> imp
         AppInfo appInfo = dto2d(appInfoDto);
         AppInfo exist = appInfoMapper.selectById(appInfoDto.getAppId());
         if (null == exist) {
-            appInfoMapper.insert(appInfo);
+            try {
+                appInfoMapper.insert(appInfo);
+            }catch (DuplicateKeyException e) {
+                e.printStackTrace();
+            }
         }else {
             appInfoMapper.updateById(appInfo);
         }
