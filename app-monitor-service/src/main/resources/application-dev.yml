@@ -26,12 +26,11 @@ dubbo:
     name: dubbo
     port: 20888
   registry:
-    protocol: zookeeper
-    address: 127.0.0.1:2181
     timeout: 60000
     register: true
     group: app-monitor
     subscribe: false
+    address: nacos://172.16.31.133:8848
 
 rocketmq:
   name-server: local-server1.com:9876;local-server2.com:9876

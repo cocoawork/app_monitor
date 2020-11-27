@@ -21,7 +21,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Api(tags = "app简介信息", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-@RequiresUser
 @RestController
 @RequestMapping("/appOutline")
 @Validated
