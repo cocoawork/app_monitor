@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableAdminServer
 @SpringBootApplication
-public class AdminApplication {
+public class AppMonitorAdminApplication {
     public static void main(String[] args) {
         try {
-            SpringApplication.run(AdminApplication.class,args);
+            SpringApplication.run(AppMonitorAdminApplication.class,args);
         }catch (Exception e) {
             e.printStackTrace();
         }
