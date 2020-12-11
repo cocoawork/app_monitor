@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: app-monitor-web-api
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
 
 dubbo:
   application:
@@ -24,3 +28,16 @@ dubbo:
 
 swagger:
   enable: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  endpoint:
+    health:
+      show-details: always
+
+

@@ -9,6 +9,10 @@ spring:
     port: 6379
     database: 0
     timeout: 6000
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
 
 
 rocketmq:
@@ -16,6 +20,7 @@ rocketmq:
   producer:
     group: app-monitor-mq-producer-group
     send-message-timeout: 60000
+
 
 
 dubbo:
@@ -27,8 +32,18 @@ dubbo:
     name: dubbo
     port: 20888
   registry:
-    address: zookeeper://127.0.0.1:2181
+    address: nacos://172.16.31.133:8848
     timeout: 60000
     register: false
     subscribe: true
     group: app-monitor
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+

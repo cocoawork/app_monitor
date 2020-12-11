@@ -12,6 +12,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/app_monitor?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
 
 mybatis-plus:
   configuration:
@@ -35,4 +39,12 @@ dubbo:
 rocketmq:
   name-server: local-server1.com:9876;local-server2.com:9876
 
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
