@@ -34,7 +34,7 @@ dubbo:
     register: true
     group: app-monitor
     subscribe: false
-    address: nacos://172.16.31.133:8848
+    address: zookeeper://localhost:2181
 
 rocketmq:
   name-server: local-server1.com:9876;local-server2.com:9876
