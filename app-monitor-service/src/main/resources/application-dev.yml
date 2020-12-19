@@ -32,9 +32,8 @@ dubbo:
   registry:
     timeout: 60000
     register: true
-    group: app-monitor
     subscribe: false
-    address: nacos://127.0.0.1:8848
+    address: zookeeper://127.0.0.1:2181
   consumer:
     retries: 0
     timeout: 60000

@@ -27,14 +27,12 @@ dubbo:
     name: dubbo
     port: 20888
   registry:
-    address: nacos://127.0.0.1:8848
+    address: zookeeper://127.0.0.1:2181
     timeout: 60000
     register: false
     subscribe: true
-    group: app-monitor
   consumer:
     retries: 0
-    check: false
     timeout: 60000
 
 

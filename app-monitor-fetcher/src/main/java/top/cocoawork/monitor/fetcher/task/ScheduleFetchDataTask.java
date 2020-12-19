@@ -1,5 +1,10 @@
 package top.cocoawork.monitor.fetcher.task;
 
+import co.paralleluniverse.fibers.Fiber;
+import co.paralleluniverse.fibers.FiberExecutorScheduler;
+import co.paralleluniverse.fibers.FiberScheduler;
+import co.paralleluniverse.fibers.SuspendExecution;
+import co.paralleluniverse.strands.SuspendableCallable;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
@@ -16,13 +21,13 @@ import top.cocoawork.monitor.service.api.CountryService;
 
 import top.cocoawork.monitor.fetcher.service.AppDataFetchService;
 import top.cocoawork.monitor.service.api.dto.CountryDto;
-import top.cocoawork.monitor.common.mgr.CustomThreadPool;
-
 
 import javax.annotation.PreDestroy;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class ScheduleFetchDataTask {
@@ -41,12 +46,43 @@ public class ScheduleFetchDataTask {
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
-    //对象销毁前执行
-    @PreDestroy
-    public void destroy() {
-        //对象销毁之前关闭线程池
-        CustomThreadPool.shareInstance().shutdownNow();
+    private volatile static Executor threadPoolExecutor;
+
+    private volatile static FiberScheduler exectorScheduler;
+
+    private static AtomicInteger threadIndex = new AtomicInteger(0);
+
+    static {
+        if (null == threadPoolExecutor) {
+            synchronized (ScheduleFetchDataTask.class) {
+                if (null == threadPoolExecutor) {
+
+                    Runtime runtime = Runtime.getRuntime();
+                    int coreCount = runtime.availableProcessors();
+                    threadPoolExecutor = new ThreadPoolExecutor(coreCount,
+                            coreCount,
+                            60,
+                            TimeUnit.SECONDS,
+                            new LinkedBlockingDeque<>(),
+                            new ThreadFactory() {
+                                @Override
+                                public Thread newThread(Runnable r) {
+                                    Thread thread = new Thread(r);
+                                    thread.setName("top.cocoawork.monitor.[thread-]" + threadIndex.getAndAdd(1));
+                                    return thread;
+                                }
+                            },
+                            new ThreadPoolExecutor.DiscardPolicy()
+                    );
+
+                    String schedulerName = "top.cocoawrok.monitor.fiber.scheduler";
+                    exectorScheduler = new FiberExecutorScheduler(schedulerName, threadPoolExecutor);
+                }
+            }
+        }
+
     }
+
 
     /**
     * @Description: 定时任务获取数据，每天0,12点执行一次
@@ -75,29 +111,17 @@ public class ScheduleFetchDataTask {
         LocalDateTime start = LocalDateTime.now();
 
         logger.info("开始执行定时任务获取app简介信息{}", start.toString());
+        String fiberName = "top.cocoawrok.monitor.appOutline.fiber";
+
 
         for (CountryDto country : countries) {
             for (AppType.FeedType feedType : appFeedTypeList) {
 
-                CustomThreadPool.shareInstance().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        appDataFetcheService.fetchAppOutline(country.getCountryCode(), AppType.MediaType.IOS_APP, feedType);
-                    }
+                Fiber<Void> fiber = new Fiber<Void>(fiberName,  exectorScheduler, (SuspendableCallable<Void>) () -> {
+                    appDataFetcheService.fetchAppOutline(country.getCountryCode(), AppType.MediaType.IOS_APP, feedType);
+                    return null;
                 });
-            }
-        }
-
-        while (true) {
-            int activeCount = CustomThreadPool.shareInstance().getActiveCount();
-
-            if (activeCount == 0) {
-                break;
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                fiber.start();
             }
         }
 
@@ -131,7 +155,6 @@ public class ScheduleFetchDataTask {
     @Scheduled(fixedRate = 1000 * 60 * 60 * 8)
     public void scheduleFetchAppInfo() {
 
-
         //执行获取详情
         List<String> ids = appOutlineService.selectAllIds();
 
@@ -142,30 +165,19 @@ public class ScheduleFetchDataTask {
         //记录开始时间
         LocalDateTime begin = LocalDateTime.now();
         logger.info("开始执行定时任务获取app详细信息{}", begin.toString());
+        String fiberName = "top.cocoawrok.monitor.appInfo.fiber";
 
         for (String id : ids) {
 
-            String appid = id;
-            CustomThreadPool.shareInstance().execute(() -> {
-                appDataFetcheService.fetchAppInfo(appid);
+            Fiber<Void> fiber = new Fiber<Void>(fiberName, exectorScheduler, (SuspendableCallable<Void>) () -> {
+                appDataFetcheService.fetchAppInfo(id);
+                return null;
             });
-        }
-
-        while (true) {
-            int activeCount = CustomThreadPool.shareInstance().getActiveCount();
-            if (activeCount == 0) {
-                break;
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            fiber.start();
         }
 
         //记录结束时间
         LocalDateTime end = LocalDateTime.now();
-
 
         logger.info("完成执行定时任务获取app详细信息{}", end.toString());
 
