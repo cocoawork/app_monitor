@@ -17,7 +17,7 @@ dubbo:
     name: dubbo
     port: 20888
   registry:
-    address: nacos://172.16.31.133:8848
+    address: nacos://localhost:8848
     timeout: 120000
     register: false
     subscribe: true

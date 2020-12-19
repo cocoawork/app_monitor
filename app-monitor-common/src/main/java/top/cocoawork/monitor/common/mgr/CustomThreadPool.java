@@ -1,4 +1,4 @@
-package top.cocoawork.monitor.util.mgr;
+package top.cocoawork.monitor.common.mgr;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CustomThreadPool {
 
-    private static CustomThreadPool SHARE_INSTANCE = null;
+    private volatile static CustomThreadPool SHARE_INSTANCE = null;
 
     private ThreadPoolExecutor threadPoolExecutor;
 

@@ -9,7 +9,7 @@ import top.cocoawork.monitor.dao.mapper.UserFavourMapper;
 import top.cocoawork.monitor.dao.entity.UserFavour;
 import top.cocoawork.monitor.service.api.dto.UserFavourDto;
 import top.cocoawork.monitor.service.api.UserFavourService;
-import top.cocoawork.monitor.util.BeanUtil;
+import top.cocoawork.monitor.common.BeanUtil;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

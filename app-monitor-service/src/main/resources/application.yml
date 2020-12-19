@@ -1,4 +1,17 @@
 spring:
   profiles:
-    active: base,dev
+    active: dev
+
+#mybatis-plus配置
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto #数据库主键自增
+      table-underline: true
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+      logic-delete-field: is_delete
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*Mapper.xml
 

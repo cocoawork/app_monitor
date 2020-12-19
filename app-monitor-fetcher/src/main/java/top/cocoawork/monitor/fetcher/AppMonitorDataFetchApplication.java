@@ -20,26 +20,15 @@ import top.cocoawork.monitor.fetcher.task.ScheduleFetchDataTask;
 @EnableDubbo
 @EnableScheduling
 @SpringBootApplication
-public class AppMonitorDataFetchApplication implements ApplicationListener<ApplicationReadyEvent> {
-
-    @Autowired
-    private ScheduleFetchDataTask task;
+public class AppMonitorDataFetchApplication  {
 
     public static void main(String[] args) {
         SpringApplication.run(AppMonitorDataFetchApplication.class, args);
     }
-
 
     @Bean
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
 
-
-    @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
-        task.scheduleFetchAppOutline();
-        task.scheduleFetchAppInfo();
-
-    }
 }

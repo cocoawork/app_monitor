@@ -1,11 +1,10 @@
-package top.cocoawork.monitor.util;
+package top.cocoawork.monitor.common;
 
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.fieldmap.FieldMap;
-import top.cocoawork.monitor.util.exception.UtilException;
 
 public class BeanUtil {
 
@@ -18,9 +17,8 @@ public class BeanUtil {
     */
     public static void copyProperties(Object sourceObj, Object destObj){
         if (null == sourceObj || destObj == null) {
-            throw new UtilException(new NullPointerException("拷贝对象为null"));
+            throw new NullPointerException("拷贝对象为null");
         }
-
         if (null == mapper) {
             synchronized (BeanUtil.class) {
                 if (null == mapper) {

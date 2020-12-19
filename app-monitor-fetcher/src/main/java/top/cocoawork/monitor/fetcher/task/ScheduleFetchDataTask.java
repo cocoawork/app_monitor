@@ -1,6 +1,5 @@
 package top.cocoawork.monitor.fetcher.task;
 
-import com.alibaba.fastjson.JSON;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
@@ -17,15 +16,13 @@ import top.cocoawork.monitor.service.api.CountryService;
 
 import top.cocoawork.monitor.fetcher.service.AppDataFetchService;
 import top.cocoawork.monitor.service.api.dto.CountryDto;
-import top.cocoawork.monitor.util.mgr.CustomThreadPool;
+import top.cocoawork.monitor.common.mgr.CustomThreadPool;
 
 
 import javax.annotation.PreDestroy;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class ScheduleFetchDataTask {
@@ -44,9 +41,6 @@ public class ScheduleFetchDataTask {
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
-    @Autowired
-    private RedisTemplate<String, CountryDto> redisTemplate;
-
     //对象销毁前执行
     @PreDestroy
     public void destroy() {
@@ -59,7 +53,7 @@ public class ScheduleFetchDataTask {
     * @Param: []
     * @return: void
     */
-    @Scheduled(cron = "0 0 0,12 * * *")
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 8)
     public void scheduleFetchAppOutline() {
 
         List<AppType.FeedType> appFeedTypeList = new ArrayList<>();
@@ -70,14 +64,8 @@ public class ScheduleFetchDataTask {
         appFeedTypeList.add(AppType.FeedType.TOP_GROSSING);
         appFeedTypeList.add(AppType.FeedType.TOP_GROSSING_IPAD);
 
-        //获取所有国家
-        String key = "top.cocoawork.monitor.fetcher.countriesKey";
-        List<CountryDto> countries = redisTemplate.opsForList().range(key, 0, -1);
 
-        if (null == countries || countries.isEmpty()) {
-            countries = countryService.selectAll();
-            redisTemplate.opsForList().leftPushAll(key, countries);
-        }
+        List<CountryDto> countries = countryService.selectAll();
         if (null == countries || countries.size() == 0) {
             return;
         }
@@ -142,7 +130,7 @@ public class ScheduleFetchDataTask {
 
 
     //每天0点后每隔8小时执行一次
-    @Scheduled(cron = "0 0 0/8 * * *")
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 8)
     public void scheduleFetchAppInfo() {
 
 

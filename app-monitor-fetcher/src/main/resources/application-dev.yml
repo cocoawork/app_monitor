@@ -4,11 +4,6 @@ server:
 spring:
   application:
     name: app-monitor-fetcher
-  redis:
-    host: local-server1.com
-    port: 6379
-    database: 0
-    timeout: 6000
   boot:
     admin:
       client:
@@ -16,7 +11,7 @@ spring:
 
 
 rocketmq:
-  name-server: local-server1.com:9876;local-server2.com:9876
+  name-server: local-server1.com:9876
   producer:
     group: app-monitor-mq-producer-group
     send-message-timeout: 60000
@@ -32,11 +27,17 @@ dubbo:
     name: dubbo
     port: 20888
   registry:
-    address: nacos://172.16.31.133:8848
+    address: nacos://127.0.0.1:8848
     timeout: 60000
     register: false
     subscribe: true
     group: app-monitor
+  consumer:
+    retries: 0
+    check: false
+    timeout: 60000
+
+
 
 management:
   endpoints:

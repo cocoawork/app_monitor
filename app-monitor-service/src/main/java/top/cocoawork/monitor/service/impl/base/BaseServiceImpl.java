@@ -1,7 +1,7 @@
 package top.cocoawork.monitor.service.impl.base;
 
 import top.cocoawork.monitor.service.api.exception.ServiceException;
-import top.cocoawork.monitor.util.BeanUtil;
+import top.cocoawork.monitor.common.BeanUtil;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

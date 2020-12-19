@@ -8,10 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AdminApplication {
     public static void main(String[] args) {
-        try {
-            SpringApplication.run(AdminApplication.class,args);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        SpringApplication.run(AdminApplication.class,args);
     }
 }
