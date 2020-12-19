@@ -1,11 +1,12 @@
 ## APP_MONITOR
-从App Store开放的接口中抓取APP数据，存储到数据库，并定时更新；
+AppStore开放的接口抓取数据
 
 ### 涉及技术
    * SpringBoot
    * MyBatis-Plus
-   * Dubbo+Zookeeper
-   * RocketMQ
+   * Dubbo+Zookeeper/Nacos注册中心
+   * RocketMQ消息队列
+   * Redis数据缓存
    * Spring邮件服务
    * JWT+Shiro权限控制
     

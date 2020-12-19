@@ -91,8 +91,6 @@ public class ScheduleFetchDataTask {
         while (true) {
             int activeCount = CustomThreadPool.shareInstance().getActiveCount();
 
-            logger.debug("当前线程池中任务个数：{}", activeCount);
-
             if (activeCount == 0) {
                 break;
             }
