@@ -20,12 +20,14 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-executor-type: reuse
+    map-underscore-to-camel-case: true
+    cache-enabled: true
 
 dubbo:
   application:
     name: ${spring.application.name}
     logger: slf4j
-    owner: cocoawork
   protocol:
     name: dubbo
     port: 20888
@@ -43,7 +45,6 @@ dubbo:
 
 rocketmq:
   name-server: local-server1.com:9876
-
 
 management:
   endpoint:

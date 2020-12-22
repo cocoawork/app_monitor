@@ -17,7 +17,7 @@ dubbo:
     name: dubbo
     port: 20888
   registry:
-    address: nacos://localhost:8848
+    address: zookeeper://localhost:2181
     timeout: 120000
     register: false
     subscribe: true
@@ -39,5 +39,3 @@ management:
   endpoint:
     health:
       show-details: always
-
-

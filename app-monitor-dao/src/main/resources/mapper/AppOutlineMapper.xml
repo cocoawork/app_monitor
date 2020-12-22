@@ -36,15 +36,6 @@
     </select>
 
 
-<!--    <select id="selectAppOutlinesByPage" resultMap="baseResultMap">-->
-<!--        select * from t_app_outline where is_delete = 0 order by create_at desc LIMIT ${pageSize*pageIndex}, ${pageSize*(pageIndex+1)-1}-->
-<!--    </select>-->
-
-    <select id="selectAllIds" resultType="string">
-        select id from t_app_outline where is_delete = 0
-    </select>
-
-
     <select id="selectPage" resultMap="baseResultMap">
         select * from t_app_outline where is_delete = 0
         <if test="param2 != null and param2 != ''">
