@@ -2,6 +2,8 @@ package top.cocoawork.monitor.service.impl;
 
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import top.cocoawork.monitor.dao.mapper.CountryMapper;
 import top.cocoawork.monitor.dao.entity.Country;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 /**
  * The type Country service.
  */
+@CacheConfig(cacheNames = "CountryService")
 @Validated
 @Service
 public class CountryServiceImpl extends BaseServiceImpl<Country, CountryDto> implements CountryService {
@@ -22,6 +25,7 @@ public class CountryServiceImpl extends BaseServiceImpl<Country, CountryDto> imp
     @Autowired
     private CountryMapper countryMapper;
 
+    @Cacheable(cacheNames = "selectAll")
     @Override
     public List<CountryDto> selectAll() {
         List<Country> countries = countryMapper.selectList(null);

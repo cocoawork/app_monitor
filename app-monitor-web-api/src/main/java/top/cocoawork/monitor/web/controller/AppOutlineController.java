@@ -2,6 +2,7 @@ package top.cocoawork.monitor.web.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
@@ -24,6 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/appOutline")
 @Validated
+@Slf4j
 public class AppOutlineController {
 
     @Reference
@@ -43,6 +45,7 @@ public class AppOutlineController {
                                    @RequestParam(value = "pageSize", defaultValue = "10") @Min(1) @Max(100) Integer pageSize,
                                    @RequestParam(value = "country",required = false) String country){
         List<AppOutlineDto> appOutlines = appOutlineService.selectPage(country, pageIndex, pageSize);
+        log.info("收到请求,结果：{}", appOutlines.size());
         return WebResponse.ok(appOutlines);
     }
 

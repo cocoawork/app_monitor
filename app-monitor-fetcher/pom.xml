@@ -27,12 +27,6 @@
         </dependency>
 
         <dependency>
-            <artifactId>app-monitor-util</artifactId>
-            <groupId>top.cocoawork</groupId>
-            <version>${project-util-version}</version>
-        </dependency>
-
-        <dependency>
             <artifactId>app-monitor-service-api</artifactId>
             <groupId>top.cocoawork</groupId>
             <version>${project-service-api-version}</version>
@@ -49,7 +43,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -93,16 +86,9 @@
             <version>2.2.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!--    协程框架    -->
 <!--        <dependency>-->
-<!--            <groupId>org.db4j</groupId>-->
-<!--            <artifactId>kilim</artifactId>-->
-<!--            <version>2.0.1</version>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
 <!--        </dependency>-->
 
 

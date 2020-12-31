@@ -1,15 +1,12 @@
-package top.cocoawork.monitor.listener;
+package top.cocoawork.monitor.service.listener;
 
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 import top.cocoawork.monitor.common.constant.ApplicationConstant;
 import top.cocoawork.monitor.service.api.AppInfoService;
 import top.cocoawork.monitor.service.api.dto.AppInfoDto;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 
 @RocketMQMessageListener(topic = ApplicationConstant.MQ_TOPIC,
                             consumerGroup = "app-monitor-appinfo-consumer-group",

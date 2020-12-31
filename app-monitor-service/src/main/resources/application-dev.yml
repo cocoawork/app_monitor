@@ -16,13 +16,11 @@ spring:
     admin:
       client:
         url: http://localhost:9090
-
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    default-executor-type: reuse
-    map-underscore-to-camel-case: true
-    cache-enabled: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 60000
+    database: 1
 
 dubbo:
   application:
@@ -46,11 +44,4 @@ dubbo:
 rocketmq:
   name-server: local-server1.com:9876
 
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+

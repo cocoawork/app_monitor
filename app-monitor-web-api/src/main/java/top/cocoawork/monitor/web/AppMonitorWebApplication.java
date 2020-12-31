@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
+import java.util.Timer;
 
-//@ImportResource(locations = {"classpath:dubbo.xml"})
 @EnableDubbo
 @SpringBootApplication
 public class AppMonitorWebApplication {

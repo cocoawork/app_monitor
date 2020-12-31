@@ -1,7 +1,6 @@
 package top.cocoawork.monitor.web.conf.shiro;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -10,17 +9,11 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import top.cocoawork.monitor.web.conf.jwt.JwtToken;
 import top.cocoawork.monitor.web.conf.jwt.JwtUtil;
-import top.cocoawork.monitor.common.constant.ApplicationConstant;
 import top.cocoawork.monitor.service.api.UserService;
 import top.cocoawork.monitor.service.api.dto.UserDto;
-import top.cocoawork.monitor.web.util.SpringBeanFactoryUtil;
-
-import javax.servlet.http.HttpServletRequest;
+import top.cocoawork.monitor.web.util.ApplicationContextHolder;
 
 public class UsernamePasswordRealm extends AuthorizingRealm {
 
@@ -50,7 +43,7 @@ public class UsernamePasswordRealm extends AuthorizingRealm {
         UserDto user = null;
         try {
             Long userId = ((JwtToken) token).getUserId();
-            UserService userService = SpringBeanFactoryUtil.getBean(UserService.class);
+            UserService userService = ApplicationContextHolder.getBean(UserService.class);
             user = userService.selectByUserId(userId);
         }catch (JWTDecodeException e) {
             throw new AuthenticationException("token无效!");

@@ -20,9 +20,12 @@ import top.cocoawork.monitor.service.api.AppOutlineService;
 import top.cocoawork.monitor.service.api.CountryService;
 
 import top.cocoawork.monitor.fetcher.service.AppDataFetchService;
+import top.cocoawork.monitor.service.api.dto.AppOutlineDto;
 import top.cocoawork.monitor.service.api.dto.CountryDto;
+import top.cocoawork.monitor.service.api.dto.DataFetchRecoderDto;
 
 import javax.annotation.PreDestroy;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +46,7 @@ public class ScheduleFetchDataTask {
     @Reference
     private AppOutlineService appOutlineService;
 
-    @Autowired
-    private RocketMQTemplate rocketMQTemplate;
-
     private volatile static Executor threadPoolExecutor;
-
-    private volatile static FiberScheduler exectorScheduler;
 
     private static AtomicInteger threadIndex = new AtomicInteger(0);
 
@@ -56,11 +54,11 @@ public class ScheduleFetchDataTask {
         if (null == threadPoolExecutor) {
             synchronized (ScheduleFetchDataTask.class) {
                 if (null == threadPoolExecutor) {
-
                     Runtime runtime = Runtime.getRuntime();
                     int coreCount = runtime.availableProcessors();
+                    int maxCount = coreCount * 2 + 1;
                     threadPoolExecutor = new ThreadPoolExecutor(coreCount,
-                            coreCount,
+                            maxCount,
                             60,
                             TimeUnit.SECONDS,
                             new LinkedBlockingDeque<>(),
@@ -74,9 +72,6 @@ public class ScheduleFetchDataTask {
                             },
                             new ThreadPoolExecutor.DiscardPolicy()
                     );
-
-                    String schedulerName = "top.cocoawrok.monitor.fiber.scheduler";
-                    exectorScheduler = new FiberExecutorScheduler(schedulerName, threadPoolExecutor);
                 }
             }
         }
@@ -90,7 +85,7 @@ public class ScheduleFetchDataTask {
     * @return: void
     */
     @Scheduled(fixedRate = 1000 * 60 * 60 * 8)
-    public void scheduleFetchAppOutline() {
+    public void scheduleFetchAppOutline() throws InterruptedException {
 
         List<AppType.FeedType> appFeedTypeList = new ArrayList<>();
         appFeedTypeList.add(AppType.FeedType.NEW_APPS_WE_LOVE);
@@ -105,55 +100,40 @@ public class ScheduleFetchDataTask {
         if (null == countries || countries.size() == 0) {
             return;
         }
-
-
         //获取开始时间
         LocalDateTime start = LocalDateTime.now();
 
         logger.info("开始执行定时任务获取app简介信息{}", start.toString());
-        String fiberName = "top.cocoawrok.monitor.appOutline.fiber";
 
+        CountDownLatch downLatch = new CountDownLatch(countries.size());
 
         for (CountryDto country : countries) {
             for (AppType.FeedType feedType : appFeedTypeList) {
-
-                Fiber<Void> fiber = new Fiber<Void>(fiberName,  exectorScheduler, (SuspendableCallable<Void>) () -> {
-                    appDataFetcheService.fetchAppOutline(country.getCountryCode(), AppType.MediaType.IOS_APP, feedType);
-                    return null;
+                threadPoolExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            appDataFetcheService.fetchAppOutline(country.getCountryCode(), AppType.MediaType.IOS_APP, feedType);
+                        }finally {
+                            downLatch.countDown();
+                        }
+                    }
                 });
-                fiber.start();
             }
         }
 
+        downLatch.await();
         //获取结束时间
         LocalDateTime end = LocalDateTime.now();
 
-        logger.info("完成执行定时任务获取app简介信息{}", end.toString());
-
-        //记录本次请求记录
-//        DataFetchRecoderDto recoder = new DataFetchRecoderDto();
-//        recoder.setBeginTime(start);
-//        recoder.setEndTime(end);
-//        recoder.setType(AppOutlineDto.class.getName());
-//        dataFetchRecoderService.insert(recoder);
-
-        String startString = start.getHour() + ":" + start.getMinute();
-        String endString = end.getHour() + ":" + end.getMinute();
-
-        //邮件通知任务完成
-        Email email = new Email();
-        email.setTo("657633723@qq.com");
-        email.setSubject("任务完成");
-        String text = "完成当前批次任务「获取app简介信息」！\n开始时间：" + startString + "\n" + "结束时间：" + endString;
-        email.setContent(text);
-        rocketMQTemplate.sendOneWay(ApplicationConstant.MQ_TOPIC+":"+ApplicationConstant.MQ_TOPIC_TAG_EMAIL, email);
+        logger.info("获取app简介信息定时任务完成，用时{}分钟", Duration.between(start,end).toMinutes());
 
     }
 
 
     //每天0点后每隔8小时执行一次
     @Scheduled(fixedRate = 1000 * 60 * 60 * 8)
-    public void scheduleFetchAppInfo() {
+    public void scheduleFetchAppInfo() throws InterruptedException {
 
         //执行获取详情
         List<String> ids = appOutlineService.selectAllIds();
@@ -165,30 +145,23 @@ public class ScheduleFetchDataTask {
         //记录开始时间
         LocalDateTime begin = LocalDateTime.now();
         logger.info("开始执行定时任务获取app详细信息{}", begin.toString());
-        String fiberName = "top.cocoawrok.monitor.appInfo.fiber";
+
+        CountDownLatch downLatch = new CountDownLatch(ids.size());
 
         for (String id : ids) {
-
-            Fiber<Void> fiber = new Fiber<Void>(fiberName, exectorScheduler, (SuspendableCallable<Void>) () -> {
-                appDataFetcheService.fetchAppInfo(id);
-                return null;
+            threadPoolExecutor.execute(() -> {
+                try {
+                    appDataFetcheService.fetchAppInfo(id);
+                }finally {
+                    downLatch.countDown();
+                }
             });
-            fiber.start();
         }
-
+        downLatch.await();
         //记录结束时间
         LocalDateTime end = LocalDateTime.now();
 
-        logger.info("完成执行定时任务获取app详细信息{}", end.toString());
-
-//
-//        //记录本次请求记录
-//        DataFetchRecoderDto recoder = new DataFetchRecoderDto();
-//        recoder.setBeginTime(begin);
-//        recoder.setEndTime(end);
-//        recoder.setType(AppInfoDto.class.getName());
-//        dataFetchRecoderService.insert(recoder);
-
+        logger.info("获取app详细信息定时任务完成，用时{}分钟", Duration.between(begin,end).toMinutes());
     }
 
 

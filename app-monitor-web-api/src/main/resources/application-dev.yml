@@ -8,7 +8,12 @@ spring:
     admin:
       client:
         url: http://localhost:9090
-
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true     #支持解析_method隐藏域，用于前端发送PUT、DELETE请求
+    contentnegotiation:
+      favor-parameter: true  #基于参数format MediaType解析（仅限json、xml）
 dubbo:
   application:
     name: ${spring.application.name}

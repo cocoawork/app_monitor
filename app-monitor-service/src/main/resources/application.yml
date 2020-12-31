@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: dev
+  cache:
+    type: redis
+
 
 #mybatis-plus配置
 mybatis-plus:
@@ -13,5 +16,18 @@ mybatis-plus:
       logic-delete-field: is_delete
   configuration:
     map-underscore-to-camel-case: true
+    default-executor-type: reuse
+    local-cache-scope: session
+    cache-enabled: true
   mapper-locations: classpath:mapper/*Mapper.xml
-
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    redis:
+      enabled: true
