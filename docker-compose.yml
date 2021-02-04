@@ -1,0 +1,125 @@
+version: '3.3'
+services:
+  #mysql服务
+  db:
+    image: mysql:8.0
+    container_name: db
+    ports:
+      - 3306:3306
+    volumes:
+      - /etc/mysql:/etc/mysql   #挂载配置文件路径
+      - /usr/local/mysql/data:/var/lib/mysql  #挂载数据路径
+    command: --default-authentication-plugin=mysql_native_password
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+
+  #redis服务
+  redis:
+    image: redis:6.0
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+     - /usr/local/redis:/usr/local/etc/redis
+    restart: on-failure
+
+  #zookeeper注册中心
+  zookeeper:
+    container_name: zookeeper
+    image: zookeeper:3.5
+    restart: on-failure
+    ports:
+      - 2181:2181
+
+
+  #RocketMQ消息队列
+  rocketmq-server:
+    container_name: rocketmq-server
+    image: foxiswho/rocketmq:4.8.0
+    restart: on-failure
+    ports:
+      - 9876:9876
+    environment:
+      JAVA_OPT_EXT: -Xms256M -Xmx256M -Xmn128m
+    volumes:
+      - /usr/local/rocketmq/store:/home/rocketmq/store
+    command: sh mqnamesrv
+
+  rockermq-broker:
+    container_name: rockermq-broker
+    image: foxiswho/rocketmq:4.8.0
+    restart: on-failure
+    ports:
+      - 10911:10911
+      - 10912:10912
+      - 10909:10909
+    environment:
+      NAMESRV_ADDR: rocketmq-server:9876
+      JAVA_OPT_EXT: -Xms256M -Xmx256M -Xmn256m
+    volumes:
+      - /usr/local/rocketmq/store:/home/rocketmq/store
+      - /usr/local/rocketmq/logs:/home/rocketmq/logs
+      - /usr/local/rocketmq/conf:/home/rocketmq/conf
+    command: sh mqbroker
+    depends_on:
+      - rocketmq-server
+
+  #admin服务
+  admin:
+    container_name: admin
+    restart: on-failure
+    build:
+      context: app-monitor-admin
+    ports:
+      - 9090:9090
+
+  #service基础服务
+  service:
+    container_name: service
+    restart: on-failure
+    build:
+      context: app-monitor-service
+    ports:
+      - 23700:23700
+    depends_on:
+      - redis
+      - db
+      - rockermq-broker
+
+  #web api
+  web_api:
+    container_name: web_api
+    restart: on-failure
+    build:
+      context: app-monitor-web-api
+    ports:
+      - 23900:23900
+    depends_on:
+      - service
+      - zookeeper
+      - admin
+
+
+  #数据抓取服务
+  fetcher:
+    container_name: fetcher
+    restart: on-failure
+    build:
+      context: app-monitor-fetcher
+    depends_on:
+      - service
+      - rockermq-broker
+      - admin
+      - zookeeper
+
+
+  #邮件中心
+  email_center:
+    container_name: email_center
+    restart: on-failure
+    build:
+      context: app-monitor-email-center
+    depends_on:
+      - rockermq-broker
+      - admin

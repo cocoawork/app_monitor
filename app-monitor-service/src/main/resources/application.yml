@@ -3,7 +3,8 @@ spring:
     active: dev
   cache:
     type: redis
-
+  datasource:
+    initialization-mode: always
 
 #mybatis-plus配置
 mybatis-plus:

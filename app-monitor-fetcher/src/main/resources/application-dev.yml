@@ -7,10 +7,10 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:9090
+        url: http://admin:9090
 
 rocketmq:
-  name-server: local-server1.com:9876
+  name-server: rocketmq-broker:9876
   producer:
     group: app-monitor-mq-producer-group
     send-message-timeout: 60000
@@ -24,7 +24,7 @@ dubbo:
     name: dubbo
     port: 20888
   registry:
-    address: zookeeper://127.0.0.1:2181
+    address: zookeeper://zookeeper:2181
     timeout: 60000
     register: false
     subscribe: true

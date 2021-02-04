@@ -7,7 +7,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:9090
+        url: admin:9090
   mvc:
     hiddenmethod:
       filter:
@@ -22,7 +22,7 @@ dubbo:
     name: dubbo
     port: 20888
   registry:
-    address: zookeeper://localhost:2181
+    address: zookeeper:zookeeper:2181
     timeout: 120000
     register: false
     subscribe: true

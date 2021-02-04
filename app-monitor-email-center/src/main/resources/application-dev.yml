@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: app-monitor-email-center
+  boot:
+    admin:
+      client:
+        url: http://admin:9090
 
   mail:
     host: smtp.qq.com
@@ -13,4 +17,13 @@ spring:
     default-encoding: utf-8
 
 rocketmq:
-  name-server: local-server1.com:9876;local-server2.com:9876
+  name-server: rocketmq-broker:9876
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
