@@ -10,6 +10,7 @@ AppStore开放的接口抓取数据
    * Spring邮件服务
    * JWT+Shiro权限控制
    * 协程（纤程）quasar支持
+   * Docker
     
 ### 模块介绍（主要功能）
    * app-monitor-dao：基于Mybatis-Plus的数据持久层
