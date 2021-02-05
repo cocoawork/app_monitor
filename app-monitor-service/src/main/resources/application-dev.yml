@@ -9,13 +9,13 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/app_monitor?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://db:3306/app_monitor?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: 12345678
   boot:
     admin:
       client:
-        url: app-monitor_admin:9090
+        url: http://admin:9090
   redis:
     host: redis
     port: 6379
@@ -42,6 +42,6 @@ dubbo:
     timeout: 60000
 
 rocketmq:
-  name-server: local-server1.com:9876
+  name-server: rocketmq-broker:9876
 
 
