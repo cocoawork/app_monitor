@@ -10,7 +10,7 @@ spring:
         url: http://admin:9090
 
 rocketmq:
-  name-server: rocketmq-broker:9876
+  name-server: rocketmq-server:9876
   producer:
     group: app-monitor-mq-producer-group
     send-message-timeout: 60000
@@ -31,7 +31,6 @@ dubbo:
   consumer:
     retries: 0
     timeout: 60000
-
 
 
 management:

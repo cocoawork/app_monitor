@@ -10,7 +10,6 @@ import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import top.cocoawork.monitor.common.constant.ApplicationConstant;
@@ -79,12 +78,7 @@ public class ScheduleFetchDataTask {
     }
 
 
-    /**
-    * @Description: 定时任务获取数据，每天0,12点执行一次
-    * @Param: []
-    * @return: void
-    */
-    @Scheduled(fixedRate = 1000 * 60 * 60 * 8)
+    @Scheduled(fixedRate = 1000 * 3600 * 8, initialDelay = 1000 * 20)
     public void scheduleFetchAppOutline() throws InterruptedException {
 
         List<AppType.FeedType> appFeedTypeList = new ArrayList<>();
@@ -131,8 +125,7 @@ public class ScheduleFetchDataTask {
     }
 
 
-    //每天0点后每隔8小时执行一次
-    @Scheduled(fixedRate = 1000 * 60 * 60 * 8)
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 8, initialDelay = 1000 * 20)
     public void scheduleFetchAppInfo() throws InterruptedException {
 
         //执行获取详情

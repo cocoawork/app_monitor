@@ -77,6 +77,7 @@ services:
       - redis
       - db
       - rockermq-broker
+      - zookeeper
 
   #web api
   web_api:
@@ -88,7 +89,6 @@ services:
     depends_on:
       - service
       - zookeeper
-      - admin
 
 
   #数据抓取服务
@@ -99,7 +99,6 @@ services:
     depends_on:
       - service
       - rockermq-broker
-      - admin
       - zookeeper
 
 
@@ -110,4 +109,3 @@ services:
       context: app-monitor-email-center
     depends_on:
       - rockermq-broker
-      - admin

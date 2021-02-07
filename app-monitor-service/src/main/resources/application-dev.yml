@@ -42,6 +42,6 @@ dubbo:
     timeout: 60000
 
 rocketmq:
-  name-server: rocketmq-broker:9876
+  name-server: rocketmq-server:9876
 
 
