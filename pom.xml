@@ -41,7 +41,7 @@
 
         <spring-cloud-version>2.2.3.RELEASE</spring-cloud-version>
         <mybatis-plus-version>3.3.2</mybatis-plus-version>
-        <mysql-driver-version>8.0.16</mysql-driver-version>
+        <mysql-driver-version>8.0.28</mysql-driver-version>
         <hutool-version>5.3.5</hutool-version>
         <dubbo-version>2.7.6</dubbo-version>
         <shiro-version>1.4.0</shiro-version>
